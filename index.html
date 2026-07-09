@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Inteligencia artificial y democracia</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 900px;
+      margin: 2em auto;
+      padding: 1em;
+      background-color: #fdfdfd;
+      color: #333;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      color: #0a3d62;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.2em;
+    }
+    h1 {
+      margin-bottom: 0.3em;
+    }
+    ol {
+      counter-reset: unidades;
+      list-style: none;
+      padding-left: 0;
+    }
+    ol > li {
+      counter-increment: unidades;
+    }
+    ol > li h2::before {
+      content: "Semana " counter(unidades) ". ";
+      color: #0a3d62;
+    }
+    li {
+      margin-bottom: 0.4em;
+    }
+    ul {
+      margin-top: 0.5em;
+      margin-bottom: 1.2em;
+    }
+    a {
+      color: #1e3799;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .info {
+      background-color: #eaf2f8;
+      padding: 1em;
+      border-left: 5px solid #0a3d62;
+      margin-bottom: 2em;
+    }
+    .class-block {
+      margin-bottom: 2em;
+    }
+    .syllabus-warning {
+      display: inline-block;
+      background-color: #fff3b0;
+      color: #5c4a00;
+      font-size: 0.85em;
+      font-weight: 600;
+      padding: 0.25em 0.6em;
+      margin-bottom: 0.4em;
+      border-radius: 4px;
+    }
+    .meta {
+      margin-bottom: 1.5em;
+      font-size: 0.95em;
+    }
+    .description {
+      margin-bottom: 2em;
+      font-size: 1em;
+      line-height: 1.6;
+      color: #333;
+    }
+    .description strong {
+      color: #0a3d62;
+    }
+    .imparte {
+      display: inline-block;
+      font-size: 0.8em;
+      font-weight: 600;
+      padding: 0.15em 0.55em;
+      border-radius: 3px;
+      margin-bottom: 0.5em;
+    }
+    .fecha {
+      display: block;
+      font-size: 0.9em;
+      font-weight: 600;
+      color: #555;
+      margin: 0 0 0.7em 0;
+    }
+    .imparte.naim    { background: #d6e4f5; color: #0a3d62; }
+    .imparte.roberto { background: #f5e1d6; color: #6b3a17; }
+    .imparte.ambos   { background: #e6e0ee; color: #3d2466; }
+    .puente {
+      font-size: 0.92em;
+      background: #f7f7f2;
+      border-left: 3px solid #b3a37a;
+      padding: 0.5em 0.8em;
+      margin-top: 0.6em;
+    }
+    .evaluacion-week h2 {
+      color: #6b3a17;
+      border-bottom-color: #d8c3b3;
+    }
+    .evaluacion-week h2::before {
+      color: #6b3a17;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="syllabus-warning">Syllabus en construcción</div>
+<h1>Inteligencia Artificial y Democracia</h1>
+<div class="meta">
+  Profesores:<br>
+  &nbsp;&nbsp;Naim Bro (naim.bro.k [at] uai.cl) &mdash; módulo de IA<br>
+  &nbsp;&nbsp;Roberto Velázquez &mdash; módulo de Democracia<br>
+  Minor en Inteligencia Artificial<br>
+  Escuela de Gobierno, Universidad Adolfo Ibáñez, 2026
+</div>
+
+<div class="description">
+  <p><strong>Descripción general del curso:</strong> El curso aborda el impacto de la IA sobre los procesos democráticos articulando dos módulos complementarios. El módulo de <em>Democracia</em>, a cargo de Roberto Velázquez, ofrece un andamiaje teórico maduro (modelos democráticos, poder y élites, esfera pública, autoritarismo, soberanía, deliberación y gobernanza tecnológica) en clases más expositivas. El módulo de <em>IA</em>, a cargo de Naim Bro, trabaja en clave más dinámica y experimental sobre fenómenos recientes (backlash, populismo de IA, redes de bots, vigilancia, geopolítica, democracia aumentada y regulación) usando lecturas no necesariamente académicas, materiales empíricos y actividades en aula. Las semanas se intercalan para que cada fenómeno IA llegue a clase con un marco democrático trabajado la semana anterior.</p>
+</div>
+
+<div class="info">
+  <p><strong>Filosofía sobre el uso de IA</strong> en el proceso pedagógico:</p>
+  <ul>
+    <li>La IA, ¿nos está volviendo tontos?: <a href="https://www.forbes.com/sites/robertbtucker/2025/06/20/is-chatgpt-making-us-stupid/" target="_blank">link</a></li>
+    <li>The rise of AI idiots: <a href="https://www.youtube.com/watch?v=cPttP0ErSrk" target="_blank">video</a></li>
+    <li>Penalización del aprendizaje con IA generativa: <a href="https://cepr.org/publications/dp21577" target="_blank">Strömberg, Lei y Wu (2026)</a></li>
+    <li>Estudiantes y deterioro del aprendizaje: <a href="https://www.economist.com/international/2026/06/25/students-are-doing-worse-than-you-think" target="_blank">The Economist (2026)</a></li>
+    <li>IA y pensamiento crítico: <a href="https://bigthink.com/thinking/artificial-intelligence-critical-thinking/" target="_blank">link</a>, <a href="https://www.jff.org/idea/skills-and-talent-development-in-the-age-of-ai/" target="_blank">demanda en mercado laboral</a></li>
+    <li>Piensa primero, IA después: <a href="https://every.to/p/think-first-ai-second" target="_blank">link</a>, <a href="https://every.to/source-code/stop-coding-and-start-planning" target="_blank">link</a></li>
+    <li>Por qué los grandes laboratorios de IA están contratando tantos filósofos: <a href="https://www.economist.com/science-and-technology/2026/06/24/why-big-ai-labs-are-hiring-so-many-philosophers" target="_blank">The Economist (2026)</a></li>
+    <li>Mientras más sofisticado tu conocimiento, más te sirve la IA: <a href="https://www-cdn.anthropic.com/096d94c1a91c6480806d8f24b2344c7e2a4bc666.pdf" target="_blank">link (ver figura 4.1)</a></li>
+  </ul>
+</div>
+
+<ol>
+
+  <li>
+    <div class="class-block">
+      <h2>Introducción al curso</h2>
+      <span class="imparte ambos">Imparte: Naim Bro y Roberto Velázquez</span>
+      <span class="fecha">Fechas: lunes 3 de agosto, 08:30-09:40; jueves 6 de agosto, 15:00-16:10.</span>
+      <p>Presentación del curso, sus dos módulos (Democracia e IA), la lógica de intercalación, evaluaciones y filosofía sobre el uso de IA en el aprendizaje. Mapa conceptual del recorrido: por qué necesitamos teoría democrática para pensar la IA, y por qué la IA nos obliga a actualizar conceptos clásicos de democracia.</p>
+      <ul>
+        <li>Presentación del syllabus y reglas del curso.</li>
+        <li>Discusión inicial: ¿qué cambia (y qué no) en la democracia con la IA generativa?</li>
+        <li>Revisión de la sección "Filosofía sobre el uso de IA" (arriba).</li>
+      </ul>
+    </div>
+  </li>
+
+  <li>
+    <div class="class-block">
+      <h2>¿Qué es la democracia? Modelos, tensiones y promesas contemporáneas</h2>
+      <span class="imparte roberto">Imparte: Roberto Velázquez</span>
+      <span class="fecha">Fechas: lunes 10 de agosto, 08:30-09:40; jueves 13 de agosto, 15:00-16:10.</span>
+      <p><strong>Temas:</strong> democracia liberal, directa y participativa; legitimidad procedimental y sustantiva; crisis de representación; paradoja de la democracia; desafección democrática y erosión gradual.</p>
+      <p><strong>Referentes teóricos:</strong> Schumpeter (democracia como competencia de élites), Dahl (poliarquía y sus condiciones), Mouffe/Laclau (democracia radical y agonismo), Lipset (prerrequisitos socioeconómicos), V-Dem (indicadores de desafección global).</p>
+      <p><strong>Lecturas mínimas:</strong></p>
+      <ul>
+        <li>Schumpeter, J. (1947). <em>Capitalism, Socialism, and Democracy</em> (cap. 22). Harper &amp; Brothers.</li>
+        <li>Dahl, R. (1972). <em>Polyarchy: Participation and Opposition</em> (cap. 1). Yale University Press.</li>
+        <li>Mouffe, C. (2000). <em>The Democratic Paradox</em>. Verso.</li>
+      </ul>
+      <p><strong>Lecturas complementarias:</strong></p>
+      <ul>
+        <li>Lipset, S. M. (1959). Some Social Requisites of Democracy: Economic Development and Political Legitimacy. <em>APSR</em>, 53(1), 69–105.</li>
+        <li>Downs, A. (1957). An Economic Theory of Political Action in a Democracy. <em>Journal of Political Economy</em>, 65(2), 135–150.</li>
+        <li>Soroka, S. N. &amp; Wlezien, C. (2010). <em>Degrees of Democracy</em> (caps. 2 y 9). Cambridge UP.</li>
+        <li>Roser, M. (2013). Democracy. <em>Our World in Data</em>.</li>
+        <li>Repucci, S. &amp; Slipowitz, A. (2021). <em>Freedom in the World 2021: Democracy Under Siege</em>. Freedom House.</li>
+        <li>Alizada, N. et al. (2021). <em>Autocratization Turns Viral. Democracy Report 2021</em>. V-Dem Institute.</li>
+      </ul>
+      <p class="puente"><strong>Puente con la próxima clase:</strong> la ansiedad frente a la IA no es un fenómeno aislado; se inscribe en una desconfianza más profunda hacia las instituciones y las élites. Habiendo examinado los tipos y crisis de la democracia, los estudiantes pueden leer el "backlash" contra la IA como una expresión política, no solo tecnológica.</p>
+    </div>
+  </li>
+
+  <li>
+    <div class="class-block">
+      <h2>¿Un backlash contra la IA?</h2>
+      <span class="imparte naim">Imparte: Naim Bro</span>
+      <span class="fecha">Fechas: lunes 17 de agosto, 08:30-09:40; jueves 20 de agosto, 15:00-16:10.</span>
+      <p>La IA provoca ansiedades. ¿Cuáles son las consecuencias políticas y sobre nuestra democracia?</p>
+      <ul>
+        <li>Presentación.</li>
+        <li>Actividad en clase.</li>
+        <li>Lecturas:
+          <ul>
+            <li>New York Times (2026). <a href="https://www.nytimes.com/2026/03/05/opinion/ai-jobs-white-collar-apocalpyse.html?smid=nytcore-android-share" target="_blank">Mass Hysteria. Thousands of Jobs Lost. Just How Bad Is It Going to Get?</a></li>
+            <li>New York Times (2026). <a href="https://www.nytimes.com/2026/06/05/business/college-graduates-job-market.html?smid=nytcore-android-share" target="_blank">A Job Market Leaving Young Graduates Behind Could Scar Them For Years</a> (5 junio 2026).</li>
+            <li>CENIA, SOFOFA Capital Humano, SENCE, Stanford y Ministerio del Trabajo. <a href="https://futurodeltrabajo.cenia.cl/" target="_blank">Inteligencia Artificial Generativa: oportunidades para el futuro del trabajo en Chile</a>. Recurso para discutir el impacto de la IA generativa en ocupaciones, productividad y mercado laboral chileno.</li>
+            <li>New York Times (2026). <a href="https://www.nytimes.com/2026/06/25/opinion/ai-americans-pessimism.html?smid=nytcore-android-share" target="_blank">AI, Americans and pessimism</a> (25 junio 2026).</li>
+            <li>The Economist (2026). <a href="https://www.economist.com/leaders/2026/06/25/the-ai-backlash-is-only-getting-started" target="_blank">The AI backlash is only getting started</a>.</li>
+            <li>The Economist (2026). <a href="https://www.economist.com/business/2026/06/23/americas-data-centre-backlash-puts-the-ai-boom-at-risk" target="_blank">America's data-centre backlash puts the AI boom at risk</a> (23 junio 2026).</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </li>
+
+  <li>
+    <div class="class-block">
+      <h2>Poder, élites y democracia</h2>
+      <span class="imparte roberto">Imparte: Roberto Velázquez</span>
+      <span class="fecha">Fechas: lunes 24 de agosto, 08:30-09:40; jueves 27 de agosto, 15:00-16:10.</span>
+      <p><strong>Temas:</strong> oligarquía y nobleza del Estado; puerta giratoria (revolving door); poder estructural del capital; teoría de la élite; populismo como contra-respuesta a la oligarquía.</p>
+      <p><strong>Referentes teóricos:</strong> Winters (oligarquía y defensa del ingreso), Piketty (desigualdad y democracia), Inglehart &amp; Norris (sociedades posmateriales), Zuboff (capitalismo de vigilancia), Mudde &amp; Rovira Kaltwasser (populismo como corrección democrática).</p>
+      <p><strong>Lecturas mínimas:</strong></p>
+      <ul>
+        <li>Winters, J. A. (2011). <em>Oligarchy</em>. Cambridge University Press.</li>
+        <li>Zuboff, S. (2019). <em>The Age of Surveillance Capitalism</em>. PublicAffairs.</li>
+        <li>Gilens, M. &amp; Page, B. I. (2014). Testing Theories of American Politics. <em>Perspectives on Politics</em>, 12(3), 564–581.</li>
+      </ul>
+      <p><strong>Lecturas complementarias:</strong></p>
+      <ul>
+        <li>Inglehart, R. &amp; Norris, P. (2016). Trump, Brexit, and the Rise of Populism. HKS WP RWP16-026.</li>
+        <li>Rovira Kaltwasser, C. (2012). The Ambivalence of Populism: Threat and Corrective for Democracy. <em>Democratization</em>, 19(2), 184–208.</li>
+        <li>Mudde, C. &amp; Rovira Kaltwasser, C. (2017). <em>Populism: A Very Short Introduction</em> (cap. 5). Oxford UP.</li>
+        <li>Weyland, K. (2020). Populism's Threat to Democracy: Comparative Lessons for the United States. <em>Perspectives on Politics</em>, 18(2), 389–406.</li>
+        <li>Gilens, M. (2005). Inequality and Democratic Responsiveness. <em>Public Opinion Quarterly</em>, 69(5), 778–796.</li>
+        <li>Kelly, N. J. &amp; Enns, P. K. (2010). Inequality and the Dynamics of Public Opinion. <em>AJPS</em>, 54(4), 855–870.</li>
+      </ul>
+      <p class="puente"><strong>Puente con la próxima clase:</strong> antes de preguntar si los líderes de Big Tech son "populistas de IA", conviene tener claro cómo funciona la concentración de poder en democracias. La sesión provee los lentes para ver si se trata de una dinámica nueva o de una vieja oligarquía con nuevas herramientas.</p>
+    </div>
+  </li>
+
+  <li>
+    <div class="class-block">
+      <h2>Populismo y oligarquía de la IA: ¿quiénes controlan la tecnología?</h2>
+      <span class="imparte naim">Imparte: Naim Bro</span>
+      <span class="fecha">Fechas: lunes 31 de agosto, 08:30-09:40; jueves 3 de septiembre, 15:00-16:10.</span>
+      <p>Analizamos la concentración de poder tecnológico y riqueza en manos de unos pocos hombres, la emergencia de una oligarquía de la IA y su vínculo con un "populismo de IA". ¿Qué significa para la democracia que un puñado de actores privados defina el rumbo de la tecnología que está reconfigurando el mundo?</p>
+      <ul>
+        <li>Presentación.</li>
+        <li>Actividad en clase.</li>
+        <li>Lecturas:
+          <ul>
+            <li>Jasmi (2026). <a href="https://jasmi.news/p/warning-shots" target="_blank">Warning Shots</a> (sobre populismo de IA).</li>
+            <li>The Economist (2026). <a href="https://www.economist.com/insider/the-insider/five-men-control-ai-who-should-control-them" target="_blank">Five men control AI. Who should control them?</a></li>
+            <li>The New York Times (2026). <a href="https://www.nytimes.com/2026/06/09/business/economy/billionaires-musk-gabriel-zucman.html?smid=nytcore-android-share" target="_blank">Elon Musk, Gabriel Zucman y el poder de los multimillonarios</a> (9 junio 2026). Un recurso para discutir la concentración extrema de riqueza y poder político en la emergencia de una oligarquía de la IA.</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </li>
+
+  <li>
+    <div class="class-block">
+      <h2>Esfera pública, desinformación y democracia</h2>
+      <span class="imparte roberto">Imparte: Roberto Velázquez</span>
+      <span class="fecha">Fechas: lunes 7 de septiembre, 08:30-09:40; jueves 10 de septiembre, 15:00-16:10.</span>
+      <p><strong>Temas:</strong> esfera pública; contra-públicos subalternos; fabricación del consenso; cámaras de eco; desinformación, misinformación y malinformación.</p>
+      <p><strong>Referentes teóricos:</strong> Habermas (racionalidad comunicativa y acción estratégica), Fraser (crítica feminista de la esfera pública), Dewey (el público y sus problemas), Chambers (verdad, deliberación y fake news).</p>
+      <p><strong>Lecturas mínimas:</strong></p>
+      <ul>
+        <li>Habermas, J. (1989). <em>The Structural Transformation of the Public Sphere</em>. MIT Press.</li>
+        <li>Fraser, N. (1990). Rethinking the Public Sphere. <em>Social Text</em>, 25/26, 56–80.</li>
+        <li>Sunstein, C. (2001). <em>Republic.com</em>. Princeton UP.</li>
+      </ul>
+      <p><strong>Lecturas complementarias:</strong></p>
+      <ul>
+        <li>Wardle, C. (2017). Information Disorder: Toward an Interdisciplinary Framework. Council of Europe, DGI(2017)09.</li>
+        <li>Chambers, S. (2020). Truth, Deliberative Democracy, and the Virtues of Accuracy: Is Fake News Destroying the Public Sphere? <em>Political Studies</em>.</li>
+        <li>Kuklinski, J. H. et al. (2000). Misinformation and the Currency of Democratic Citizenship. <em>Journal of Politics</em>, 62(3), 790–816.</li>
+        <li>Vraga, E. K. &amp; Bode, L. (2020). Defining Misinformation and Understanding Its Bounded Nature. <em>Political Communication</em>, 37(1), 136–144.</li>
+        <li>van Kessel, S., Sajuria, J. &amp; Van Hauwaert, S. M. (2021). Informed, Uninformed or Misinformed? <em>West European Politics</em>, 44(3), 585–610.</li>
+      </ul>
+      <p class="puente"><strong>Puente con la próxima clase:</strong> la pregunta sobre Moltbook no es solo tecnológica sino normativa: ¿qué hace que la participación en el debate democrático sea válida? Habiendo estudiado las condiciones de la esfera pública y el desorden informacional, los estudiantes pueden evaluar si una red de agentes IA la destruye, la amplía o la transforma.</p>
+    </div>
+  </li>
+
+  <li>
+    <div class="class-block">
+      <h2>Una sociedad de bots IA: el caso de Moltbook</h2>
+      <span class="imparte naim">Imparte: Naim Bro</span>
+      <span class="fecha">Fechas: lunes 21 de septiembre, 08:30-09:40; jueves 24 de septiembre, 15:00-16:10.</span>
+      <p>Analizamos la red social de bots IA Moltbook.</p>
+      <ul>
+        <li>Moltbook: <a href="https://www.moltbook.com/m" target="_blank">link</a>.</li>
+        <li>MiroFish: <a href="https://x.com/polydao/status/2033464748503683275" target="_blank">link</a>.</li>
+        <li>Presentación.</li>
+        <li>Actividad en clase.</li>
+        <li>Lecturas:
+          <ul>
+            <li>The Economist (2026). <a href="https://www.economist.com/business/2026/02/02/a-social-network-for-ai-agents-is-full-of-introspection-and-threats?giftId=M2EwMTQyNzctYTIyNS00NmMxLTgyYWQtNDRkNThlZWM3MGM2&utm_campaign=gifted_article" target="_blank">A social network for AI agents is full of introspection—and threats</a>.</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </li>
+
+  <li class="evaluacion-week">
+    <div class="class-block">
+      <h2>Evaluación parcial</h2>
+      <span class="imparte ambos">Coordinan: Naim Bro y Roberto Velázquez</span>
+      <span class="fecha">Fechas: lunes 28 de septiembre, 08:30-09:40; jueves 1 de octubre, 15:00-16:10.</span>
+      <p>Evaluación integradora de las semanas 1–7. Cubre el módulo democrático inicial (modelos de democracia, poder/élites, esfera pública) y los tres primeros módulos de IA (backlash, populismo de IA, sociedad de bots). Formato a confirmar (ensayo corto + control de lectura, o trabajo aplicado).</p>
+    </div>
+  </li>
+
+  <li>
+    <div class="class-block">
+      <h2>Autoritarismo, vigilancia y los límites de la democracia liberal</h2>
+      <span class="imparte roberto">Imparte: Roberto Velázquez</span>
+      <span class="fecha">Fechas: lunes 5 de octubre, 08:30-09:40; jueves 8 de octubre, 15:00-16:10.</span>
+      <p><strong>Temas:</strong> autoritarismo competitivo; democracia iliberal; estado de excepción; panóptico digital; retroceso democrático (<em>democratic backsliding</em>).</p>
+      <p><strong>Referentes teóricos:</strong> Levitsky &amp; Ziblatt (cómo mueren las democracias), Foucault (biopolítica y disciplina), Arendt (los orígenes del totalitarismo), Bermeo (tipología del retroceso democrático), Lührmann &amp; Lindberg (la tercera ola de autocratización).</p>
+      <p><strong>Lecturas mínimas:</strong></p>
+      <ul>
+        <li>Levitsky, S. &amp; Ziblatt, D. (2018). <em>How Democracies Die</em> (cap. 1). Crown.</li>
+        <li>Arendt, H. (1951). <em>The Origins of Totalitarianism</em>. Harcourt.</li>
+        <li>Foucault, M. (2001). <em>Vigilar y Castigar</em>. Siglo XXI.</li>
+      </ul>
+      <p><strong>Lecturas complementarias:</strong></p>
+      <ul>
+        <li>Levitsky, S. &amp; Way, L. A. (2002). Elections Without Democracy: The Rise of Competitive Authoritarianism. <em>Journal of Democracy</em>, 13(2), 51–65.</li>
+        <li>Bermeo, N. (2016). On Democratic Backsliding. <em>Journal of Democracy</em>, 27(1), 5–19.</li>
+        <li>Lührmann, A. &amp; Lindberg, S. I. (2019). A Third Wave of Autocratization Is Here: What Is New about It? <em>Democratization</em>, 26(7), 1095–1113.</li>
+        <li>Schedler, A. (1998). What Is Democratic Consolidation? <em>Journal of Democracy</em>, 9(2), 91–107.</li>
+        <li>Lust, E. &amp; Waldner, D. (2015). <em>Unwelcome Change: Understanding, Evaluating, and Extending Theories of Democratic Backsliding</em> (pp. 1–14). USAID.</li>
+      </ul>
+      <p class="puente"><strong>Puente con la próxima clase:</strong> para distinguir entre usos legítimos e ilegítimos de la IA por parte del Estado, es necesario tener una teoría del autoritarismo y sus gradaciones. La sesión ofrece los criterios para evaluar cuándo el control estatal mediante IA constituye una amenaza democrática real.</p>
+    </div>
+  </li>
+
+  <li>
+    <div class="class-block">
+      <h2>La IA en una sociedad orwelliana</h2>
+      <span class="imparte naim">Imparte: Naim Bro</span>
+      <span class="fecha">Fecha: jueves 15 de octubre, 15:00-16:10.</span>
+      <p>Usos de la IA por poderes centrales autocráticos.</p>
+      <ul>
+        <li>Presentación: IA en el aparato de seguridad: <a href="https://docs.google.com/presentation/d/1Wp3wqMHulsyYCbCLLsEooj-oXvXgB0h5Trj2ackzYxQ/edit?usp=sharing" target="_blank">link</a>.</li>
+        <li>Actividad en clase.</li>
+        <li>Al Jazeera (2025). <a href="https://www.youtube.com/watch?v=ZFBFlVxtyjQ" target="_blank">The End of Accountability? Matt Mahmoudi on AI and War</a> (video).</li>
+        <li>Lecturas:
+          <ul>
+            <li>The Economist (2026). <a href="https://www.economist.com/leaders/2026/03/05/ai-danger-gets-real" target="_blank">AI danger gets real</a>.</li>
+            <li>The Economist (2026). <a href="https://www.economist.com/briefing/2026/03/05/an-ai-disaster-is-getting-ever-closer" target="_blank">An AI disaster is getting ever closer</a>.</li>
+            <li>The Economist (2026). <a href="https://www.economist.com/science-and-technology/2026/06/07/will-artificial-intelligence-soon-escape-human-control" target="_blank">Will artificial intelligence soon escape human control?</a></li>
+            <li>New York Times (2026). <a href="https://www.nytimes.com/2026/02/13/technology/dhs-anti-ice-social-media.html" target="_blank">Homeland Security Wants Social Media Sites to Expose Anti-ICE Accounts</a>.</li>
+            <li>New York Times (2026). <a href="https://www.nytimes.com/2026/02/15/us/politics/minneapolis-videos-killings-artificial-intelligence.html" target="_blank">More Than Ever, Videos Expose the Truth. And Cloud It, Too.</a></li>
+            <li>The New York Times (2026). <a href="https://www.nytimes.com/2026/06/14/us/ai-deepfake-hany-farid.html?smid=nytcore-android-share" target="_blank">Hany Farid y el desafío de detectar deepfakes</a> (14 junio 2026). Un perfil sobre la verificación de contenido sintético y los riesgos que la pérdida de una realidad compartida plantea para la confianza pública y la democracia.</li>
+            <li>New York Times (2026). <a href="https://www.nytimes.com/2026/05/22/us/politics/spy-agencies-ai-chips-shortage.html" target="_blank">White House Approves $9 Billion for Spy Agencies to Catch Up on A.I.</a>
+              <ul>
+                <li><em>Preguntas para guiar la lectura y la discusión grupal:</em>
+                  <ol>
+                    <li>El artículo muestra que la CIA y la NSA dependen críticamente de los chips de Nvidia y de modelos desarrollados por un puñado de empresas privadas (Anthropic, OpenAI). ¿Qué implica esta dependencia para la relación entre Estado y Big Tech? ¿Quién tiene poder sobre quién, y cómo se conecta esto con la idea de un "populismo de IA" discutida en la clase 5?</li>
+                    <li>El contrato con Anthropic incluye una cláusula que impide usar el modelo sobre datos de ciudadanos estadounidenses, y la empresa se resistió a la exigencia del Pentágono de autorización para "cualquier uso legítimo". ¿Por qué estos límites importan democráticamente? ¿Qué ocurre cuando la frontera entre inteligencia exterior y vigilancia doméstica se vuelve porosa, y cómo se compara con los casos de Chile o América Latina, donde estas restricciones son más débiles?</li>
+                    <li>El Pentágono no ha explicado cómo la IA se usa para seleccionar blancos en Irán u otros lugares (sistemas como Maven), y un modelo de Anthropic es descrito como tan eficaz "encontrando y armando" vulnerabilidades de ciberseguridad que se compartió solo con un grupo reducido de agencias. ¿Qué mecanismos de rendición de cuentas democráticos existen —o deberían existir— para operaciones militares y de ciberguerra mediadas por IA opaca? ¿Es compatible una decisión letal automatizada con la legitimidad democrática?</li>
+                  </ol>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </li>
+
+  <li>
+    <div class="class-block">
+      <h2>Democracia, soberanía y orden internacional</h2>
+      <span class="imparte roberto">Imparte: Roberto Velázquez</span>
+      <span class="fecha">Fechas: lunes 19 de octubre, 08:30-09:40; jueves 22 de octubre, 15:00-16:10.</span>
+      <p><strong>Temas:</strong> soberanía westfaliana vs. soberanía popular; déficit democrático en organismos internacionales; democracia cosmopolita; resquemor y radicalización ante la globalización.</p>
+      <p><strong>Referentes teóricos:</strong> Held (cosmopolitanismo democrático), Rodrik (trilema de la globalización), Keohane &amp; Nye (interdependencia compleja), Kriesi et al. (conflicto político y globalización en Europa occidental).</p>
+      <p><strong>Lecturas mínimas:</strong></p>
+      <ul>
+        <li>Held, D. (1995). <em>Democracy and the Global Order</em>. Polity Press.</li>
+        <li>Rodrik, D. (2011). <em>The Globalization Paradox</em>. Norton.</li>
+        <li>Keohane, R. O. &amp; Nye, J. S. (1977). <em>Power and Interdependence</em>. Little, Brown.</li>
+      </ul>
+      <p><strong>Lecturas complementarias:</strong></p>
+      <ul>
+        <li>Kriesi, H. et al. (2012). <em>Political Conflict in Western Europe</em> (caps. 1 y 11). Cambridge UP.</li>
+        <li>Solt, F. (2008). Economic Inequality and Democratic Political Engagement. <em>AJPS</em>, 52(1), 48–60.</li>
+        <li>Feldstein, S. (2020). What Democracy Will Fall Next? <em>Foreign Policy</em>.</li>
+        <li>Repucci, S. &amp; Slipowitz, A. (2021). <em>Freedom in the World 2021: Democracy Under Siege</em>. Freedom House.</li>
+      </ul>
+      <p class="puente"><strong>Puente con la próxima clase:</strong> la geopolítica de la IA no es solo estrategia de potencias: es un choque entre modelos distintos de relación entre Estado, tecnología y ciudadanía. La sesión proporciona el vocabulario para articular esa diferencia más allá del "nosotros vs. ellos".</p>
+    </div>
+  </li>
+
+  <li>
+    <div class="class-block">
+      <h2>Geopolítica de la IA</h2>
+      <span class="imparte naim">Imparte: Naim Bro</span>
+      <span class="fecha">Fechas: lunes 26 de octubre, 08:30-09:40; jueves 29 de octubre, 15:00-16:10.</span>
+      <p>La IA está reconfigurando el equilibrio de poder global. Discutimos la competencia entre Estados Unidos y China, los dilemas estratégicos que recuerdan a la Guerra Fría, y las implicancias para las democracias.</p>
+      <ul>
+        <li>Presentación.</li>
+        <li>Actividad en clase.</li>
+        <li>Lecturas:
+          <ul>
+            <li>The Economist (2026). <a href="https://www.economist.com/china/2026/05/07/artificial-intelligence-revives-a-cold-war-style-dilemma" target="_blank">Artificial intelligence revives a Cold War-style dilemma</a>.</li>
+            <li>The Economist (2026). <a href="https://www.economist.com/leaders/2026/06/18/ai-has-granted-america-vast-new-power" target="_blank">AI has granted America vast new power</a>.</li>
+            <li>The Economist (2026). <a href="https://www.economist.com/china/2026/06/21/china-is-having-another-ai-moment" target="_blank">China is having another AI moment</a>.</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </li>
+
+  <li>
+    <div class="class-block">
+      <h2>Deliberación, representación y polarización: ¿cómo se toman decisiones legítimas?</h2>
+      <span class="imparte roberto">Imparte: Roberto Velázquez</span>
+      <span class="fecha">Fechas: lunes 2 de noviembre, 08:30-09:40; jueves 5 de noviembre, 15:00-16:10.</span>
+      <p><strong>Temas:</strong> democracia deliberativa; polarización afectiva; mandato vs. confianza; asambleas ciudadanas y loterías cívicas.</p>
+      <p><strong>Referentes teóricos:</strong> Habermas (ética del discurso y democracia deliberativa), Pitkin (el concepto de representación), Fishkin (democracia cuando el pueblo habla), Svolik (polarización vs. democracia), McCoy &amp; Somer (superar la polarización).</p>
+      <p><strong>Lecturas mínimas:</strong></p>
+      <ul>
+        <li>Habermas, J. (1996). <em>Between Facts and Norms</em>. MIT Press.</li>
+        <li>Pitkin, H. F. (1967). <em>The Concept of Representation</em>. UC Press.</li>
+        <li>Fishkin, J. S. (2009). <em>When the People Speak</em>. Oxford UP.</li>
+      </ul>
+      <p><strong>Lecturas complementarias:</strong></p>
+      <ul>
+        <li>Svolik, M. W. (2019). Polarization versus Democracy. <em>Journal of Democracy</em>, 30(3), 20–32.</li>
+        <li>McCoy, J. &amp; Somer, M. (2021). Overcoming Polarization. <em>Journal of Democracy</em>, 32(1), 6–21.</li>
+        <li>Reiljan, A. (2020). Fear and Loathing across Party Lines (Also) in Europe: Affective Polarisation. <em>EJPR</em>, 59(2), 376–396.</li>
+        <li>Utych, S. M. (2020). Man Bites Blue Dog: Are Moderates Really More Electable than Ideologues? <em>Journal of Politics</em>, 82(1), 392–396.</li>
+        <li>LeBas, A. (2018). Can Polarization Be Positive? <em>American Behavioral Scientist</em>, 62(1), 59–74.</li>
+      </ul>
+      <p class="puente"><strong>Puente con la próxima clase:</strong> la propuesta de usar IA como representante político solo puede evaluarse rigurosamente si se tiene claro qué significa la representación y cuáles son sus fundamentos normativos. La sesión permite preguntar: ¿puede una IA deliberar, rendir cuentas o ser destituida?</p>
+    </div>
+  </li>
+
+  <li>
+    <div class="class-block">
+      <h2>IA generativa y democracia deliberativa: ¿puede la IA reemplazar a los políticos?</h2>
+      <span class="imparte naim">Imparte: Naim Bro</span>
+      <span class="fecha">Fechas: lunes 9 de noviembre, 08:30-09:40; jueves 12 de noviembre, 15:00-16:10.</span>
+      <p>Analizamos la propuesta de César Hidalgo de reemplazar a los políticos con IAs alimentadas con nuestros datos.</p>
+      <ul>
+        <li>Presentación "Large language models (LLMs) as agents for augmented democracy": <a href="https://docs.google.com/presentation/d/1IewOc8YCP6t_MhKaZFVYtigYsfpBZL505LlauSfN74M/edit?usp=sharing" target="_blank">link</a>.</li>
+        <li>Ted Talk (15 min), César Hidalgo: <a href="https://www.youtube.com/watch?v=UUp39T3fPAo" target="_blank">¿IA para reemplazar a políticos?</a></li>
+        <li>Diella, la primera ministra IA: <a href="https://en.wikipedia.org/wiki/Diella_(AI_system)" target="_blank">link</a>.</li>
+        <li>Actividad en clase: crea tu propio avatar:
+          <ul>
+            <li>Planilla para entrenar tu propio avatar: <a href="https://docs.google.com/document/d/1cTBoI08Y0d1FFK3e-Nw3mPiCylHz1RbdIEffKGv_zFA/edit?usp=sharing" target="_blank">link</a>.</li>
+            <li>Encuesta avatares Viña: <a href="https://forms.gle/NLaAs4n1asdRhpZq5" target="_blank">link encuestado</a>, <a href="https://docs.google.com/forms/d/1dfHcyMazr2eLtNS_FxlbdiYIIurdZA1tqZ8QJTRevdU/edit" target="_blank">resultados</a>.</li>
+            <li>Encuesta humanos Viña: <a href="https://forms.gle/XhPabsJkfzajk9rS9" target="_blank">link encuestado</a>, <a href="https://docs.google.com/forms/d/15n33ntZ9F7uFb-jBsGnpfYlCPnpMILwDi95DfD53pKk/edit" target="_blank">resultados</a>.</li>
+            <li>Análisis, avatares vs humanos Viña: <a href="https://docs.google.com/document/d/18WlwfdY4tt1Cd6XBMCCppKNW-aIwDqpO4ZMdLfczBWo/edit?usp=sharing" target="_blank">link</a>.</li>
+          </ul>
+        </li>
+        <li>Lecturas:
+          <ul>
+            <li>Gudiño et al. (2024). <a href="https://royalsocietypublishing.org/doi/full/10.1098/rsta.2024.0100" target="_blank">"Large language models (LLMs) as agents for augmented democracy"</a>.</li>
+            <li>The Economist (2026). <a href="https://www.economist.com/briefing/2026/06/25/ai-models-values-are-very-different-from-most-peoples" target="_blank">AI models' values are very different from most people's</a> (25 junio 2026).</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </li>
+
+  <li>
+    <div class="class-block">
+      <h2>Gobernanza tecnológica y regulación de la IA</h2>
+      <span class="imparte ambos">Imparten: Roberto Velázquez y Naim Bro</span>
+      <span class="fecha">Fechas: lunes 16 de noviembre, 08:30-09:40; jueves 19 de noviembre, 15:00-16:10.</span>
+      <p>Sesión de cierre co-impartida que articula la historia de la regulación de tecnologías digitales con el debate actual sobre regulación de la IA. Roberto presenta el marco conceptual (gobernanza de internet, "code is law", GDPR como precedente). Naim aterriza el debate vivo: ¿quién debería regular la IA, con qué instrumentos y qué riesgos justifican la intervención del Estado?</p>
+      <p><strong>Temas (módulo Democracia):</strong> gobernanza de internet y soberanía digital; neutralidad de la red y sus disputas; regulación de plataformas, de "safe harbour" a la responsabilidad activa; protección de datos personales como derecho fundamental (GDPR).</p>
+      <p><strong>Referentes teóricos:</strong> Lessig ("code is law" y las cuatro modalidades de regulación), Zittrain (futuro de internet), DeNardis (gobernanza de internet como gobernanza política), Dafoe (gobernanza de IA y credibilidad institucional).</p>
+      <p><strong>Lecturas mínimas:</strong></p>
+      <ul>
+        <li>Lessig, L. (1999). <em>Code and Other Laws of Cyberspace</em>. Basic Books.</li>
+        <li>Zittrain, J. (2008). <em>The Future of the Internet—And How to Stop It</em>. Yale UP.</li>
+        <li>DeNardis, L. (2014). <em>The Global War for Internet Governance</em>. Yale UP.</li>
+      </ul>
+      <p><strong>Lecturas complementarias y recursos (módulo IA):</strong></p>
+      <ul>
+        <li>Wardle, C. (2017). Information Disorder: Toward an Interdisciplinary Framework. Council of Europe, DGI(2017)09. (Marco para evaluar qué contenidos regular.)</li>
+        <li>Levitsky, S. &amp; Way, L. A. (2002). Elections Without Democracy. <em>Journal of Democracy</em>, 13(2), 51–65. (Cómo los regímenes usan marcos legales para legitimar el control.)</li>
+        <li>Svolik, M. W. (2019). Polarization versus Democracy. <em>Journal of Democracy</em>, 30(3), 20–32. (Polarización como obstáculo para el consenso regulatorio.)</li>
+        <li>Feldstein, S. (2020). What Democracy Will Fall Next? <em>Foreign Policy</em>. (Tecnología de vigilancia y erosión democrática.)</li>
+        <li>The New York Times (2026). <a href="https://www.nytimes.com/2026/05/05/opinion/ezra-klein-podcast-helena-rosenblatt.html" target="_blank">The Ezra Klein Show: una mirada a la regulación de la IA desde la política neoyorquina</a> (podcast).</li>
+        <li>The New York Times (2026). <a href="https://www.nytimes.com/2026/06/02/technology/trump-executive-order-ai.html?smid=nytcore-android-share" target="_blank">Trump Signs Executive Order Seeking Oversight of A.I. Models</a>. Trump firma una orden ejecutiva que busca establecer supervisión federal sobre los modelos de IA: un caso concreto y reciente para discutir quién regula la IA, con qué instrumentos (orden ejecutiva vs. ley) y el riesgo de que el control estatal sirva tanto para proteger como para captar la tecnología.</li>
+      </ul>
+      <p class="puente"><strong>Cierre del arco:</strong> los estudiantes llegan al debate sobre regulación de IA con una historia de aciertos y fracasos regulatorios en tecnologías digitales anteriores. El marco de Lessig ("code is law") y la experiencia del GDPR les permiten evaluar las propuestas actuales con criterios democráticos sólidos, no solo técnicos.</p>
+    </div>
+  </li>
+
+  <li class="evaluacion-week">
+    <div class="class-block">
+      <h2>Evaluación final</h2>
+      <span class="imparte ambos">Coordinan: Naim Bro y Roberto Velázquez</span>
+      <span class="fecha">Fechas: lunes 23 de noviembre, 08:30-09:40; jueves 26 de noviembre, 15:00-16:10.</span>
+      <p>Evaluación integradora del curso completo. Formato a confirmar: ensayo final que articule un fenómeno de IA con un marco democrático específico trabajado en clase, defensa oral, o trabajo aplicado de diseño institucional.</p>
+    </div>
+  </li>
+
+</ol>
+
+<h2>Evaluación</h2>
+<ul>
+  <li><strong>Evaluación parcial (semana 8):</strong> integradora de las semanas 1–7. Cubre módulos democráticos iniciales (modelos, poder/élites, esfera pública) y los tres primeros módulos de IA (backlash, populismo, sociedad de bots).</li>
+  <li><strong>Evaluación final (semana 16):</strong> integradora del curso. Articula un fenómeno de IA con un marco democrático trabajado en clase.</li>
+  <li>Las ponderaciones y formatos específicos se confirman en la primera clase.</li>
+</ul>
+
+</body>
+</html>
