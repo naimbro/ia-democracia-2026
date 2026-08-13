@@ -83,6 +83,7 @@ function extraerDe(doc, url, hostname) {
   var host = hostname.replace(/^www\./, '');
   if (host.indexOf('economist') !== -1) return extraerEconomist(doc, url);
   if (host.indexOf('nytimes') !== -1) return extraerNYT(doc, url);
+  if (host.indexOf('theatlantic') !== -1) return extraerAtlantic(doc, url);
   throw new Error('Sitio no soportado: ' + host);
 }
 
@@ -231,6 +232,66 @@ function autoresLd(a) {
 function fechaTime(doc) {
   var t = doc.querySelector('time[datetime]');
   return t ? t.getAttribute('datetime') : '';
+}
+
+/* --------------------------- The Atlantic --------------------------------
+   Metadatos desde el ld+json NewsArticle; cuerpo desde section.ArticleBody_root.
+   Se accede con un gift link del suscriptor, que abre el artículo completo.    */
+
+function extraerAtlantic(doc, url) {
+  var meta = ldNewsArticle(doc);
+  var sec = doc.querySelector('[class*="ArticleBody_root"]') ||
+            doc.querySelector('section[class*="ArticleBody" i]');
+  if (!sec) throw new Error('Sin section ArticleBody en ' + url);
+
+  var cuerpo = [];
+  sec.querySelectorAll('p, h2, h3, ul, ol, blockquote, figure').forEach(function (el) {
+    // gpt-ad = publicidad; address = bio del autor. ArticleRelatedContent es el
+    // bloque "Recommended Reading", que va incrustado en medio del cuerpo y
+    // aporta encabezados e imágenes que no son del artículo.
+    if (el.closest('gpt-ad, address, aside, figcaption, [class*="ArticleRelatedContent" i], [class*="Recirc" i]')) return;
+    if (el.tagName === 'P' && el.parentElement && el.parentElement.closest('figure, blockquote, ul, ol')) return;
+
+    if (el.tagName === 'FIGURE') {
+      var img = el.querySelector('img');
+      var pie = el.querySelector('figcaption');
+      if (img) {
+        var src = img.getAttribute('src') || primeraDeSrcset(img.getAttribute('srcset'));
+        if (src) cuerpo.push({ tipo: 'img', src: new URL(src, url).href, pie: pie ? texto(pie) : '' });
+      }
+      return;
+    }
+    if (!texto(el)) return;
+    if (el.tagName === 'H2' || el.tagName === 'H3') {
+      cuerpo.push({ tipo: 'h2', html: esc(texto(el)) });
+    } else if (el.tagName === 'UL' || el.tagName === 'OL') {
+      cuerpo.push({
+        tipo: el.tagName.toLowerCase(),
+        items: [].slice.call(el.querySelectorAll(':scope > li')).map(function (li) { return limpiar(li.innerHTML, url); })
+      });
+    } else if (el.tagName === 'BLOCKQUOTE') {
+      cuerpo.push({ tipo: 'quote', html: limpiar(el.innerHTML, url) });
+    } else {
+      cuerpo.push({ tipo: 'p', html: limpiar(el.innerHTML, url) });
+    }
+  });
+
+  var h1 = doc.querySelector('h1');
+  // alternativeHeadline repite el titular; la bajada real está en el dek del
+  // DOM, y como respaldo en description.
+  var dek = doc.querySelector('[class*="dek" i]');
+  return {
+    fuente: 'The Atlantic',
+    seccion: (meta.articleSection || new URL(url).pathname.split('/')[1] || '').toString(),
+    antetitulo: '',
+    titulo: (h1 && texto(h1)) || meta.headline || doc.title.replace(/ - The Atlantic$/, ''),
+    bajada: (dek && texto(dek)) || meta.description || '',
+    autor: autoresLd(meta.author),
+    lugar: '',
+    fecha: meta.datePublished || fechaTime(doc),
+    lectura: null,
+    cuerpo: cuerpo
+  };
 }
 
 /* ------------------------------ utilidades ------------------------------- */

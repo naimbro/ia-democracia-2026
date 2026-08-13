@@ -1,7 +1,7 @@
 # Artículos con paywall → PDF para clase
 
-Pipeline para convertir lecturas de The Economist y The New York Times en PDF
-limpios, listos para imprimir y repartir en clase.
+Pipeline para convertir lecturas de The Economist, The New York Times y The
+Atlantic en PDF limpios, listos para imprimir y repartir en clase.
 
 Usa **tu propia suscripción**: el extractor corre dentro de una pestaña ya
 autenticada del navegador. No hay credenciales, cookies ni tokens en este
@@ -132,3 +132,19 @@ Las URL bajo `economist.com/insider/` son episodios de video de The Economist
 Insider, no artículos: la página solo trae un resumen de un par de párrafos y un
 reproductor. Devuelven `Falta __NEXT_DATA__` y quedan en el syllabus como
 enlace, sin PDF. No es un error del extractor.
+
+## The Atlantic y los gift links
+
+`extractor.js` también soporta The Atlantic: metadatos desde el `ld+json`
+`NewsArticle` y cuerpo desde `section[class*="ArticleBody_root"]`. Dos trampas
+propias de ese sitio:
+
+- El bloque `ArticleRelatedContent` ("Recommended Reading") va incrustado en
+  medio del cuerpo y aporta encabezados e imágenes que no son del artículo.
+- `alternativeHeadline` repite el titular; la bajada real está en el elemento
+  `dek` del DOM.
+
+Cuando la lectura llega por un **gift link** del suscriptor, ese enlace abre el
+artículo completo sin paywall. Conviene usarlo como enlace al medio en el
+syllabus: es el mecanismo que el propio medio ofrece para compartir, así que el
+alumno puede leer en la fuente y el PDF queda solo como respaldo para imprimir.

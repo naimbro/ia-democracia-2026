@@ -13,10 +13,13 @@ import re
 MEDIOS = [
     (re.compile(r"nytimes\.com"), "nyt", "The New York Times"),
     (re.compile(r"economist\.com"), "eco", "The Economist"),
+    (re.compile(r"theatlantic\.com"), "atl", "The Atlantic"),
 ]
 
 RE_LI = re.compile(r"<li\b[^>]*>|</li\s*>", re.I)
-RE_ENLACE = re.compile(r'<a\s[^>]*href="(https://www\.(?:nytimes|economist)\.com/[^"]+)"[^>]*>(.*?)</a>', re.S | re.I)
+RE_ENLACE = re.compile(
+    r'<a\s[^>]*href="(https://www\.(?:nytimes|economist|theatlantic)\.com/[^"]+)"[^>]*>(.*?)</a>',
+    re.S | re.I)
 RE_ETIQUETAS = re.compile(r"<[^>]+>")
 
 
