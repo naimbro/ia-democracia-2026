@@ -40,7 +40,8 @@ window.__extraerLote = function (entradas, opts) {
           art.url = e.url.split('?')[0];
           art.archivo = e.archivo || (slug(art.titulo) + '.json');
           art.bloque = e.bloque || '';
-          art.semana = opts.semana || '';
+          // La semana puede venir por artículo, para bajar varias en un lote.
+          art.semana = e.semana || opts.semana || '';
           art.capturado = new Date().toISOString();
           if (!art.cuerpo.length) throw new Error('cuerpo vacío: paywall o cambio de maquetación');
           acc.push(art);

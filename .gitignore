@@ -8,3 +8,7 @@ lecturas/
 tmp/
 .tmp_*/
 .codex-tmp/
+
+# Cache de Python.
+__pycache__/
+*.pyc
