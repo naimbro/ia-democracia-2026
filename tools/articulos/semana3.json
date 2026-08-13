@@ -1,0 +1,36 @@
+{
+  "semana": 3,
+  "titulo": "¿Un backlash contra la IA? Opinión pública y representación sintética",
+  "articulos": [
+    {
+      "archivo": "s3-01-nyt-mass-hysteria.json",
+      "url": "https://www.nytimes.com/2026/03/05/opinion/ai-jobs-white-collar-apocalpyse.html",
+      "bloque": "Empleo, movilidad y ansiedad económica"
+    },
+    {
+      "archivo": "s3-02-nyt-young-graduates.json",
+      "url": "https://www.nytimes.com/2026/06/05/business/college-graduates-job-market.html",
+      "bloque": "Empleo, movilidad y ansiedad económica"
+    },
+    {
+      "archivo": "s3-03-nyt-pessimism.json",
+      "url": "https://www.nytimes.com/2026/06/25/opinion/ai-americans-pessimism.html",
+      "bloque": "Pesimismo, temor y backlash social"
+    },
+    {
+      "archivo": "s3-04-eco-backlash.json",
+      "url": "https://www.economist.com/leaders/2026/06/25/the-ai-backlash-is-only-getting-started",
+      "bloque": "Pesimismo, temor y backlash social"
+    },
+    {
+      "archivo": "s3-05-eco-dread-risk.json",
+      "url": "https://www.economist.com/united-states/2026/07/26/checks-and-balance-newsletter-ai-has-become-the-ultimate-dread-risk",
+      "bloque": "Pesimismo, temor y backlash social"
+    },
+    {
+      "archivo": "s3-06-eco-data-centre.json",
+      "url": "https://www.economist.com/business/2026/06/23/americas-data-centre-backlash-puts-the-ai-boom-at-risk",
+      "bloque": "Pesimismo, temor y backlash social"
+    }
+  ]
+}

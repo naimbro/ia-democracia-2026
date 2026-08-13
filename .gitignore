@@ -1,0 +1,10 @@
+# Texto completo de artículos con paywall (NYT, The Economist) extraídos con la
+# suscripción de Naim. Este repositorio es público y despliega a GitHub Pages,
+# así que el contenido NO se versiona: los PDF se distribuyen por Drive.
+# El pipeline que los regenera sí está versionado, en tools/articulos/.
+lecturas/
+
+# Directorios de trabajo de sesiones de agente (borradores, builds, descargas).
+tmp/
+.tmp_*/
+.codex-tmp/

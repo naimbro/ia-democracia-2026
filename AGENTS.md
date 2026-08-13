@@ -27,3 +27,18 @@ Standalone course website for **Inteligencia Artificial y Democracia 2026**.
 - External links should use `target="_blank"`.
 - Do not add build tools, frameworks, or shared CSS unless explicitly requested.
 
+## Calendar conventions
+
+- Register all of Naim's teaching activities in Google Calendar
+  `o2h28o7rog6ul690iir66l3t8g@group.calendar.google.com`.
+- Use the event title `teach curso IA & Democracia 2026` for classes in this
+  course.
+
+## The Economist
+
+- To read articles from The Economist, use the in-app browser and reuse its
+  existing authenticated session.
+- Never request, read, or store passwords, MFA codes, or session cookies in the
+  repository.
+- If the session has expired, open the login page and ask Naim to sign in
+  directly in the browser.
