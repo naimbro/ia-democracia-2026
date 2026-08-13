@@ -148,3 +148,16 @@ Cuando la lectura llega por un **gift link** del suscriptor, ese enlace abre el
 artículo completo sin paywall. Conviene usarlo como enlace al medio en el
 syllabus: es el mecanismo que el propio medio ofrece para compartir, así que el
 alumno puede leer en la fuente y el PDF queda solo como respaldo para imprimir.
+
+## Comprobar que los enlaces funcionen
+
+```bash
+python tools/articulos/probar_enlaces.py
+```
+
+Pide cada PDF enlazado en el syllabus **sin sesión**, que es lo que ve un
+alumno. Un `401` significa que la carpeta de Drive sigue restringida.
+
+Vale la pena correrlo después de abrir carpetas: el diálogo de compartir de
+Drive descarta el cambio si se cierra con la X en vez de con "Listo", y desde
+la cuenta propia todos los enlaces se ven bien igual.
