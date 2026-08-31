@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>¿Quién controla las máquinas? — IA y Democracia 2026 · Semana 5</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700;9..144,900&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+
+:root{
+  --paper:#EBE6D8; --paper-deep:#E1DAC7; --ink:#22281F;
+  --ink-soft:#4A5142; --stamp:#9C2B2F; --forest:#2E4638;
+  --gold:#A9823C; --line:#C7BEA3; --card:#F4F0E4; --card2:#EDEAD9;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html,body{height:100%; background:var(--ink); font-family:'IBM Plex Sans',sans-serif; color:var(--ink); overflow:hidden;}
+
+.deck{position:relative; width:100%; height:100vh;}
+
+.slide{
+  position:absolute; inset:0;
+  background:var(--paper);
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(34,40,31,.038) 28px);
+  opacity:0; visibility:hidden;
+  transform:translateY(12px);
+  transition:opacity .42s ease, transform .42s ease, visibility .42s;
+  padding:54px 82px 62px;
+  display:flex; flex-direction:column;
+  overflow-y:auto;
+}
+.slide.active{opacity:1; visibility:visible; transform:translateY(0);}
+.slide::before{content:""; position:absolute; inset:22px; border:1px solid var(--line); pointer-events:none; z-index:10;}
+.slide::after {content:""; position:absolute; inset:26px; border:1px solid var(--line); opacity:.45; pointer-events:none; z-index:10;}
+
+/* Divisores de seccion */
+.slide.divider{background:var(--forest); background-image:repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(255,255,255,.03) 28px);}
+.slide.divider::before,.slide.divider::after{border-color:rgba(235,230,216,.35);}
+.slide.divider .content{justify-content:center;}
+.divider .part-num{font-family:'Fraunces',serif; font-size:118px; font-weight:300; color:rgba(235,230,216,.22); line-height:.85; margin-bottom:8px;}
+.divider h2{color:var(--paper); font-size:40px; margin-bottom:14px;}
+.divider .sub{color:rgba(235,230,216,.72); font-size:16px; max-width:660px;}
+.divider .eyebrow{color:var(--gold);}
+.divider .eyebrow .bar{background:var(--gold);}
+.divider .folio{color:rgba(235,230,216,.6);}
+.divider .dot{background:rgba(235,230,216,.28);}
+.divider .dot.on{background:var(--gold);}
+
+/* Sello */
+.stamp{position:absolute; top:46px; right:60px; width:124px; height:124px; transform:rotate(-8deg); opacity:.9; pointer-events:none; z-index:5;}
+.stamp svg{width:100%; height:100%; overflow:visible;}
+.stamp .ring{fill:none; stroke:var(--stamp);}
+.stamp .cancel{stroke:var(--stamp); fill:none; opacity:.5;}
+.stamp text{fill:var(--stamp); font-family:'IBM Plex Mono',monospace; letter-spacing:2px;}
+.stamp .big{font-family:'Fraunces',serif; font-weight:700;}
+
+/* Folio */
+.folio{
+  position:absolute; bottom:26px; left:82px; right:82px;
+  display:flex; justify-content:space-between; align-items:center; gap:20px;
+  font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--ink-soft); letter-spacing:.05em;
+  z-index:12;
+}
+.dots{display:flex; gap:5px; flex-wrap:wrap; justify-content:center;}
+.dot{width:5px; height:5px; border-radius:50%; background:var(--line); cursor:pointer; transition:.2s; flex-shrink:0;}
+.dot.on{background:var(--stamp); transform:scale(1.4);}
+
+/* Tipografia */
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--stamp); display:flex; align-items:center; gap:10px; margin-bottom:8px; flex-shrink:0;
+}
+.eyebrow .bar{height:1px; width:30px; background:var(--stamp); display:inline-block; flex-shrink:0;}
+h1{font-family:'Fraunces',serif; font-weight:700; font-size:42px; line-height:1.07; letter-spacing:-.012em; margin-bottom:6px;}
+h2{font-family:'Fraunces',serif; font-weight:600; font-size:29px; line-height:1.14; margin-bottom:12px;}
+h3{font-family:'Fraunces',serif; font-weight:600; font-size:17px; color:var(--forest); margin-bottom:5px;}
+.sub{font-size:15.5px; color:var(--ink-soft); line-height:1.55; max-width:760px;}
+.lead{font-size:16.5px; color:var(--ink-soft); line-height:1.55; max-width:820px;}
+.content{flex:1; display:flex; flex-direction:column; justify-content:center; min-height:0;}
+a{color:var(--stamp); text-decoration:none; border-bottom:1px dotted var(--stamp);}
+a:hover{color:var(--forest); border-bottom-color:var(--forest);}
+
+/* Meta portada */
+.meta-strip{display:flex; gap:38px; flex-wrap:wrap; margin-top:26px;}
+.meta-item .ml{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:3px;}
+.meta-item .mv{font-size:14px; color:var(--ink);}
+
+/* Agenda */
+.agenda{display:flex; flex-direction:column; gap:9px; margin-top:6px;}
+.ag-row{display:flex; align-items:center; gap:18px; background:var(--card); border:1px solid var(--line); border-left:3px solid var(--line); padding:13px 18px;}
+.ag-row.now{border-left-color:var(--stamp); background:var(--card2);}
+.ag-num{font-family:'Fraunces',serif; font-size:30px; font-weight:300; color:var(--line); width:34px; flex-shrink:0; line-height:1;}
+.ag-row.now .ag-num{color:var(--stamp);}
+.ag-body{flex:1;}
+.ag-body strong{font-size:14.5px; display:block; margin-bottom:2px;}
+.ag-body span{font-size:12.5px; color:var(--ink-soft);}
+.ag-time{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--gold); flex-shrink:0; border:1px solid var(--line); padding:4px 9px; letter-spacing:.06em;}
+.ag-row.now .ag-time{color:var(--stamp); border-color:var(--stamp);}
+
+/* Cifras */
+.stat-row{display:grid; gap:14px; margin-top:14px;}
+.stat-row.c2{grid-template-columns:repeat(2,1fr);}
+.stat-row.c3{grid-template-columns:repeat(3,1fr);}
+.stat-row.c4{grid-template-columns:repeat(4,1fr);}
+.stat{background:var(--card); border:1px solid var(--line); border-top:3px solid var(--forest); padding:15px 17px;}
+.stat.red{border-top-color:var(--stamp);}
+.stat.gold{border-top-color:var(--gold);}
+.stat .n{font-family:'Fraunces',serif; font-size:36px; font-weight:600; line-height:1; letter-spacing:-.02em;}
+.stat .n small{font-size:18px; font-weight:500;}
+.stat .l{font-size:12.5px; color:var(--ink-soft); line-height:1.45; margin-top:7px;}
+.stat .src{font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--gold); margin-top:7px; letter-spacing:.05em; display:block;}
+
+/* Tarjetas */
+.cards{display:grid; gap:14px; margin-top:12px;}
+.cards.c2{grid-template-columns:repeat(2,1fr);}
+.cards.c3{grid-template-columns:repeat(3,1fr);}
+.cards.c4{grid-template-columns:repeat(4,1fr);}
+.card{background:var(--card); border:1px solid var(--line); border-left:3px solid var(--forest); padding:15px 18px; display:flex; flex-direction:column; gap:6px;}
+.card.red{border-left-color:var(--stamp);}
+.card.gold{border-left-color:var(--gold);}
+.card .k{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--stamp);}
+.card.gold .k{color:var(--gold);}
+.card p{font-size:13px; line-height:1.55; color:var(--ink-soft);}
+.card p strong{color:var(--ink); font-weight:600;}
+.card .foot{margin-top:auto; padding-top:9px; border-top:1px dashed var(--line); font-size:12px; font-style:italic; color:var(--ink);}
+
+/* Cita */
+.quote{border-left:3px solid var(--gold); padding-left:22px; margin:14px 0;}
+.quote p{font-family:'Fraunces',serif; font-size:22px; font-style:italic; line-height:1.36;}
+.quote p.sm{font-size:18px;}
+.quote span{font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.07em; display:block; margin-top:9px;}
+
+/* Nota */
+.note{background:var(--card2); border:1px solid var(--line); border-left:3px solid var(--forest); padding:13px 18px; margin-top:12px;}
+.note .nl{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--forest); margin-bottom:6px;}
+.note p{font-size:13.5px; line-height:1.6; color:var(--ink-soft);}
+.note p strong{color:var(--ink);}
+.note.red{border-left-color:var(--stamp);} .note.red .nl{color:var(--stamp);}
+
+/* Pregunta destacada */
+.ask{background:var(--forest); color:var(--paper); padding:18px 24px; margin-top:14px; border:1px solid var(--forest);}
+.ask .al{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); margin-bottom:7px;}
+.ask p{font-family:'Fraunces',serif; font-size:19px; line-height:1.35; font-style:italic;}
+.ask p.plain{font-family:'IBM Plex Sans',sans-serif; font-size:13.5px; font-style:normal; color:rgba(235,230,216,.82); margin-top:8px; line-height:1.55;}
+
+/* Listas */
+.dash-list{list-style:none; margin-top:10px;}
+.dash-list li{font-size:14px; line-height:1.6; color:var(--ink-soft); margin-bottom:8px; padding-left:20px; position:relative;}
+.dash-list li::before{content:"—"; position:absolute; left:0; color:var(--stamp);}
+.dash-list li strong{color:var(--ink); font-weight:600;}
+.readings{list-style:none;}
+.readings li{font-size:12.6px; color:var(--ink-soft); padding:8px 0; border-bottom:1px solid var(--line); line-height:1.5;}
+.readings li:last-child{border-bottom:none;}
+.readings li b{color:var(--ink); font-family:'Fraunces',serif; font-weight:600; font-size:13.5px; display:block; margin-bottom:2px;}
+
+/* Cara a cara */
+.duel{display:grid; grid-template-columns:1fr auto 1fr; gap:22px; align-items:stretch; margin-top:12px;}
+.duel .vs{display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-size:19px; color:var(--gold); font-weight:600;}
+
+/* Figuras */
+.fig{background:var(--card); border:1px solid var(--line); padding:16px 18px 12px;}
+.fig svg{display:block; width:100%; height:auto;}
+.fig-t{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.13em; text-transform:uppercase; color:var(--forest); margin-bottom:10px;}
+.fig-c{font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--ink-soft); margin-top:9px; line-height:1.5;}
+.split{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:10px; align-items:start;}
+.split.wide-l{grid-template-columns:1.25fr .75fr;}
+.split.wide-r{grid-template-columns:.78fr 1.22fr;}
+
+/* Fotografia */
+.photo{position:relative; border:1px solid var(--line); background:var(--ink); overflow:hidden;}
+.photo img{width:100%; height:100%; object-fit:cover; display:block; filter:sepia(20%) saturate(.82) contrast(1.04) brightness(.98);}
+.photo-full{flex:1; min-height:0; display:flex; margin-top:8px;}
+.photo-full .photo{flex:1;}
+.pcap{background:var(--card2); border:1px solid var(--line); border-left:3px solid var(--stamp); padding:11px 16px; margin-top:10px;}
+.pcap p{font-size:13px; line-height:1.55; color:var(--ink-soft);}
+.pcap p strong{color:var(--ink);}
+.credit{font-family:'IBM Plex Mono',monospace; font-size:9px; color:var(--ink-soft); opacity:.75; margin-top:5px;}
+.portrait{display:flex; gap:22px; align-items:stretch; margin-top:12px;}
+.portrait .ph{width:186px; flex-shrink:0;}
+.portrait .ph .photo{height:248px;}
+.portrait .ph .nm{font-family:'Fraunces',serif; font-size:16px; font-weight:600; margin-top:9px;}
+.portrait .ph .rl{font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--ink-soft); line-height:1.45; margin-top:3px;}
+.portrait .tx{flex:1; min-width:0;}
+
+/* Matriz */
+table.matrix{width:100%; border-collapse:collapse; font-size:12.3px; margin-top:12px;}
+table.matrix th{background:var(--card2); color:var(--forest); text-align:left; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; padding:9px 11px; border:1px solid var(--line); font-weight:600;}
+table.matrix td{border:1px solid var(--line); padding:10px 11px; vertical-align:top; color:var(--ink-soft); line-height:1.5; background:var(--card);}
+table.matrix td.lead-c{background:var(--card2); color:var(--ink); font-weight:600; width:19%;}
+table.matrix td.lead-c small{display:block; font-weight:400; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace; font-size:9.5px; margin-top:3px;}
+
+/* Etiquetas */
+.tags{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;}
+.tag{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase; border:1px solid var(--line); color:var(--ink-soft); padding:4px 9px; background:var(--card);}
+.tag.red{border-color:var(--stamp); color:var(--stamp);}
+.tag.gold{border-color:var(--gold); color:var(--gold);}
+
+/* Navegacion */
+.nav-btn{position:fixed; top:50%; transform:translateY(-50%); width:42px; height:42px; border-radius:50%; border:1px solid var(--line); background:rgba(244,240,228,.9); color:var(--ink); font-size:19px; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:20; transition:.2s;}
+.nav-btn:hover{background:var(--stamp); color:var(--paper); border-color:var(--stamp);}
+#P{left:16px;} #N{right:16px;}
+.progress{position:fixed; top:0; left:0; height:2px; width:0; background:var(--stamp); z-index:30; transition:width .3s ease;}
+
+@media(max-width:900px){
+  .slide{padding:34px 20px 54px;}
+  h1{font-size:25px;} h2{font-size:19px;} .divider h2{font-size:26px;} .divider .part-num{font-size:70px;}
+  .split,.split.wide-l,.split.wide-r,.duel,.cards.c2,.cards.c3,.cards.c4,.stat-row.c2,.stat-row.c3,.stat-row.c4{grid-template-columns:1fr;}
+  .duel .vs{display:none;}
+  .stamp{display:none;}
+  .portrait{flex-direction:column;} .portrait .ph{width:100%;}
+  .folio{left:20px; right:20px;}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<div class="deck" id="deck">
+
+<style>
+/* ══════ ESTILO PROYECCIÓN ══════ una idea por lámina, tipografía grande ══════ */
+.slide{padding:40px 64px 54px;}
+.slide .content{justify-content:flex-start;}
+.eyebrow{font-size:12.5px; letter-spacing:.2em; margin-bottom:10px;}
+h2{font-size:46px; line-height:1.06; letter-spacing:-.015em; margin-bottom:0; max-width:1090px;}
+h2.sm{font-size:38px;}
+.src-line{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--ink-soft); letter-spacing:.03em; margin-top:10px; flex-shrink:0; line-height:1.5;}
+.src-line a{color:var(--stamp); border-bottom:1px solid rgba(156,43,47,.45); padding-bottom:1px;}
+.src-line a:hover{color:var(--forest); border-bottom-color:var(--forest); background:rgba(169,130,60,.14);}
+.src-line .pdf{font-weight:600;}
+
+/* A · gráfico a página completa */
+.stage{flex:1; min-height:0; display:flex; align-items:center; justify-content:center; margin-top:16px;}
+.stage img{max-width:100%; max-height:100%; object-fit:contain; display:block;}
+
+/* B · texto etiquetado + imagen */
+.duo{display:grid; grid-template-columns:1fr 1.08fr; gap:46px; flex:1; min-height:0; align-items:center; margin-top:18px;}
+.duo.vert{grid-template-columns:1.3fr .7fr;}
+.duo.wide{grid-template-columns:.95fr 1.25fr;}
+.pts{display:flex; flex-direction:column; gap:24px;}
+.pt{font-size:23px; line-height:1.4; color:var(--ink);}
+.pt b{color:var(--stamp); font-weight:600;}
+.pt strong{font-weight:600;}
+.pt a{color:var(--stamp); border-bottom:1px solid rgba(156,43,47,.4);}
+.duo .chart{height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:0;}
+.duo .chart img{max-width:100%; max-height:100%; object-fit:contain; display:block;}
+.duo .chart.framed img{border:1px solid var(--line); filter:sepia(14%) saturate(.9) contrast(1.03);}
+.duo .chart .cred{font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--ink-soft); margin-top:9px; text-align:center; opacity:.85;}
+
+/* C · foto en banda ancha */
+.stage.photo-stage{margin-top:16px;}
+.stage.photo-stage .frame{width:100%; height:100%; border:1px solid var(--line); background:var(--ink); overflow:hidden;}
+.stage.photo-stage img{width:100%; height:100%; max-width:none; max-height:none; object-fit:cover; filter:sepia(16%) saturate(.88) contrast(1.04);}
+.photo-cap{font-size:19px; line-height:1.45; color:var(--ink-soft); margin-top:14px; max-width:1050px; flex-shrink:0;}
+.photo-cap strong{color:var(--ink);}
+
+/* D · cita grande */
+.bigquote{flex:1; min-height:0; display:flex; flex-direction:column; justify-content:center; border-left:4px solid var(--gold); padding-left:40px; margin-top:18px;}
+.bigquote p{font-family:'Fraunces',serif; font-size:35px; font-style:italic; line-height:1.28; color:var(--ink);}
+.bigquote p.sm2{font-size:29px;}
+.bigquote cite{display:block; font-family:'IBM Plex Mono',monospace; font-size:14px; font-style:normal; color:var(--ink-soft); letter-spacing:.06em; margin-top:24px;}
+
+/* E · cifra gigante */
+.bignum{display:flex; align-items:center; gap:54px; flex:1; min-height:0; margin-top:10px;}
+.fig-n{font-family:'Fraunces',serif; font-weight:600; font-size:160px; line-height:.84; color:var(--stamp); letter-spacing:-.03em; flex-shrink:0;}
+.fig-n.sm{font-size:118px;}
+.fig-n small{display:block; font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:400; color:var(--ink-soft); letter-spacing:.14em; text-transform:uppercase; margin-top:18px; line-height:1.55;}
+.fig-t2{font-size:24px; line-height:1.42; color:var(--ink); max-width:660px;}
+.fig-t2 strong{color:var(--stamp); font-weight:600;}
+.fig-t2 .counter{display:block; margin-top:22px; padding-top:18px; border-top:1px solid var(--line); font-size:19px; color:var(--ink-soft);}
+.fig-t2 .counter strong{color:var(--ink);}
+
+/* F · texto solo, dos columnas */
+.textcols{display:grid; grid-template-columns:1fr 1fr; gap:52px; flex:1; min-height:0; align-content:center; margin-top:20px;}
+.textcols .pt{font-size:24px;}
+.blockhead{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--forest); margin-bottom:14px;}
+
+/* G · duelo */
+.faceoff{display:grid; grid-template-columns:1fr auto 1fr; gap:34px; flex:1; min-height:0; align-items:center; margin-top:20px;}
+.faceoff .side{border-top:3px solid var(--forest); padding-top:20px;}
+.faceoff .side.red{border-top-color:var(--stamp);}
+.faceoff .side .lbl{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--stamp); margin-bottom:12px;}
+.faceoff .side p{font-size:22px; line-height:1.42; color:var(--ink);}
+.faceoff .side p strong{color:var(--stamp); font-weight:600;}
+.faceoff .mid{font-family:'Fraunces',serif; font-size:22px; color:var(--gold); font-style:italic; align-self:center;}
+
+.duo.tight .pts{gap:16px;}
+.duo.tight .pt{font-size:20.5px; line-height:1.36;}
+/* imagen dentro de columna de texto (recorte de prensa) */
+.clip{border:1px solid var(--line); background:#fff; padding:10px; box-shadow:0 1px 0 rgba(34,40,31,.06);}
+.clip img{display:block; width:100%; height:auto;}
+/* divisor de transición */
+.slide.divider .part-num{font-size:104px;}
+.slide.divider h2{color:var(--paper); max-width:960px;}
+.slide.divider .sub{color:rgba(235,230,216,.78); font-size:21px; max-width:820px; margin-top:10px; line-height:1.5;}
+.slide.divider .src-line{color:rgba(235,230,216,.6);}
+.slide.divider .src-line a{color:var(--gold); border-bottom-color:rgba(169,130,60,.5);}
+
+/* V · video */
+.videostage{flex:1; min-height:0; display:flex; align-items:center; justify-content:center; margin-top:16px; gap:38px;}
+.videostage .vbox{height:100%; aspect-ratio:16/9; border:1px solid var(--line); background:#000; flex-shrink:1; min-width:0;}
+.videostage video{width:100%; height:100%; display:block; background:#000;}
+.videostage .vside{max-width:330px;}
+.videostage .vside .qlead{font-family:'Fraunces',serif; font-size:24px; font-style:italic; line-height:1.32; color:var(--ink); border-left:3px solid var(--gold); padding-left:18px;}
+.videostage .vside .qwho{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.08em; color:var(--ink-soft); margin-top:12px; padding-left:21px;}
+.videostage .vside .tcode{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--stamp); margin-top:22px; padding-left:21px;}
+</style>
+
+<style>
+/* ══ Gráficos propios de esta semana (SVG inline, sin archivos externos) ══ */
+.chart svg{display:block; width:100%; height:auto;}
+.chart .cred{font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--ink-soft); margin-top:9px; text-align:center; opacity:.85;}
+.gx-lbl{font-family:'IBM Plex Mono',monospace; font-size:11px; fill:var(--ink-soft); letter-spacing:.08em;}
+.gx-sub{font-family:'IBM Plex Mono',monospace; font-size:9.5px; fill:var(--ink-soft); letter-spacing:.04em; opacity:.8;}
+.gx-num{font-family:'Fraunces',serif; font-size:21px; font-weight:600; fill:var(--ink);}
+.gx-num.hi{fill:var(--stamp);}
+</style>
+
+<!-- ══ 01 · PORTADA ══ -->
+<section class="slide active">
+  <div class="stamp"><svg viewBox="0 0 140 140">
+    <defs><clipPath id="c5"><circle cx="70" cy="70" r="63"/></clipPath>
+    <path id="t5" d="M18,72 A52,52 0 0 1 122,72" fill="none"/>
+    <path id="b5" d="M122,70 A52,52 0 0 1 18,70" fill="none"/></defs>
+    <circle class="ring" cx="70" cy="70" r="63" stroke-width="2.2"/>
+    <circle class="ring" cx="70" cy="70" r="51" stroke-width="1"/>
+    <g clip-path="url(#c5)"><g class="cancel" stroke-width="1.2">
+      <path d="M-5,50 Q35,60 70,50 T145,50"/><path d="M-5,68 Q35,78 70,68 T145,68"/><path d="M-5,86 Q35,96 70,86 T145,86"/>
+    </g></g>
+    <text font-size="10.5"><textPath href="#t5" startOffset="50%" text-anchor="middle">UAI · 31 AGO 2026</textPath></text>
+    <text class="big" font-size="27" x="70" y="79" text-anchor="middle">05</text>
+    <text font-size="10.5"><textPath href="#b5" startOffset="50%" text-anchor="middle">SEMANA 5</textPath></text>
+  </svg></div>
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>IA y Democracia 2026 — Semana 5</div>
+    <h1 style="font-size:64px;">¿Quién controla<br>las máquinas?</h1>
+    <h1 style="color:var(--forest); font-size:34px; font-weight:600; margin-top:14px;">Oligarquía de la IA, populismo y la hipótesis de la <em>underclass</em></h1>
+    <div class="meta-strip" style="margin-top:34px;">
+      <div class="meta-item"><div class="ml">Imparte</div><div class="mv"><strong>Naim Bro</strong> — módulo IA</div></div>
+      <div class="meta-item"><div class="ml">Fecha</div><div class="mv">Lunes 31 de agosto, 08:30–09:40</div></div>
+      <div class="meta-item"><div class="ml">Material</div><div class="mv"><a href="https://naimbro.github.io/ia-democracia-2026/" target="_blank">naimbro.github.io/ia-democracia-2026</a></div></div>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 01</span><span class="dots"></span><span>GOB542 · IA Y DEMOCRACIA</span></div>
+</section>
+
+<!-- ══ 02 · DÓNDE QUEDAMOS ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>De dónde venimos · Semana 3</div>
+    <h2>Dejamos una pregunta sin contestar</h2>
+    <div class="textcols">
+      <div>
+        <div class="blockhead">Lo que quedó establecido</div>
+        <div class="pts">
+          <p class="pt">El rechazo a la IA <strong>existe, se mide y ya bloquea proyectos</strong>. No es ruido.</p>
+          <p class="pt">Un shock chico puede ser un terremoto político: <b>2 millones</b> de empleos manufactureros bastaron para cambiar una elección en EE.UU.</p>
+          <p class="pt">Y cerramos con esto: si la renta migra a los dueños del capital, <strong>el riesgo no es la explotación sino la irrelevancia</strong>.</p>
+        </div>
+      </div>
+      <div>
+        <div class="blockhead">La pregunta de hoy</div>
+        <div class="pts">
+          <p class="pt" style="font-family:'Fraunces',serif; font-size:27px; font-style:italic; line-height:1.32; color:var(--ink);">Si la IA produce una hiperabundancia material, ¿<strong style="font-style:normal;">quién controlará las máquinas</strong> y quién decidirá <strong style="font-style:normal;">qué hacer con esa abundancia</strong>?</p>
+          <p class="pt" style="border-top:1px solid var(--line); padding-top:18px;">Hoy: primero el hecho, después el mecanismo, y al final la disputa sobre si todo esto es <strong>una elección o un destino</strong>.</p>
+        </div>
+      </div>
+    </div>
+    <p class="src-line">La clase anterior está completa en <a href="semana3_backlash.html" target="_blank">el deck de la Semana 3</a>.</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 02</span><span class="dots"></span><span>DÓNDE QUEDAMOS</span></div>
+</section>
+
+<!-- ══ 03 · DIVISOR I ══ -->
+<section class="slide divider">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>Parte I</div>
+    <div class="part-num">01</div>
+    <h2>El hecho: la riqueza<br>se concentró, y rápido.</h2>
+    <p class="sub">Antes de discutir si hay una oligarquía de la IA, hay que ver el dato. No es una impresión: es una serie, tiene autor y tiene método.</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 03</span><span class="dots"></span><span>EL HECHO</span></div>
+</section>
+
+<!-- ══ 04 · ZUCMAN ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Gabriel Zucman · Observatorio Fiscal Internacional</div>
+    <h2>Un quinto del producto mundial, en unas 3.000 personas</h2>
+    <div class="duo wide">
+      <div class="pts">
+        <div class="fig-n sm">20,1<small>billones de US$ · riqueza total<br>de los milmillonarios del mundo</small></div>
+        <p class="pt" style="border-top:1px solid var(--line); padding-top:16px;"><b>Equivale a</b> casi <strong>un quinto de todo lo que produce el mundo en un año</strong>. Subió 40% en dos años. Un tercio de esos milmillonarios vive en EE.UU.</p>
+      </div>
+      <div class="chart">
+        <svg viewBox="0 0 420 300" role="img" aria-label="Riqueza total de los milmillonarios del mundo: 4,5 billones de dolares hace quince anos, 14,2 en 2024 y 20,1 hoy">
+          <line x1="20" y1="252" x2="400" y2="252" stroke="#C7BEA3" stroke-width="1"/>
+          <rect x="40"  y="207" width="80" height="45"  fill="#2E4638" opacity=".38"/>
+          <rect x="170" y="111" width="80" height="141" fill="#2E4638" opacity=".62"/>
+          <rect x="300" y="52"  width="80" height="200" fill="#9C2B2F"/>
+          <text class="gx-num"    x="80"  y="197" text-anchor="middle">4,5</text>
+          <text class="gx-num"    x="210" y="101" text-anchor="middle">14,2</text>
+          <text class="gx-num hi" x="340" y="42"  text-anchor="middle">20,1</text>
+          <text class="gx-lbl" x="80"  y="272" text-anchor="middle">HACE 15 AÑOS</text>
+          <text class="gx-lbl" x="210" y="272" text-anchor="middle">2024</text>
+          <text class="gx-lbl" x="340" y="272" text-anchor="middle">HOY</text>
+          <text class="gx-sub" x="20"  y="292">EN BILLONES DE DÓLARES (MILLONES DE MILLONES)</text>
+        </svg>
+        <p class="cred">Cálculo de Gabriel Zucman · serie Blanchet, Mouillet, Saez y Zucman</p>
+      </div>
+    </div>
+    <p class="src-line">Fuente: <a href="https://www.nytimes.com/2026/06/09/business/economy/billionaires-musk-gabriel-zucman.html" target="_blank">The New York Times, «Billionaires' Billions Are Increasing Faster Than Ever»</a> (9 jun 2026) · <a class="pdf" href="https://drive.google.com/file/d/1hh1nvZpnk6PTFtBakAqUAcmpIFf2YmO_/view?usp=sharing" target="_blank">PDF</a>.</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 04</span><span class="dots"></span><span>ZUCMAN</span></div>
+</section>
+
+<!-- ══ 05 · LA BOLSA ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Dónde ocurre la alquimia · datos de la Reserva Federal</div>
+    <h2>El auge de la IA paga a los dueños, no a los trabajadores</h2>
+    <div class="duo">
+      <div class="pts">
+        <p class="pt"><b>El canal:</b> el <em>boom</em> de la IA canalizó <strong>billones de dólares de inversión</strong> hacia un puñado de empresas. Nvidia, Apple, Microsoft, Alphabet, Meta y TSMC valen más de un billón cada una.</p>
+        <p class="pt"><b>Quién captura:</b> el <strong>1% más rico posee la mitad</strong> de todas las acciones de EE.UU.</p>
+        <p class="pt"><b>Y por qué importa aquí:</b> esas empresas crean <strong>relativamente poco empleo</strong>. El retorno viene del capital invertido, no de la nómina. Es la misma línea de la Semana 3, vista desde el otro lado.</p>
+      </div>
+      <div class="chart">
+        <svg viewBox="0 0 420 300" role="img" aria-label="El 0,1 por ciento mas rico posee 13,7 billones en acciones; el 90 por ciento inferior posee 7,1 billones">
+          <line x1="20" y1="248" x2="400" y2="248" stroke="#C7BEA3" stroke-width="1"/>
+          <rect x="70"  y="58"  width="110" height="190" fill="#9C2B2F"/>
+          <rect x="240" y="150" width="110" height="98"  fill="#2E4638" opacity=".5"/>
+          <text class="gx-num hi" x="125" y="48"  text-anchor="middle">13,7</text>
+          <text class="gx-num"    x="295" y="140" text-anchor="middle">7,1</text>
+          <text class="gx-lbl" x="125" y="268" text-anchor="middle">0,1% MÁS RICO</text>
+          <text class="gx-sub" x="125" y="284" text-anchor="middle">135.000 HOGARES</text>
+          <text class="gx-lbl" x="295" y="268" text-anchor="middle">90% INFERIOR</text>
+          <text class="gx-sub" x="295" y="284" text-anchor="middle">115 MILLONES DE HOGARES</text>
+        </svg>
+        <p class="cred">Acciones en manos de cada grupo, en billones de dólares</p>
+      </div>
+    </div>
+    <p class="src-line"><strong>Ojo:</strong> todos los datos de esta lámina son de EE.UU.; la cifra mundial es la de la lámina anterior. Fuente: <a href="https://www.nytimes.com/2026/06/09/business/economy/billionaires-musk-gabriel-zucman.html" target="_blank">NYT</a> sobre <a href="https://www.federalreserve.gov/releases/z1/dataviz/dfa/compare/chart/" target="_blank">datos de la Reserva Federal</a>. David Autor (MIT) lo atribuye en parte a las <em>superstar firms</em>: gigantes que dominan un sector y corren el equilibrio de poder <strong>desde los trabajadores hacia los dueños</strong>.</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 05</span><span class="dots"></span><span>LA BOLSA</span></div>
+</section>
+
+<!-- ══ 06 · DIVISOR II ══ -->
+<section class="slide divider">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>Parte II</div>
+    <div class="part-num">02</div>
+    <h2>Tener plata no es tener poder.<br>Falta el mecanismo.</h2>
+    <p class="sub">Una clase de democracia no se conforma con «son muy ricos». La pregunta es <strong style="color:var(--paper);">por qué vía</strong> una fortuna se convierte en capacidad de decidir sobre otros. Vamos a ver tres, y un caso donde se ven las tres juntas.</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 06</span><span class="dots"></span><span>EL MECANISMO</span></div>
+</section>
+
+<!-- ══ 07 · VÍA 1 · LA POLÍTICA ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Vía 1 · el dinero entra a la política</div>
+    <h2>«Pay-to-play»</h2>
+    <div class="textcols">
+      <div>
+        <div class="blockhead">El diagnóstico</div>
+        <div class="pts">
+          <p class="pt">David Autor (MIT) concede que muchos de estos empresarios <strong>crearon valor real</strong>. Su objeción es otra: <em>«el problema no es cómo se ganan los miles de millones, sino cómo ese dinero distorsiona la política»</em>.</p>
+          <p class="pt">Y el efecto es <strong>hereditario</strong>: como la mayor parte de esa riqueza escapa a los impuestos, se perpetúa entre generaciones. Zucman y Saez lo llaman <strong>una aristocracia que se autoperpetúa</strong>.</p>
+        </div>
+      </div>
+      <div>
+        <div class="blockhead">La respuesta institucional que ya está en la papeleta</div>
+        <div class="pts">
+          <p class="pt"><b>California, noviembre de 2026:</b> los sindicatos pusieron en votación un impuesto <strong>de 5%, por una sola vez</strong>, sobre el patrimonio de los milmillonarios del estado.</p>
+          <p class="pt">Justificación: esas fortunas superan <strong>2 billones de dólares</strong> —la mitad de lo que produce California en un año— y crecieron <strong>144% entre 2023 y 2025</strong>.</p>
+          <p class="pt" style="border-top:1px solid var(--line); padding-top:16px;">Lo dice también quien está adentro. Dario Amodei (Anthropic): <em>«estamos ya en niveles de concentración de riqueza históricamente sin precedentes»</em>, y lo que hay que temer es <em>«un nivel de concentración que rompa la sociedad»</em>.</p>
+        </div>
+      </div>
+    </div>
+    <p class="src-line">Fuente: <a href="https://www.nytimes.com/2026/06/09/business/economy/billionaires-musk-gabriel-zucman.html" target="_blank">NYT</a> (9 jun 2026). El diseño del impuesto californiano contó con Zucman y Emmanuel Saez.</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 07</span><span class="dots"></span><span>VÍA 1 · LA POLÍTICA</span></div>
+</section>
+
+<!-- ══ 08 · VÍA 2 · LA DONACIÓN ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Vía 2 · la filantropía — The Economist, 13 ago 2026</div>
+    <h2>430 mil millones para regalar, y nadie a quién rendirle cuentas</h2>
+    <div class="duo">
+      <div class="pts">
+        <p class="pt"><b>La cifra:</b> las salidas a bolsa de OpenAI y Anthropic podrían liberar <strong>430 mil millones de dólares</strong> en donaciones: <strong>dos Planes Marshall</strong>.</p>
+        <p class="pt"><b>Quién decide:</b> la Fundación OpenAI, que posee el 26% de las acciones de la empresa, controla <strong>más de la mitad</strong> de ese total. Los siete cofundadores de Anthropic prometieron dar el 80% de su patrimonio.</p>
+        <p class="pt"><b>Y el contexto:</b> llega <strong>mientras caen los presupuestos de ayuda oficial</strong> — y el propio Musk desmanteló USAID.</p>
+      </div>
+      <div class="chart">
+        <svg viewBox="0 0 420 300" role="img" aria-label="Olas de filantropia como porcentaje del PIB: industriales 1,9 por ciento, internet 0,8 por ciento, IA 1,3 por ciento proyectado">
+          <line x1="20" y1="244" x2="400" y2="244" stroke="#C7BEA3" stroke-width="1"/>
+          <rect x="40"  y="64"  width="80" height="180" fill="#2E4638" opacity=".42"/>
+          <rect x="170" y="168" width="80" height="76"  fill="#2E4638" opacity=".42"/>
+          <rect x="300" y="121" width="80" height="123" fill="#9C2B2F"/>
+          <text class="gx-num"    x="80"  y="54"  text-anchor="middle">1,9%</text>
+          <text class="gx-num"    x="210" y="158" text-anchor="middle">0,8%</text>
+          <text class="gx-num hi" x="340" y="111" text-anchor="middle">1,3%</text>
+          <text class="gx-lbl" x="80"  y="264" text-anchor="middle">INDUSTRIALES</text>
+          <text class="gx-sub" x="80"  y="280" text-anchor="middle">CARNEGIE, ROCKEFELLER</text>
+          <text class="gx-lbl" x="210" y="264" text-anchor="middle">INTERNET</text>
+          <text class="gx-sub" x="210" y="280" text-anchor="middle">1990–2018</text>
+          <text class="gx-lbl" x="340" y="264" text-anchor="middle">IA</text>
+          <text class="gx-sub" x="340" y="280" text-anchor="middle">PROYECTADO</text>
+        </svg>
+        <p class="cred">Cada ola de donaciones como % del PIB de su época</p>
+      </div>
+    </div>
+    <p class="photo-cap" style="color:var(--ink); margin-top:20px;">¿Ante quién responde un poder que se ejerce donando? <strong>Un gobierno que financia salud rinde cuentas en una elección. Una fundación que financia salud, no.</strong></p>
+    <p class="src-line">Fuente: <a href="https://www.economist.com/international/2026/08/13/silicon-valleys-ai-boom-is-remaking-american-charity" target="_blank">The Economist, «Silicon Valley's AI boom is remaking American charity»</a> · <a class="pdf" href="https://drive.google.com/file/d/1Vu_eKDbhMUfS034OAV_bsMKcEpy3ek9f/view?usp=sharing" target="_blank">PDF</a>.</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 08</span><span class="dots"></span><span>VÍA 2 · LA DONACIÓN</span></div>
+</section>
+
+<!-- ══ 09 · VÍA 3 · LA AUTORREGULACIÓN ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Vía 3 · quién escribe las reglas — Musk con The Economist, 23 jul 2026</div>
+    <h2 class="sm">Un plan de gobierno para la IA, sin instituciones</h2>
+    <div class="faceoff">
+      <div class="side red">
+        <div class="lbl">Lo que propone</div>
+        <p>El puñado de pioneros de EE.UU. y China <strong>se revisa los modelos entre sí</strong>, mientras todavía haya tiempo. Su tarea colectiva: cargar a las IA de amor por la verdad. Los gobiernos <strong>ponen el músculo</strong>: intervienen solo si algún pionero <em>«desafía a la oligarquía»</em>.</p>
+      </div>
+      <div class="mid">→</div>
+      <div class="side">
+        <div class="lbl">Lo que The Economist responde</div>
+        <p>Una propuesta <strong>«prácticamente sin instituciones», «endeble e interesada»</strong>. Quiere que una tecnología que —según él mismo— va a decidir el futuro de la humanidad quede <strong>en manos de unas pocas personas como él</strong>, cada una con sus propios valores.</p>
+      </div>
+    </div>
+    <p class="src-line"><strong>Fíjense en la palabra.</strong> El propio artículo, describiendo el plan, escribe «la oligarquía» sin comillas y sin ironía: es la descripción literal del arreglo. Fuentes: <a href="https://www.economist.com/insider/the-insider/an-interview-with-elon-musk" target="_blank">«An interview with Elon Musk»</a> y <a href="https://www.economist.com/leaders/2026/07/23/should-you-be-afraid-of-elon-musk" target="_blank">«Should you be afraid of Elon Musk?»</a> (23 jul 2026) · <a class="pdf" href="https://drive.google.com/file/d/1Cyu12S7fxvuiDLd_bqVC9C2x-KjWD3YP/view?usp=sharing" target="_blank">PDF</a>.</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 09</span><span class="dots"></span><span>VÍA 3 · LAS REGLAS</span></div>
+</section>
+
+<!-- ══ 10 · SALINE ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>El caso · Saline Township, Michigan</div>
+    <h2>Cuando un municipio dijo que no</h2>
+    <div class="bignum">
+      <div class="fig-n">4–1<small>el voto del concejo<br>contra el cambio de uso de suelo</small></div>
+      <div class="fig-t2">
+        A diferencia de tantos otros, este concejo <strong>sí votó</strong>: esta no es nuestra visión de comunidad, no nos conviene. Una decisión democrática, tomada por la autoridad competente, en el nivel que corresponde.
+        <span class="counter">Los desarrolladores del centro de datos <strong>demandaron al municipio</strong> —unos pocos miles de habitantes— alegando «zonificación excluyente»: no se puede prohibir todo uso industrial en un territorio entero. <strong>El municipio transó.</strong></span>
+      </div>
+    </div>
+    <p class="src-line">Aquí se ven las tres vías juntas y se ve el punto de la clase: <strong>la asimetría no está en la fortuna, está en la capacidad de sostener un juicio</strong>. Fuente: Jasmine Sun en <a href="https://www.nytimes.com/2026/08/04/opinion/ezra-klein-podcast-jasmine-sun.html" target="_blank">el pódcast de Ezra Klein</a> (4 ago 2026) · <a class="pdf" href="https://drive.google.com/file/d/1MvOq0fZOPYADHppbtLEaJybBlcnMicSl/view?usp=sharing" target="_blank">transcripción</a>.</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 10</span><span class="dots"></span><span>SALINE</span></div>
+</section>
+
+<!-- ══ 11 · POPULISMO DE IA ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>El reverso · Jasmine Sun, «populismo de IA»</div>
+    <h2 class="sm">Si esto es una oligarquía, lo que viene de vuelta es populismo</h2>
+    <div class="duo wide tight">
+      <div class="pts">
+        <p class="pt"><b>La definición:</b> un mundo donde la IA se ve <strong>no como una tecnología más, sino como un proyecto político de las élites al que hay que resistir</strong>.</p>
+        <p class="pt"><b>Qué se rechaza exactamente:</b> no las propiedades técnicas de los modelos, ni su utilidad. La IA como avatar de <strong>«la capacidad de un grupo pequeño de milmillonarios de imponer su visión del mundo a todos los demás, sin su consentimiento»</strong>.</p>
+        <p class="pt"><b>La coalición inesperada:</b> gente de la seguridad de la IA en San Francisco llegando al mismo lugar que populistas de izquierda y de derecha, por caminos completamente distintos. Moratorias a los centros de datos como punto de encuentro.</p>
+      </div>
+      <div class="chart">
+        <svg viewBox="0 0 420 300" role="img" aria-label="Oposicion a un centro de datos en la propia localidad: cuatro de cada diez en agosto de 2025, siete de cada diez en mayo de 2026">
+          <line x1="20" y1="244" x2="400" y2="244" stroke="#C7BEA3" stroke-width="1"/>
+          <rect x="70"  y="140" width="110" height="104" fill="#2E4638" opacity=".42"/>
+          <rect x="240" y="62"  width="110" height="182" fill="#9C2B2F"/>
+          <text class="gx-num"    x="125" y="130" text-anchor="middle">4 de 10</text>
+          <text class="gx-num hi" x="295" y="52"  text-anchor="middle">7 de 10</text>
+          <text class="gx-lbl" x="125" y="264" text-anchor="middle">AGOSTO 2025</text>
+          <text class="gx-lbl" x="295" y="264" text-anchor="middle">MAYO 2026</text>
+          <text class="gx-sub" x="20"  y="288">OPOSICIÓN A UN CENTRO DE DATOS EN LA PROPIA LOCALIDAD</text>
+        </svg>
+        <p class="cred">Encuesta Heatmap News · nueve meses. Más de 100 propuestas de moratoria.</p>
+      </div>
+    </div>
+    <p class="src-line">Fuente: <a href="https://www.nytimes.com/2026/08/04/opinion/ezra-klein-podcast-jasmine-sun.html" target="_blank">Ezra Klein conversa con Jasmine Sun, «The A.I. Giants Weren't Prepared for This»</a> (4 ago 2026) · <a class="pdf" href="https://drive.google.com/file/d/1MvOq0fZOPYADHppbtLEaJybBlcnMicSl/view?usp=sharing" target="_blank">transcripción</a> · y su ensayo <a href="https://jasmi.news/p/warning-shots" target="_blank">«Warning Shots»</a>.</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 11</span><span class="dots"></span><span>POPULISMO DE IA</span></div>
+</section>
+
+<!-- ══ 12 · DIVISOR III ══ -->
+<section class="slide divider">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>Parte III</div>
+    <div class="part-num">03</div>
+    <h2>Arriba, una oligarquía.<br>Abajo, ¿qué?</h2>
+    <p class="sub">La contraparte del debate: la hipótesis de que la IA no solo destruye empleos, sino que produce <strong style="color:var(--paper);">una población estructuralmente excluida</strong>. Y la disputa sobre si eso es un destino técnico o una decisión política.</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 12</span><span class="dots"></span><span>LA UNDERCLASS</span></div>
+</section>
+
+<!-- ══ 13 · UNDERCLASS ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>El concepto, y por qué hay que usarlo con pinzas</div>
+    <h2>La hipótesis de la <em>underclass</em></h2>
+    <div class="textcols">
+      <div>
+        <div class="blockhead">Qué afirma — y en qué se distingue del desempleo</div>
+        <div class="pts">
+          <p class="pt">No es perder el trabajo. Es quedar excluido a la vez de <strong>la movilidad social</strong>, <strong>la autonomía económica</strong> y <strong>la influencia política</strong>.</p>
+          <p class="pt">La diferencia está en la <b>reversibilidad</b>: del desempleo se sale con crecimiento. De aquí no, porque lo que se pierde es <strong>la palanca para exigir la salida</strong>. Sin voto que amenace y sin trabajo que se pueda parar, ¿con qué se negocia?</p>
+          <p class="pt">Es el vínculo con la Parte II: <strong>la concentración de arriba y la exclusión de abajo son el mismo fenómeno visto desde dos puntas</strong>.</p>
+        </div>
+      </div>
+      <div>
+        <div class="blockhead">Tres objeciones que hay que tomarse en serio</div>
+        <div class="pts">
+          <p class="pt"><b>Es una hipótesis, no un hallazgo.</b> Ningún dato de hoy la confirma. Los que vimos en la Semana 3 son compatibles con un ajuste doloroso y transitorio.</p>
+          <p class="pt"><b>El término estigmatiza.</b> Nombra a las personas —«la clase de abajo»— y no a la estructura que las produce. Wilson lo usó en 1987 y terminó abandonándolo; Gans (1995) mostró que funciona como <strong>etiqueta contra los pobres</strong>.</p>
+          <p class="pt"><b>Se profetiza sola.</b> Anunciar que un grupo es excedente ayuda a tratarlo como tal.</p>
+        </div>
+      </div>
+    </div>
+    <p class="src-line">De fondo, la pregunta de <a href="https://www.schneier.com/books/rewiring-democracy/" target="_blank">Schneier &amp; Sanders, <em>Rewiring Democracy</em></a> (caps. 32 y 39, lectura de esta semana): ¿la IA <strong>distribuye</strong> capacidades políticas, o <strong>refuerza</strong> a quienes ya controlan capital, infraestructura y modelos?</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 13</span><span class="dots"></span><span>UNDERCLASS</span></div>
+</section>
+
+<!-- ══ 14 · LA PARADOJA DE LA ABUNDANCIA ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>La promesa que responde —y no responde— nuestra pregunta</div>
+    <h2 class="sm">«Un mundo de abundancia infinita, donde el dinero ya no importa»</h2>
+    <div class="faceoff">
+      <div class="side red">
+        <div class="lbl">La promesa de Musk</div>
+        <p>Si todo es infinito, todo es gratis: no hay nada que vender, nada por qué ahorrar, <strong>ninguna necesidad de una unidad de cuenta</strong>. El dinero queda obsoleto — y su propia fortuna de 750 mil millones, también.</p>
+      </div>
+      <div class="mid">¿y quién decide?</div>
+      <div class="side">
+        <div class="lbl">Lo que la promesa no toca</div>
+        <p>Los áticos de Manhattan y la Mona Lisa <strong>no son infinitos</strong>, ni la energía para 8.300 millones de personas. Cómo se financian las máquinas si ahorrar perdió sentido. Cómo se atraviesan <strong>los años de convulsión previos</strong>. Y por qué un autoritario con IA <strong>entregaría el poder por su cuenta</strong>.</p>
+      </div>
+    </div>
+    <p class="photo-cap" style="color:var(--ink); margin-top:22px;">Incluso concediéndole la abundancia, la pregunta de la clase queda intacta: <strong>la abundancia dice cuánto hay — no dice quién reparte</strong>.</p>
+    <p class="src-line">Fuente: <a href="https://www.economist.com/leaders/2026/07/23/should-you-be-afraid-of-elon-musk" target="_blank">The Economist</a> (23 jul 2026) · <a class="pdf" href="https://drive.google.com/file/d/1Cyu12S7fxvuiDLd_bqVC9C2x-KjWD3YP/view?usp=sharing" target="_blank">PDF</a>.</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 14</span><span class="dots"></span><span>LA ABUNDANCIA</span></div>
+</section>
+
+<!-- ══ 15 · ACEMOGLU ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>La respuesta de Acemoglu · Nobel de Economía 2024</div>
+    <h2>La dirección de la IA es una elección, no una consecuencia</h2>
+    <div class="textcols">
+      <div>
+        <div class="blockhead">El argumento</div>
+        <div class="pts">
+          <p class="pt">Ante la misma tecnología hay dos caminos: <strong>automatizar</strong> —reemplazar al trabajador— o <strong>complementar</strong> —hacerlo más productivo—. Eso es la <strong>IA <em>proworker</em></strong>.</p>
+          <p class="pt">Cuál de los dos se toma <strong>no lo decide la técnica</strong>: lo deciden quienes financian, quienes compran y quienes regulan.</p>
+          <p class="pt"><b>La advertencia histórica:</b> la revolución industrial empeoró la vida de los trabajadores durante décadas. Y quien corrigió el rumbo <strong>no fueron los industriales</strong>: fueron gobiernos y sindicatos.</p>
+        </div>
+      </div>
+      <div>
+        <div class="blockhead">Por qué cierra el círculo de hoy</div>
+        <div class="pts">
+          <p class="pt">Si la dirección es una elección, entonces <strong>hay alguien que la está eligiendo</strong>. La Parte II fue el mapa de quién.</p>
+          <p class="pt">Y devuelve la <em>underclass</em> al terreno político: dejaría de ser un pronóstico sobre la tecnología para ser <strong>el resultado de decisiones con nombre y apellido</strong>.</p>
+        </div>
+      </div>
+    </div>
+    <p class="src-line">Pódcast con Jon Hernandez (17 jul 2026), <a href="https://www.youtube.com/watch?v=55BnPJlHjb8" target="_blank">«How AI Will Affect the Economy»</a>. <strong>Fragmentos asignados para el jueves: 14:14–16:27, 19:45–24:15 y 39:15–42:02</strong> (~13 min).</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 15</span><span class="dots"></span><span>ACEMOGLU</span></div>
+</section>
+
+<!-- ══ 16 · EL CONTRAPUNTO ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>El contrapunto · The Economist, 17 ago 2026 — y la respuesta de Acemoglu, 18 ago</div>
+    <h2 class="sm">Antes de comprarle la receta, revisen el diagnóstico</h2>
+    <div class="duo wide tight">
+      <div class="pts">
+        <p class="pt"><b>La revisión, pieza por pieza:</b> el paper de 2001 que sostiene el Nobel —citado más de <strong>23.000 veces</strong>— fue impugnado por Albouy en 2012; el marco institucional le parece a Cowen <em>«tortugas hasta el fondo»</em>, y a Fukuyama incapaz de explicar a China.</p>
+        <p class="pt"><b>Y lo que él concede:</b> en su cálculo de 2024 sobre la productividad de la IA, <em>«no preví la IA agéntica y no estaba incorporada en mis predicciones»</em>.</p>
+        <p class="pt"><b>La respuesta:</b> Acemoglu lo llama un <em>«hit piece»</em>, dice que hay un trasfondo más inquietante y pide derecho a réplica. Por ahora es <strong>una reacción, no una refutación</strong> — sirve para discutir cómo se dirime la autoridad en este debate.</p>
+      </div>
+      <div class="pts">
+        <div class="bigquote" style="margin-top:0; border-left-width:4px;">
+          <p class="sm2">Pero, ¿quiénes son «nosotros»? ¿Y quién decide qué tipo de IA complementa a los humanos y cuál no?</p>
+          <cite>— The Economist, sobre la declaración de decenas de economistas que pide orientar la IA</cite>
+        </div>
+      </div>
+    </div>
+    <p class="src-line">Esa pregunta —la de ellos— <strong>es la pregunta de esta semana</strong>, y es la que se juega el jueves. Fuentes: <a href="https://www.economist.com/finance-and-economics/2026/08/17/the-worlds-most-influential-economist-is-oddly-unconvincing" target="_blank">«The world's most influential economist is oddly unconvincing»</a> · <a class="pdf" href="https://drive.google.com/file/d/1l2I2yLrd9ru2dgEXQzniq9DsoI3dydkV/view?usp=sharing" target="_blank">PDF</a> · <a href="https://x.com/DAcemogluMIT/status/2089859506809229425" target="_blank">respuesta en X</a> (18 ago 2026).</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 16</span><span class="dots"></span><span>EL CONTRAPUNTO</span></div>
+</section>
+
+<!-- ══ 17 · CIERRE ══ -->
+<section class="slide">
+  <div class="stamp"><svg viewBox="0 0 140 140">
+    <defs><clipPath id="c5b"><circle cx="70" cy="70" r="63"/></clipPath>
+    <path id="t5b" d="M18,72 A52,52 0 0 1 122,72" fill="none"/>
+    <path id="b5b" d="M122,70 A52,52 0 0 1 18,70" fill="none"/></defs>
+    <circle class="ring" cx="70" cy="70" r="63" stroke-width="2.2"/>
+    <circle class="ring" cx="70" cy="70" r="51" stroke-width="1"/>
+    <g clip-path="url(#c5b)"><g class="cancel" stroke-width="1.2">
+      <path d="M-5,50 Q35,60 70,50 T145,50"/><path d="M-5,68 Q35,78 70,68 T145,68"/><path d="M-5,86 Q35,96 70,86 T145,86"/>
+    </g></g>
+    <text font-size="10.5"><textPath href="#t5b" startOffset="50%" text-anchor="middle">UAI · IA Y DEMOCRACIA</textPath></text>
+    <text class="big" font-size="24" x="70" y="77" text-anchor="middle">2026</text>
+    <text font-size="10.5"><textPath href="#b5b" startOffset="50%" text-anchor="middle">SEMANA 5</textPath></text>
+  </svg></div>
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>Los últimos diez minutos, y el jueves</div>
+    <h1 style="font-size:38px;">Dos escenarios con la misma tecnología:<br>la IA como <span style="color:var(--forest);">escalera</span> y la IA como <span style="color:var(--stamp);">clausura</span>.<br>¿Qué los separa?</h1>
+    <p class="pt" style="margin-top:24px; max-width:920px;"><b>Ahora, en sala:</b> juego ML2 de cierre, ~10 minutos desde el teléfono. Construyan cada escenario y nombren <strong>la decisión concreta —y de quién— que lleva de uno al otro</strong>. No vale «depende de cómo se use».</p>
+    <p class="pt" style="margin-top:16px; max-width:920px;"><b>Jueves 3 de septiembre, 15:00–16:10.</b> Guía de lectura en sala y debate en grupos. Moción: «La dirección de la IA —automatización o <em>proworker</em>— es una elección política, no una consecuencia técnica».</p>
+    <p class="src-line" style="margin-top:20px;">Antes del jueves: <a href="https://www.youtube.com/watch?v=55BnPJlHjb8" target="_blank">Acemoglu con Jon Hernandez</a>, fragmentos 14:14–16:27, 19:45–24:15 y 39:15–42:02 · <a href="https://www.youtube.com/watch?v=8y4aLMYlKrk" target="_blank">Estavillo, Congreso Futuro</a> (19 min) con su <a href="https://docs.google.com/document/d/1e87Ae4HudlsrKxV_Ul6zBwpnlolvYiQcGhIdm-yQlyE/edit?usp=sharing" target="_blank">guía de estudio</a> · <a href="https://www.schneier.com/books/rewiring-democracy/" target="_blank">Schneier &amp; Sanders</a>, caps. 32 y 39 · el contrapunto Economist–Acemoglu · todo en <a href="https://naimbro.github.io/ia-democracia-2026/" target="_blank">naimbro.github.io/ia-democracia-2026</a>.</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 17</span><span class="dots"></span><span>GOB542 · IA Y DEMOCRACIA</span></div>
+</section>
+
+</div>
+
+<button class="nav-btn" id="P" aria-label="Anterior">‹</button>
+<button class="nav-btn" id="N" aria-label="Siguiente">›</button>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let cur = 0;
+
+function buildDots(){
+  slides.forEach((s, i)=>{
+    const box = s.querySelector('.folio .dots');
+    if(!box) return;
+    box.innerHTML = '';
+    slides.forEach((_, j)=>{
+      const d = document.createElement('span');
+      d.className = 'dot' + (j===i ? ' on' : '');
+      d.title = 'Diapositiva ' + (j+1);
+      d.addEventListener('click', ()=> go(j));
+      box.appendChild(d);
+    });
+  });
+}
+
+function render(){
+  slides.forEach((s,i)=> s.classList.toggle('active', i===cur));
+  buildDots();
+  document.getElementById('prog').style.width = ((cur+1)/slides.length*100) + '%';
+  const act = slides[cur];
+  if(act) act.scrollTop = 0;
+}
+
+function go(i){
+  cur = Math.max(0, Math.min(slides.length-1, i));
+  history.replaceState(null, '', '#' + (cur+1));
+  render();
+}
+
+function fromHash(){
+  const n = parseInt((location.hash || '').slice(1), 10);
+  if(!isNaN(n) && n >= 1 && n <= slides.length) cur = n - 1;
+}
+
+document.getElementById('P').addEventListener('click', ()=> go(cur-1));
+document.getElementById('N').addEventListener('click', ()=> go(cur+1));
+
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown'){ e.preventDefault(); go(cur+1); }
+  if(e.key === 'ArrowLeft'  || e.key === 'PageUp'){ e.preventDefault(); go(cur-1); }
+  if(e.key === 'Home'){ go(0); }
+  if(e.key === 'End'){ go(slides.length-1); }
+});
+
+window.addEventListener('hashchange', ()=>{ fromHash(); render(); });
+
+fromHash();
+render();
+</script>
+
+</body>
+</html>
