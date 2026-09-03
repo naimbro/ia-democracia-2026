@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tarjetas del debate — Semana 3</title>
+<style>
+  :root {
+    --tinta: #0a3d62;
+    --linea: #ccc;
+    --suave: #555;
+    --arena: #b3a37a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 900px;
+    margin: 1.5em auto;
+    padding: 1em;
+    background: #fdfdfd;
+    color: #333;
+    line-height: 1.5;
+  }
+  h1 { color: var(--tinta); font-size: 1.6em; margin: 0 0 .1em; }
+  h2 { color: var(--tinta); font-size: 1.15em; margin: 1.4em 0 .4em; border-bottom: 2px solid #ddd; padding-bottom: .2em; }
+  .sub { color: var(--suave); font-size: .95em; margin: 0 0 1.4em; }
+  .aviso { background: #eaf2f8; border-left: 5px solid var(--tinta); padding: .8em 1em; font-size: .93em; margin-bottom: 1.6em; }
+  table { width: 100%; border-collapse: collapse; font-size: .88em; margin: .6em 0 1.2em; }
+  th, td { border: 1px solid var(--linea); padding: .4em .6em; text-align: left; vertical-align: top; }
+  th { background: var(--tinta); color: #fff; font-weight: 600; }
+  tr:nth-child(even) td { background: #f7f7f2; }
+  td.min { white-space: nowrap; width: 1%; font-variant-numeric: tabular-nums; }
+
+  .tarjeta {
+    border: 2px solid var(--tinta);
+    padding: 1em 1.1em;
+    margin-bottom: 1.2em;
+    page-break-inside: avoid;
+  }
+  .tarjeta.contra { border-color: #6b3a17; }
+  .tarjeta h3 { margin: 0 0 .1em; font-size: 1.25em; color: var(--tinta); }
+  .tarjeta.contra h3 { color: #6b3a17; }
+  .mocion { font-size: .92em; font-style: italic; color: var(--suave); margin: 0 0 .8em; }
+  .rellenar {
+    font-size: .9em;
+    background: #f7f7f2;
+    border: 1px dashed var(--arena);
+    padding: .5em .7em;
+    margin-bottom: .9em;
+  }
+  .rellenar b { color: var(--tinta); }
+  .linea { display: inline-block; border-bottom: 1px solid #999; min-width: 5.5em; }
+  .linea.larga { min-width: 11em; }
+  .bloque { margin-bottom: .8em; font-size: .92em; }
+  .bloque .rot {
+    display: block;
+    font-size: .72em;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--suave);
+    font-weight: 700;
+    margin-bottom: .1em;
+  }
+  ol.roles { font-size: .9em; margin: .3em 0 0; padding-left: 1.3em; }
+  ol.roles li { margin-bottom: .45em; }
+  .nadie {
+    border-left: 3px solid var(--arena);
+    background: #fbfaf5;
+    padding: .5em .8em;
+    font-size: .89em;
+    margin-top: .8em;
+  }
+  .fichas td:first-child { font-weight: 600; color: var(--tinta); white-space: nowrap; }
+  .salto { page-break-before: always; }
+  .pie { font-size: .82em; color: #777; margin-top: 2em; border-top: 1px solid var(--linea); padding-top: .6em; }
+  @media print {
+    body { margin: 0; max-width: none; font-size: 10.5pt; }
+    .noprint { display: none; }
+    .aviso { background: #f2f2f2; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Debate de la Semana 3 — hoja del profesor y tarjetas</h1>
+<p class="sub">Jueves 20 de agosto de 2026 · 15:00–16:10 · Moción: «Las cifras de destrucción de empleo por IA son, ante todo, un relato corporativo».</p>
+
+<div class="aviso noprint">
+  <b>Cómo se usa.</b> Imprime esta página. Salen cuatro hojas: el reloj de la clase (para ti),
+  dos tarjetas <b>a favor</b> y dos <b>en contra</b> (una por campo — recórtalas o entrega la hoja
+  entera), y la hoja de las nueve objeciones, de la que cada alumno lee la suya en voz alta antes de
+  abrir. Los espacios en blanco se llenan a mano cuando la pantalla de campos muestre los grupos.
+</div>
+
+<h2>El reloj de la clase</h2>
+<table>
+  <tr><th class="min">Hora</th><th>Bloque</th><th class="min">Min</th></tr>
+  <tr><td class="min">15:00</td><td>Llegada. Sala del compás abierta y código proyectado. <b>La lista sale de quién entró a la sala.</b></td><td class="min">5</td></tr>
+  <tr><td class="min">15:05</td><td>Compás de clase — 8 ítems, al ritmo del anfitrión</td><td class="min">9</td></tr>
+  <tr><td class="min">15:14</td><td>Proyectar <code>/compas/CÓDIGO/campos</code> con k = 4. Los alumnos se sientan por campo</td><td class="min">2</td></tr>
+  <tr><td class="min">15:16</td><td>Guía de lectura en sala, sentados por campo. Los últimos 3 min en huddle</td><td class="min">17</td></tr>
+  <tr><td class="min">15:33</td><td><b>Debate</b></td><td class="min">20</td></tr>
+  <tr><td class="min">15:53</td><td>Juego ML2 — <code>clase_03_backlash</code>. Si el debate se estira, 4 rondas en vez de 5</td><td class="min">17</td></tr>
+</table>
+
+<h2>Cómo se reparten los bandos</h2>
+<p style="font-size:.93em">
+  En la pantalla de campos, ordena los cuatro campos por el <b>centroide del eje Diagnóstico</b>
+  (el horizontal). Después:
+</p>
+<table>
+  <tr><th>Campo</th><th>Lado</th><th>Mesa</th></tr>
+  <tr><td>1.º y 2.º más bajos en Diagnóstico</td><td><b>A favor</b> de la moción</td><td>El 1.º va a la Mesa A, el 2.º a la Mesa B</td></tr>
+  <tr><td>1.º y 2.º más altos en Diagnóstico</td><td><b>En contra</b></td><td>El 1.º va a la Mesa A, el 2.º a la Mesa B</td></tr>
+</table>
+<p style="font-size:.93em">
+  Las dos mesas debaten <b>en paralelo</b> — manda una al fondo de la sala. El eje Legitimidad no
+  reparte lados: sirve para el plenario, donde la pregunta es <i>por qué dos mesas que miraron el
+  mismo dato salieron con políticas opuestas</i>.
+</p>
+
+<h2>El reloj del debate — 20 minutos</h2>
+<table>
+  <tr><th class="min">Min</th><th>Qué pasa</th></tr>
+  <tr><td class="min">0–1</td><td>Moción en pantalla. <b>Votación inicial</b> a mano alzada: a favor / en contra / indeciso. Anota los tres números.</td></tr>
+  <tr><td class="min">1–2</td><td>Cada campo reparte sus cinco roles.</td></tr>
+  <tr><td class="min">2–3</td><td><b>La objeción que te espera.</b> Cada campo lee en voz alta la fila de su arquetipo (hoja adjunta). 30 s por lado. La apertura tiene que responderla.</td></tr>
+  <tr><td class="min">3–7</td><td>Apertura: a favor 2 min, en contra 2 min.</td></tr>
+  <tr><td class="min">7–9</td><td><b>Reconstrucción obligatoria.</b> Cada lado dice el argumento del otro en sus propios términos, 1 min. El otro contesta solo «sí, eso dije» o «no».</td></tr>
+  <tr><td class="min">9–13</td><td>Refutación cruzada: 2 min cada lado.</td></tr>
+  <tr><td class="min">13–15</td><td>Cierre: 1 min cada lado. No se introducen argumentos nuevos.</td></tr>
+  <tr><td class="min">15–19</td><td><b>Plenario.</b> Un relator por mesa, elegido al azar, 60 s, y reporta sobre el lado <b>contrario</b> al suyo: la afirmación empírica más fuerte que sí tenía fuente del curso, y la que no la tenía. Después, votación final.</td></tr>
+  <tr><td class="min">19–20</td><td>Qué quedó sin resolver, y puente al juego.</td></tr>
+</table>
+<p style="font-size:.93em">
+  Gana el lado que <b>mueve más votos</b>, no el que tenga más al final.
+</p>
+
+<div class="salto"></div>
+<h2>Tarjetas — lado A FAVOR (dos copias, una por campo)</h2>
+
+<div class="tarjeta">
+  <h3>A FAVOR de la moción</h3>
+  <p class="mocion">«Las cifras de destrucción de empleo por IA son, ante todo, un relato corporativo».</p>
+
+  <div class="rellenar">
+    <b>Campo</b> <span class="linea"></span>
+    &nbsp;·&nbsp; <b>Arquetipo</b> <span class="linea larga"></span>
+    &nbsp;·&nbsp; <b>Mesa</b> <span class="linea"></span>
+  </div>
+
+  <div class="bloque">
+    <span class="rot">Tu munición</span>
+    <b>Extracto 3 · Prideaux.</b> El miedo a la IA es un <i>dread risk</i>: tememos lo que no
+    entendemos, no lo que nos hace daño. Todavía no ha matado a nadie y la ranquean detrás de las
+    armas nucleares. Y el p(doom) de 20% que declaran los ejecutivos es lo bastante grande para
+    evitar la acusación de complacencia y lo bastante chico para que nadie se lo cobre.
+  </div>
+
+  <div class="bloque">
+    <span class="rot">Lo que te van a tirar encima</span>
+    <b>Extracto 2 · Kedrosky.</b> El pesimismo no correlaciona con consumo de medios, educación ni
+    polarización: los atraviesa a todos. Correlaciona con el seguro de cesantía. Si el miedo es
+    racional, «relato corporativo» explica bastante menos de lo que creías.
+  </div>
+
+  <div class="nadie">
+    <b>Tierra de nadie — extracto 1, el caso Block.</b> 40% del personal despedido invocando la IA,
+    la acción arriba 20%, ex empleados diciendo que fue mala gestión. Sirve para los dos lados y esa
+    ambigüedad es el punto. El equipo que lo use bien gana la mesa.
+  </div>
+
+  <div class="bloque" style="margin-top:.9em">
+    <span class="rot">Los cinco roles</span>
+    <ol class="roles">
+      <li><b>Abridor</b> — tesis y dos argumentos. Empieza respondiendo la objeción de tu arquetipo. <span class="linea larga"></span></li>
+      <li><b>Refutador</b> — reconstruye primero, ataca después. <span class="linea larga"></span></li>
+      <li><b>Cerrador</b> — nombra el desacuerdo real. Sin argumentos nuevos. <span class="linea larga"></span></li>
+      <li><b>Relator</b> — anota las afirmaciones empíricas <i>del otro lado</i> y si tenían fuente. <span class="linea larga"></span></li>
+      <li><b>Investigadores</b> — la guía en la mano, pasan datos por escrito. <span class="linea larga"></span></li>
+    </ol>
+  </div>
+</div>
+
+<div class="tarjeta">
+  <h3>A FAVOR de la moción</h3>
+  <p class="mocion">«Las cifras de destrucción de empleo por IA son, ante todo, un relato corporativo».</p>
+
+  <div class="rellenar">
+    <b>Campo</b> <span class="linea"></span>
+    &nbsp;·&nbsp; <b>Arquetipo</b> <span class="linea larga"></span>
+    &nbsp;·&nbsp; <b>Mesa</b> <span class="linea"></span>
+  </div>
+
+  <div class="bloque">
+    <span class="rot">Tu munición</span>
+    <b>Extracto 3 · Prideaux.</b> El miedo a la IA es un <i>dread risk</i>: tememos lo que no
+    entendemos, no lo que nos hace daño. Todavía no ha matado a nadie y la ranquean detrás de las
+    armas nucleares. Y el p(doom) de 20% que declaran los ejecutivos es lo bastante grande para
+    evitar la acusación de complacencia y lo bastante chico para que nadie se lo cobre.
+  </div>
+
+  <div class="bloque">
+    <span class="rot">Lo que te van a tirar encima</span>
+    <b>Extracto 2 · Kedrosky.</b> El pesimismo no correlaciona con consumo de medios, educación ni
+    polarización: los atraviesa a todos. Correlaciona con el seguro de cesantía. Si el miedo es
+    racional, «relato corporativo» explica bastante menos de lo que creías.
+  </div>
+
+  <div class="nadie">
+    <b>Tierra de nadie — extracto 1, el caso Block.</b> 40% del personal despedido invocando la IA,
+    la acción arriba 20%, ex empleados diciendo que fue mala gestión. Sirve para los dos lados y esa
+    ambigüedad es el punto. El equipo que lo use bien gana la mesa.
+  </div>
+
+  <div class="bloque" style="margin-top:.9em">
+    <span class="rot">Los cinco roles</span>
+    <ol class="roles">
+      <li><b>Abridor</b> — tesis y dos argumentos. Empieza respondiendo la objeción de tu arquetipo. <span class="linea larga"></span></li>
+      <li><b>Refutador</b> — reconstruye primero, ataca después. <span class="linea larga"></span></li>
+      <li><b>Cerrador</b> — nombra el desacuerdo real. Sin argumentos nuevos. <span class="linea larga"></span></li>
+      <li><b>Relator</b> — anota las afirmaciones empíricas <i>del otro lado</i> y si tenían fuente. <span class="linea larga"></span></li>
+      <li><b>Investigadores</b> — la guía en la mano, pasan datos por escrito. <span class="linea larga"></span></li>
+    </ol>
+  </div>
+</div>
+
+<div class="salto"></div>
+<h2>Tarjetas — lado EN CONTRA (dos copias, una por campo)</h2>
+
+<div class="tarjeta contra">
+  <h3>EN CONTRA de la moción</h3>
+  <p class="mocion">«Las cifras de destrucción de empleo por IA son, ante todo, un relato corporativo».</p>
+
+  <div class="rellenar">
+    <b>Campo</b> <span class="linea"></span>
+    &nbsp;·&nbsp; <b>Arquetipo</b> <span class="linea larga"></span>
+    &nbsp;·&nbsp; <b>Mesa</b> <span class="linea"></span>
+  </div>
+
+  <div class="bloque">
+    <span class="rot">Tu munición</span>
+    <b>Extracto 2 · Kedrosky</b> — el pesimismo correlaciona con las instituciones del mercado
+    laboral y no con el relato: 24.000 adultos en 30 países, y en EE.UU. perder el empleo es perder
+    también la salud de toda la familia. <b>Extracto 4 · The Economist</b> — US$42.000 millones y
+    3,5 GW cancelados en un trimestre no son un relato: son decisiones de concejo.
+  </div>
+
+  <div class="bloque">
+    <span class="rot">Lo que te van a tirar encima</span>
+    <b>Extracto 3 · Prideaux.</b> La IA todavía no ha matado a nadie, y aun así asusta más que
+    riesgos que sí matan. Si el miedo excede al daño medido, algo del relato hay.
+  </div>
+
+  <div class="nadie">
+    <b>Tierra de nadie — extracto 1, el caso Block.</b> 40% del personal despedido invocando la IA,
+    la acción arriba 20%, ex empleados diciendo que fue mala gestión. Sirve para los dos lados y esa
+    ambigüedad es el punto. El equipo que lo use bien gana la mesa.
+  </div>
+
+  <div class="bloque" style="margin-top:.9em">
+    <span class="rot">Los cinco roles</span>
+    <ol class="roles">
+      <li><b>Abridor</b> — tesis y dos argumentos. Empieza respondiendo la objeción de tu arquetipo. <span class="linea larga"></span></li>
+      <li><b>Refutador</b> — reconstruye primero, ataca después. <span class="linea larga"></span></li>
+      <li><b>Cerrador</b> — nombra el desacuerdo real. Sin argumentos nuevos. <span class="linea larga"></span></li>
+      <li><b>Relator</b> — anota las afirmaciones empíricas <i>del otro lado</i> y si tenían fuente. <span class="linea larga"></span></li>
+      <li><b>Investigadores</b> — la guía en la mano, pasan datos por escrito. <span class="linea larga"></span></li>
+    </ol>
+  </div>
+</div>
+
+<div class="tarjeta contra">
+  <h3>EN CONTRA de la moción</h3>
+  <p class="mocion">«Las cifras de destrucción de empleo por IA son, ante todo, un relato corporativo».</p>
+
+  <div class="rellenar">
+    <b>Campo</b> <span class="linea"></span>
+    &nbsp;·&nbsp; <b>Arquetipo</b> <span class="linea larga"></span>
+    &nbsp;·&nbsp; <b>Mesa</b> <span class="linea"></span>
+  </div>
+
+  <div class="bloque">
+    <span class="rot">Tu munición</span>
+    <b>Extracto 2 · Kedrosky</b> — el pesimismo correlaciona con las instituciones del mercado
+    laboral y no con el relato: 24.000 adultos en 30 países, y en EE.UU. perder el empleo es perder
+    también la salud de toda la familia. <b>Extracto 4 · The Economist</b> — US$42.000 millones y
+    3,5 GW cancelados en un trimestre no son un relato: son decisiones de concejo.
+  </div>
+
+  <div class="bloque">
+    <span class="rot">Lo que te van a tirar encima</span>
+    <b>Extracto 3 · Prideaux.</b> La IA todavía no ha matado a nadie, y aun así asusta más que
+    riesgos que sí matan. Si el miedo excede al daño medido, algo del relato hay.
+  </div>
+
+  <div class="nadie">
+    <b>Tierra de nadie — extracto 1, el caso Block.</b> 40% del personal despedido invocando la IA,
+    la acción arriba 20%, ex empleados diciendo que fue mala gestión. Sirve para los dos lados y esa
+    ambigüedad es el punto. El equipo que lo use bien gana la mesa.
+  </div>
+
+  <div class="bloque" style="margin-top:.9em">
+    <span class="rot">Los cinco roles</span>
+    <ol class="roles">
+      <li><b>Abridor</b> — tesis y dos argumentos. Empieza respondiendo la objeción de tu arquetipo. <span class="linea larga"></span></li>
+      <li><b>Refutador</b> — reconstruye primero, ataca después. <span class="linea larga"></span></li>
+      <li><b>Cerrador</b> — nombra el desacuerdo real. Sin argumentos nuevos. <span class="linea larga"></span></li>
+      <li><b>Relator</b> — anota las afirmaciones empíricas <i>del otro lado</i> y si tenían fuente. <span class="linea larga"></span></li>
+      <li><b>Investigadores</b> — la guía en la mano, pasan datos por escrito. <span class="linea larga"></span></li>
+    </ol>
+  </div>
+</div>
+
+<div class="salto"></div>
+<h2>La objeción que te espera</h2>
+<p style="font-size:.93em">
+  Busca tu arquetipo y lee en voz alta la tercera columna antes de que abra tu lado. No es un
+  castigo: es por dónde te van a atacar, y tu apertura tiene que haberla respondido.
+</p>
+<table class="fichas">
+  <tr><th style="width:16%">Arquetipo</th><th style="width:34%">Lo que estás diciendo</th><th>La objeción</th></tr>
+  <tr>
+    <td>El Gestor del Pánico</td>
+    <td>El malestar está mal calibrado y además es caro. Lo que hay que administrar es el pánico.</td>
+    <td>El editorial que te respalda concede que los opositores no están del todo equivocados y pide repartir beneficios y regular fuerte. Tu versión se queda con la mitad del texto — y termina con el vecino de Ohio diciendo que simplemente no lo quiere.</td>
+  </tr>
+  <tr>
+    <td>El Persuasor</td>
+    <td>Se equivocan, pero hay que convencerlos, no pasarles por encima.</td>
+    <td>Persuadir supone que el desacuerdo es sobre hechos. Pew encontró que quien solo ha oído hablar de un centro de datos se opone igual que quien vive a cinco millas. Si el dato correcto no mueve a nadie, tu método se queda sin con qué seguir.</td>
+  </tr>
+  <tr>
+    <td>El Demócrata a Regañadientes</td>
+    <td>Creo que se equivocan, y aun así les toca decidir.</td>
+    <td>Si la mayoría puede vetar por razones que tú mismo consideras falsas, tienes que decir qué <b>no</b> puede vetar y con qué criterio. Sin ese límite es un cheque en blanco; con él, dejaste de ser procedimentalista.</td>
+  </tr>
+  <tr>
+    <td>El Que Mide</td>
+    <td>Todavía no sabemos si es la IA o la corrección pospandemia. Primero estadísticas, después política.</td>
+    <td>Esperar también es una decisión, y se toma a favor de quien ya está construyendo. Nombra qué medición concreta, en qué plazo, cambiaría tu posición — o «midamos» es una manera elegante de no tener ninguna.</td>
+  </tr>
+  <tr>
+    <td>El Jurado</td>
+    <td>La evidencia empuja en las dos direcciones y todavía no encuentro razón para quedarme con una.</td>
+    <td>El jurado falla. Los dos lados piden políticas incompatibles —arreglar el seguro de cesantía, o transparencia y mejor comunicación— y no se financian los dos como prioridad. Al final de la clase te van a pedir un lado.</td>
+  </tr>
+  <tr>
+    <td>El Procedimental</td>
+    <td>No sé quién tiene razón, y por eso decide el que pone el cuerpo.</td>
+    <td>Pew encontró que quien solo ha oído hablar de un centro de datos se opone tanto como quien vive a menos de cinco millas. Si el que decide no es el que pone el cuerpo sino cualquiera con una opinión, tu criterio se queda sin sujeto.</td>
+  </tr>
+  <tr>
+    <td>El Reparador</td>
+    <td>Tienen razón, y por eso hay que arreglar el piso, no frenar la máquina.</td>
+    <td>Blue Rose midió que el público pide 54% crear empleos y solo 17% transferir dinero. Si el malestar es demanda de reconocimiento y no de ingreso, tu política es la más eficiente y aun así no desactiva nada.</td>
+  </tr>
+  <tr>
+    <td>El Negociador</td>
+    <td>Tienen razón, y el proyecto se hace solo si a ellos les conviene. No es veto: es precio.</td>
+    <td>Al vecino de Ohio le ofrecieron respuestas a todo y contestó que simplemente no lo quiere. Si lo que se rechaza es la tecnología y no el reparto, no hay precio que cierre el trato.</td>
+  </tr>
+  <tr>
+    <td>El Que No Lo Quiere</td>
+    <td>Tienen razón y por eso el proyecto no se construye.</td>
+    <td>El editorial sostiene que los países que frenan no se recuperan. Y el proyecto de Piketon se instaló en terreno federal justamente para saltarse parte del permiso local: tu freno se puede rodear, y hay que decir qué sigue cuando lo rodean.</td>
+  </tr>
+</table>
+
+<p class="pie">
+  Los cuatro extractos están en la <a href="lecturas/semana3/guia-semana3.html">guía de lectura de la Semana 3</a>.
+  El método general del debate está en <a href="debates.html">Metodología de debate</a>.
+  Los arquetipos salen del compás de clase <code>ayd_s3_backlash_v1</code>.
+</p>
+
+</body>
+</html>
