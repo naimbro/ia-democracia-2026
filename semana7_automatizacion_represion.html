@@ -112,6 +112,11 @@ a:hover{color:var(--forest); border-bottom-color:var(--forest);}
 .bigquote p.sm2{font-size:27px;}
 .bigquote p + p{margin-top:22px;}
 .bigquote cite{display:block; font-family:'IBM Plex Mono',monospace; font-size:13px; font-style:normal; color:var(--ink-soft); letter-spacing:.06em; margin-top:14px;}
+.qrow{display:flex; gap:28px; align-items:center;}
+.qrow + .qrow{margin-top:34px;}
+.qrow .qph{width:170px; height:170px; flex-shrink:0; border:1px solid var(--line); background:var(--ink); overflow:hidden;}
+.qrow .qph img{width:100%; height:100%; object-fit:cover; object-position:50% 15%; display:block; filter:sepia(18%) saturate(.85) contrast(1.04) brightness(.99);}
+.qrow .qtx{flex:1; min-width:0;}
 
 /* Cifra gigante */
 .bignum{display:flex; align-items:center; gap:54px; flex:1; min-height:0; margin-top:10px;}
@@ -224,6 +229,7 @@ table.matrix td.hit{background:#F2E6E2;}
   .fig-n{font-size:82px;} .fig-n.sm{font-size:62px;}
   .pt{font-size:17px;} .textcols .pt,.textcols.c3 .pt{font-size:16px;}
   .bigquote p{font-size:21px;} .bigquote p.sm2{font-size:18px;} .bigquote{padding-left:20px;}
+  .qrow{gap:18px;} .qrow .qph{width:88px; height:88px;} .qrow + .qrow{margin-top:24px;}
   table.matrix{font-size:12.5px;} table.matrix td{padding:8px;}
   .folio{left:20px; right:20px;}
 }
@@ -268,10 +274,20 @@ table.matrix td.hit{background:#F2E6E2;}
     <div class="eyebrow"><span class="bar"></span>Para abrir · La frase que el paper convierte en teorema</div>
     <h2 class="sm">«Impuestos u horcas»</h2>
     <div class="bigquote">
-      <p class="sm2">«¿Qué veo yo en nuestro futuro? Veo <em>horcas</em>… O un levantamiento.»</p>
-      <cite>Nick Hanauer, capitalista de riesgo, 2014</cite>
-      <p class="sm2" style="margin-top:26px;">«…y así van a ver un mundo donde, lamentablemente, va a haber mucho control, mucha vigilancia, mucho cumplimiento forzado.»</p>
-      <cite>Mo Gawdat, ex director de negocios de X, 2025</cite>
+      <div class="qrow">
+        <div class="qph"><img src="img/semana7/hanauer.webp" alt="Retrato de Nick Hanauer, capitalista de riesgo estadounidense"></div>
+        <div class="qtx">
+          <p class="sm2">«¿Qué veo yo en nuestro futuro? Veo <em>horcas</em>… O un levantamiento.»</p>
+          <cite>Nick Hanauer, capitalista de riesgo, 2014</cite>
+        </div>
+      </div>
+      <div class="qrow">
+        <div class="qph"><img src="img/semana7/gawdat.webp" alt="Retrato de Mo Gawdat, ex director de negocios de X (Google X)"></div>
+        <div class="qtx">
+          <p class="sm2">«…y así van a ver un mundo donde, lamentablemente, va a haber mucho control, mucha vigilancia, mucho cumplimiento forzado.»</p>
+          <cite>Mo Gawdat, ex director de negocios de X, 2025</cite>
+        </div>
+      </div>
     </div>
     <p class="src-line">En 2025, cien millonarios firmaron una carta abierta a Davos titulada, literalmente, <strong>«son impuestos u horcas»</strong>. Los tres autores toman en serio ese dilema y hacen algo que nadie había hecho: lo escriben como modelo económico y lo resuelven. <strong>La respuesta que sale no es ninguna de las dos.</strong></p>
   </div>
