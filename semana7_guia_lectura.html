@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Guía de lectura concentrada, Semana 7 de Inteligencia Artificial y Democracia 2026: ¿quién debe gobernar la IA? El mapa de posiciones del New York Times y el reportaje de La Tercera sobre la ley chilena de IA.">
+    <!-- Material docente: reproduce un reportaje de La Tercera bajo la suscripción institucional
+         UAI. Se mantiene fuera de los buscadores para no competir con la fuente original. -->
+    <meta name="robots" content="noindex, noarchive">
+    <title>Guía de lectura concentrada — IA y Democracia, Semana 7 (2026)</title>
+    <style>
+        :root {
+            --navy: #0a3d62;
+            --ink: #333333;
+            --muted: #555555;
+            --line: #dddddd;
+            --info: #eaf2f8;
+            --sand: #f7f7f2;
+            --sand-edge: #b3a37a;
+            --rust: #6b3a17;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            max-width: 860px;
+            margin: 2em auto;
+            padding: 1em;
+            color: var(--ink);
+            background: #fdfdfd;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+
+        h1, h2 {
+            color: var(--navy);
+            line-height: 1.2;
+            border-bottom: 2px solid var(--line);
+            padding-bottom: 0.2em;
+        }
+
+        h1 { margin: 0 0 0.25em; font-size: 2rem; }
+        h2 { margin: 2.4em 0 0.3em; font-size: 1.4rem; }
+
+        h3 {
+            margin: 1.8em 0 0.2em;
+            color: var(--navy);
+            font-size: 1rem;
+            letter-spacing: 0.02em;
+        }
+
+        /* Group headings inside the map: small caps ribbons, as in the original sheet */
+        h3.tag {
+            display: inline-block;
+            margin: 1.4em 0 0.5em;
+            padding: 0.15em 0.7em;
+            border-radius: 2px;
+            color: #ffffff;
+            background: var(--navy);
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        h3.tag.giro { background: #7a6a2f; }
+        h3.tag.medio { background: #4a6b8a; }
+        h3.tag.rapido, h3.tag.noreg { background: var(--rust); }
+
+        .attrib {
+            margin: 0 0 1.2em;
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .eyebrow {
+            margin: 0 0 0.35em;
+            color: var(--muted);
+            font-size: 0.82rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            margin: 0 0 1.4em;
+            color: var(--muted);
+            font-size: 1rem;
+            font-style: italic;
+        }
+
+        .frame {
+            margin: 0 0 2em;
+            padding: 1em 1.2em;
+            border-left: 5px solid var(--navy);
+            background: var(--info);
+        }
+
+        .frame p { margin: 0.5em 0; }
+        .frame p:first-child { margin-top: 0; }
+        .frame p:last-child { margin-bottom: 0; }
+
+        .rules { margin: 0.5em 0 0; padding-left: 1.2em; }
+        .rules li { margin-bottom: 0.3em; }
+
+        .text {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 1.04rem;
+            line-height: 1.7;
+        }
+
+        .text p { margin: 0.85em 0; }
+
+        .observe {
+            margin: 1.3em 0;
+            padding: 0.6em 1em;
+            border-left: 4px solid var(--sand-edge);
+            background: var(--sand);
+            font-size: 0.95rem;
+        }
+
+        .observe strong { color: var(--navy); }
+
+        .clock {
+            float: right;
+            margin: 0.4em 0 0 1em;
+            padding: 0.12em 0.6em;
+            border-radius: 999px;
+            color: var(--rust);
+            background: #fff3b0;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .data {
+            margin: 1.4em 0;
+            padding: 0.7em 1em;
+            border: 1px solid #d6dee6;
+            background: #ffffff;
+            font-size: 0.89rem;
+        }
+
+        .data p { margin: 0.3em 0; }
+
+        .gloss {
+            margin: 0 0 2em;
+            padding: 0.7em 1em;
+            border: 1px solid #d6dee6;
+            background: #ffffff;
+            font-size: 0.88rem;
+        }
+
+        .gloss dl {
+            display: grid;
+            grid-template-columns: max-content minmax(0, 1fr);
+            gap: 0.15em 0.9em;
+            margin: 0.45em 0 0;
+        }
+
+        .gloss dt { color: var(--navy); font-weight: 700; }
+        .gloss dd { margin: 0; }
+        .gloss > p { margin: 0; font-weight: 700; color: var(--navy); }
+
+        /* The 18 cards of the NYT map */
+        .fichas {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6em 1.2em;
+            margin: 0 0 0.4em;
+        }
+
+        .ficha {
+            padding: 0.1em 0 0.2em 0.7em;
+            border-left: 3px solid #c8d6e2;
+            font-size: 0.9rem;
+            line-height: 1.45;
+        }
+
+        .ficha .nom { color: var(--navy); font-weight: 700; font-size: 0.95rem; }
+        .ficha .cargo { color: var(--muted); font-size: 0.78rem; }
+        .ficha p { margin: 0.25em 0 0; }
+
+        .marca {
+            margin-top: 0.3em;
+            color: var(--rust);
+            font-size: 0.76rem;
+            letter-spacing: 0.02em;
+        }
+
+        .marca span {
+            display: inline-block;
+            width: 0.9em;
+            height: 0.9em;
+            margin: 0 0.15em 0 0.4em;
+            border: 1px solid var(--sand-edge);
+            vertical-align: -0.15em;
+        }
+
+        /* The reprinted La Tercera article */
+        .reportaje {
+            margin: 1.2em 0 0;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 1rem;
+            line-height: 1.62;
+        }
+
+        .reportaje p { margin: 0.7em 0; text-align: justify; }
+
+        .reportaje .bajada {
+            margin: 0 0 0.6em;
+            font-weight: 700;
+            font-size: 1.06rem;
+            line-height: 1.45;
+            text-align: left;
+        }
+
+        .reportaje .firma {
+            margin: 0 0 1.1em;
+            padding-bottom: 0.5em;
+            border-bottom: 1px solid var(--line);
+            color: var(--muted);
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 0.82rem;
+            text-align: left;
+        }
+
+        .reportaje h4 {
+            margin: 1.2em 0 0.3em;
+            color: var(--navy);
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 0.95rem;
+            break-after: avoid;
+        }
+
+        .reportaje .titular {
+            margin: 0 0 0.35em;
+            color: var(--navy);
+            font-size: 1.4rem;
+            font-weight: 700;
+            line-height: 1.22;
+            text-align: left;
+        }
+
+        /* The who's-who table for the Chilean article */
+        table.quien {
+            width: 100%;
+            margin: 0.8em 0 1em;
+            border-collapse: collapse;
+            font-size: 0.86rem;
+        }
+
+        table.quien th {
+            padding: 0.35em 0.5em;
+            border: 1px solid #c8d6e2;
+            background: var(--info);
+            color: var(--navy);
+            font-size: 0.78rem;
+            text-align: left;
+        }
+
+        table.quien td {
+            padding: 0.4em 0.5em;
+            border: 1px solid #cccccc;
+            vertical-align: top;
+        }
+
+        table.quien td.nom { white-space: nowrap; font-weight: 700; color: var(--navy); }
+        table.quien td.partido { white-space: nowrap; color: var(--muted); font-size: 0.8rem; }
+        table.quien td.pide { min-width: 14em; height: 2.6em; }
+        table.quien td.mk { white-space: nowrap; }
+
+        /* The two-by-two at the end */
+        table.cruce {
+            width: 100%;
+            margin: 0.6em 0 0.8em;
+            border-collapse: collapse;
+            font-size: 0.86rem;
+        }
+
+        table.cruce th {
+            padding: 0.35em 0.5em;
+            border: 1px solid #c8d6e2;
+            background: var(--info);
+            color: var(--navy);
+            font-size: 0.78rem;
+            text-align: left;
+        }
+
+        table.cruce td {
+            height: 6.5em;
+            padding: 0.4em 0.5em;
+            border: 1px solid #bbbbbb;
+            vertical-align: top;
+        }
+
+        table.cruce td.lbl {
+            width: 17%;
+            height: auto;
+            background: #fbfbf8;
+            color: #444444;
+            font-size: 0.78rem;
+        }
+
+        .anota { margin: 0.4em 0 0; font-size: 0.92rem; }
+        .anota .lapiz {
+            color: var(--rust);
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .lineas { height: 1.2em; margin-top: 0.5em; border-bottom: 1px solid #cccccc; }
+
+        footer {
+            margin-top: 3em;
+            padding-top: 1em;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 0.84rem;
+        }
+
+        @media (max-width: 700px) {
+            body { margin: 0; padding: 1em; }
+            h1 { font-size: 1.65rem; }
+            .clock { float: none; display: inline-block; margin: 0 0 0.4em; }
+            .gloss dl { grid-template-columns: minmax(0, 1fr); gap: 0 0; }
+            .gloss dd { margin-bottom: 0.4em; }
+            .fichas { grid-template-columns: 1fr; }
+        }
+
+        @media print {
+            @page { size: A4; margin: 0; }
+            body { max-width: none; margin: 0; padding: 12mm 13mm 9mm; font-size: 10pt; line-height: 1.42; background: #ffffff; }
+
+            h1 { font-size: 17pt; margin-bottom: 0.12em; }
+            h2 { font-size: 12pt; margin: 0.95em 0 0.15em; break-after: avoid; }
+            h3 { font-size: 9.8pt; margin: 0.8em 0 0.1em; break-after: avoid; }
+            h3.tag { font-size: 7.4pt; margin: 0.7em 0 0.3em; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .eyebrow { font-size: 7.8pt; margin-bottom: 0.25em; }
+            .subtitle { font-size: 9.4pt; margin-bottom: 0.8em; }
+            .attrib { font-size: 8.8pt; margin-bottom: 0.55em; break-after: avoid; }
+
+            .frame { margin-bottom: 0.8em; padding: 0.6em 0.9em; }
+            .frame p { margin: 0.3em 0; }
+            .rules li { margin-bottom: 0.08em; }
+
+            .gloss { margin-bottom: 1em; padding: 0.45em 0.85em; font-size: 8.8pt; }
+            .gloss dl { gap: 0.05em 0.7em; }
+
+            .text { font-size: 10.3pt; line-height: 1.48; }
+            .text p { margin: 0.5em 0; orphans: 3; widows: 3; }
+
+            .fichas { gap: 0.3em 0.85em; }
+            .ficha { font-size: 8.6pt; line-height: 1.3; break-inside: avoid; }
+            .ficha .nom { font-size: 9pt; }
+            .ficha .cargo { font-size: 7.3pt; }
+            .marca { font-size: 7.1pt; margin-top: 0.22em; }
+
+            .reportaje { columns: 2; column-gap: 7mm; font-size: 8.8pt; line-height: 1.34; margin-top: 0; break-before: page; }
+            .reportaje p { margin: 0.42em 0; orphans: 2; widows: 2; }
+            .reportaje .titular, .reportaje .bajada, .reportaje .firma { column-span: all; text-align: left; }
+            .reportaje .titular { font-size: 14pt; margin-bottom: 0.2em; break-after: avoid; }
+            .reportaje .bajada { font-size: 9.6pt; line-height: 1.34; margin-bottom: 0.4em; break-after: avoid; }
+            .reportaje .firma { font-size: 7.6pt; margin-bottom: 0.7em; padding-bottom: 0.35em; break-after: avoid; }
+            .reportaje h4 { font-size: 8.8pt; margin: 0.8em 0 0.2em; }
+
+            table.quien { font-size: 8.5pt; margin: 0.6em 0 0.7em; }
+            table.quien td { padding: 0.3em 0.45em; }
+            table.quien td.pide { height: 2.2em; }
+            table.cruce { font-size: 8.3pt; margin: 0.5em 0 0.6em; }
+            table.cruce td { height: 6.4em; }
+            .anota { font-size: 8.9pt; }
+            .lineas { height: 1em; margin-top: 0.35em; }
+
+            .observe { margin: 0.7em 0; padding: 0.42em 0.8em; font-size: 9.1pt; }
+            .data { margin: 0.7em 0; padding: 0.42em 0.8em; font-size: 8.8pt; }
+            .frame, .observe, .data, .gloss, table.quien, table.cruce, .grupo { break-inside: avoid; }
+            .grupo.largo { break-inside: auto; }
+
+            .clock { background: #f0f0f0; color: #333333; border: 1px solid #cccccc; font-size: 8pt; }
+
+            footer { margin-top: 1.4em; padding-top: 0.5em; font-size: 7.8pt; line-height: 1.35; }
+            footer p { margin: 0.25em 0; }
+        }
+    </style>
+</head>
+<body>
+
+<p class="eyebrow">CSC00155 · Inteligencia Artificial y Democracia · Minor en IA · UAI</p>
+<h1>Guía de lectura concentrada</h1>
+<p class="subtitle">Semana 7 — ¿Quién debe gobernar la IA? · Jueves 24 de septiembre de 2026</p>
+
+<div class="frame">
+    <p>Dos documentos, veinticinco minutos, en silencio, los dos en este cuadernillo. Primero un mapa: trece personas que están construyendo y gobernando la IA en Estados Unidos, una ficha por persona, diez minutos con lápiz. Después el reportaje de <i>La Tercera</i>, completo: qué quiere hacer cada sector del Congreso con la ley chilena de inteligencia artificial que se está reescribiendo ahora, quince minutos. El mapa te da dos preguntas; el reportaje se lee con esas dos preguntas en la mano. Y en el juego de la segunda mitad de la clase te va a tocar defender una posición usando exactamente este material: los jueces premian a quien nombra a una persona real y dice qué le pide al Estado.</p>
+    <ul class="rules">
+        <li><strong>Celulares y notebooks guardados.</strong> Solo este cuadernillo y un lápiz.</li>
+        <li><strong>Dos letras por persona.</strong> En cada ficha del mapa, y en cada nombre del reportaje, marca a qué velocidad quiere ir esa persona y quién cree que debe poner la regla.</li>
+        <li><strong>El mapa se lee entero; el reportaje se recorre.</strong> Quince minutos no alcanzan para leerlo de corrido, y no es necesario. En la sección 2 está la instrucción de cómo recorrerlo.</li>
+        <li><strong>Sin IA en este bloque</strong>, como siempre. Hoy la razón es práctica: en el juego vas a tener que citar de memoria lo que leíste, y una síntesis generada no se recuerda.</li>
+    </ul>
+</div>
+
+<div class="gloss">
+    <p>Seis palabras que los textos usan sin explicar</p>
+    <dl>
+        <dt>Enfoque de riesgos</dt>
+        <dd>la forma europea de regular la IA: no se regula la tecnología en general sino cada uso según el daño que puede causar. Algunos usos se prohíben, los de alto riesgo cargan obligaciones (registro, evaluación, supervisión humana) y el resto queda casi libre. El proyecto chileno de 2024 copia ese diseño.</dd>
+        <dt>Indicaciones sustitutivas</dt>
+        <dd>el mecanismo por el que el gobierno reemplaza artículos de un proyecto de ley que ya está en trámite, sin retirarlo. Es lo que el reportaje llama «giro de 180 grados»: el proyecto sigue siendo el mismo por fuera y cambia por dentro.</dd>
+        <dt>IA de frontera</dt>
+        <dd>los modelos más capaces del momento, que construyen un puñado de laboratorios (OpenAI, Anthropic, Google DeepMind, Meta, xAI). Casi todo el mapa del NYT discute quién controla el ritmo al que esos modelos se lanzan.</dd>
+        <dt>Guardarraíles</dt>
+        <dd>traducción de <i>guardrails</i>: reglas mínimas que impiden los peores resultados sin frenar el desarrollo. Quien habla de guardarraíles casi siempre está diciendo «regular sí, frenar no».</dd>
+        <dt>Uberización</dt>
+        <dd>la conversión del empleo estable en trabajo por encargo a través de plataformas: sin contrato, sin cotizaciones, sin horario. En el reportaje aparece como el motivo por el que la automatización amenaza el financiamiento de la previsión.</dd>
+        <dt>Tecnolibertarismo</dt>
+        <dd>la posición de quienes sostienen que la innovación tecnológica debe avanzar con el mínimo de intervención estatal, porque el mercado y los propios constructores corrigen mejor que cualquier ley. Peter Thiel es su nombre propio en el reportaje; su contraparte es la encíclica del Papa.</dd>
+    </dl>
+</div>
+
+<h2>1 · El mapa: trece personas, dos preguntas <span class="clock">10 min</span></h2>
+<p class="attrib">Resumen y traducción propios de Emmy Martin y Rebecca Lieberman, «How A.I. Risks Are Splitting Silicon Valley and Washington», <i>The New York Times</i>, 15 de septiembre de 2026 (pieza interactiva). El diario retrata a dieciocho personas y ordena a los ejecutivos en cuatro grupos según la velocidad (frenar, cambiaron de posición, en el medio, acelerar) y a los políticos en dos según si regulan o no. Acá van trece, las que ocupan posiciones distintas entre sí; el original está enlazado en el programa.</p>
+
+<div class="observe">
+    <strong>Fíjate en que son dos preguntas distintas.</strong> Una es a qué velocidad debe avanzar la IA. La otra es quién pone la regla. Hay quien quiere frenar sin que lo regulen, y quien quiere regular sin frenar. En cada ficha marca las dos casillas: <strong>F</strong> si esa persona quiere ir más lento o <strong>A</strong> si quiere ir más rápido; <strong>I</strong> si cree que la regla la debe poner la industria o <strong>E</strong> si cree que la debe poner el Estado. Al final de la guía hay un cruce donde vas a ubicar a las trece, y después a los chilenos.
+</div>
+
+<div class="grupo">
+<h3>Ejecutivos</h3>
+<h3 class="tag">Frenar</h3>
+<div class="fichas">
+  <div class="ficha">
+    <div class="nom">Dario Amodei</div><div class="cargo">Cofundador y director ejecutivo de Anthropic</div>
+    <p>Dejó OpenAI en 2021 para fundar un laboratorio que presenta como «primero la seguridad». Lleva años advirtiendo de resultados catastróficos, entre ellos armas biológicas, y pidiendo regulación estatal. Este mes publicó un ensayo de 3.800 palabras que pide desacelerar el desarrollo de la IA a nivel global.</p>
+    <div class="marca">Velocidad <span></span>F <span></span>A &nbsp;·&nbsp; Regla <span></span>I <span></span>E</div>
+  </div>
+</div>
+
+</div>
+
+<div class="grupo">
+<h3 class="tag giro">Cambiaron de posición</h3>
+<div class="fichas">
+  <div class="ficha">
+    <div class="nom">Sam Altman</div><div class="cargo">Cofundador y director ejecutivo de OpenAI</div>
+    <p>En 2023 firmó la declaración sobre riesgo de extinción y le dijo al Senado que apoyaba regular los modelos más potentes. A mediados de 2025 se ablandó: los avances serían graduales y manejables. Este mes, después de que los sistemas de OpenAI se salieran de control y atacaran a la empresa Hugging Face, dijo que puede ser hora de ir más lento, y que coincide con Amodei.</p>
+    <div class="marca">Velocidad <span></span>F <span></span>A &nbsp;·&nbsp; Regla <span></span>I <span></span>E</div>
+  </div>
+  <div class="ficha">
+    <div class="nom">Elon Musk</div><div class="cargo">Director ejecutivo de SpaceX y Tesla; fundador de xAI</div>
+    <p>Hace años pone las probabilidades de que la IA «salga mal» en 10 a 20 por ciento y la considera más peligrosa que las armas nucleares; pide regulación anticipada. A la vez fundó xAI, financió la elección de Trump y dirigió el recorte del Estado federal. El sábado escribió que «Dario tiene razón» sobre la necesidad de frenar.</p>
+    <div class="marca">Velocidad <span></span>F <span></span>A &nbsp;·&nbsp; Regla <span></span>I <span></span>E</div>
+  </div>
+</div>
+
+</div>
+
+<div class="grupo largo">
+<h3 class="tag medio">En el medio</h3>
+<div class="fichas">
+  <div class="ficha">
+    <div class="nom">Satya Nadella</div><div class="cargo">Presidente y director ejecutivo de Microsoft</div>
+    <p>Socio principal de OpenAI y constructor de las herramientas propias de Microsoft. El fin de semana respaldó un «ritmo deliberado» del desarrollo, con supervisión humana de los sistemas avanzados: la superinteligencia no vale la pena si no queda bajo control humano. Al mismo tiempo empuja la adopción masiva en toda la industria.</p>
+    <div class="marca">Velocidad <span></span>F <span></span>A &nbsp;·&nbsp; Regla <span></span>I <span></span>E</div>
+  </div>
+  <div class="ficha">
+    <div class="nom">Sundar Pichai</div><div class="cargo">Director ejecutivo de Alphabet y Google</div>
+    <p>Repite desde hace años que la IA es «demasiado importante para no regularla bien». Pero prefiere reglas hechas a la medida de cada uso antes que restricciones pesadas, y sostiene que el peligro mayor es no capturar los beneficios. Google como constructor que quiere guardarraíles sin desaceleración.</p>
+    <div class="marca">Velocidad <span></span>F <span></span>A &nbsp;·&nbsp; Regla <span></span>I <span></span>E</div>
+  </div>
+  <div class="ficha">
+    <div class="nom">Mark Zuckerberg</div><div class="cargo">Presidente y director ejecutivo de Meta</div>
+    <p>Para él, el peligro real es la IA concentrada en pocas empresas, y la salvaguarda es el acceso amplio. Advierte que frenar los lanzamientos en Estados Unidos le entrega la delantera a China. Reconoce preocupaciones de seguridad, y ha insinuado que Meta podría no liberar abiertamente sus modelos más potentes.</p>
+    <div class="marca">Velocidad <span></span>F <span></span>A &nbsp;·&nbsp; Regla <span></span>I <span></span>E</div>
+  </div>
+</div>
+
+</div>
+
+<div class="grupo">
+<h3 class="tag rapido">Acelerar</h3>
+<div class="fichas">
+  <div class="ficha">
+    <div class="nom">Jensen Huang</div><div class="cargo">Cofundador y director ejecutivo de Nvidia</div>
+    <p>Dirige la empresa cuyos chips mueven casi toda la industria. Sostiene que ninguna empresa debería estar pidiéndole al gobierno más regulación de la IA. Ha discutido en público con Amodei por sus predicciones de pérdida de empleos y por los controles a la exportación de chips.</p>
+    <div class="marca">Velocidad <span></span>F <span></span>A &nbsp;·&nbsp; Regla <span></span>I <span></span>E</div>
+  </div>
+  <div class="ficha">
+    <div class="nom">David Sacks</div><div class="cargo">Asesor tecnológico de Trump; ex zar de IA y cripto de la Casa Blanca</div>
+    <p>Inversionista de riesgo. Bautizó a quienes piden más seguridad como el «complejo industrial del apocalipsis». Se opone a las leyes estatales de IA y prefiere un enfoque federal liviano. Criticó el llamado de Amodei a «marcar el ritmo»: los laboratorios fijan la frontera tecnológica ellos mismos.</p>
+    <div class="marca">Velocidad <span></span>F <span></span>A &nbsp;·&nbsp; Regla <span></span>I <span></span>E</div>
+  </div>
+  <div class="ficha">
+    <div class="nom">Marc Andreessen y Ben Horowitz</div><div class="cargo">Cofundadores de Andreessen Horowitz</div>
+    <p>Andreessen es una de las voces más filosas a favor de acelerar. Su «Manifiesto tecno-optimista» de 2023 pone el «riesgo existencial» en la lista de enemigos del progreso, y compara la regulación de la IA con la Ley Seca. Horowitz lidera con él las presiones políticas del fondo, en la misma línea.</p>
+    <div class="marca">Velocidad <span></span>F <span></span>A &nbsp;·&nbsp; Regla <span></span>I <span></span>E</div>
+  </div>
+</div>
+
+</div>
+
+<div class="grupo largo">
+<h3>Políticos</h3>
+<h3 class="tag">Regular</h3>
+<div class="fichas">
+  <div class="ficha">
+    <div class="nom">Bernie Sanders</div><div class="cargo">Senador independiente por Vermont</div>
+    <p>El crítico más ruidoso del Capitolio: la IA como herramienta de «oligarcas» contra la gente que trabaja. Propone una moratoria a nuevos centros de datos, un impuesto de 50 por ciento por una sola vez a las grandes empresas de IA para un fondo público, la prohibición permanente de la superinteligencia y una pausa del desarrollo avanzado hasta que exista un regulador federal.</p>
+    <div class="marca">Velocidad <span></span>F <span></span>A &nbsp;·&nbsp; Regla <span></span>I <span></span>E</div>
+  </div>
+  <div class="ficha">
+    <div class="nom">Josh Hawley</div><div class="cargo">Senador republicano por Missouri</div>
+    <p>El escéptico republicano más visible del Senado. Copatrocina desde 2025, junto al demócrata Dick Durbin, un proyecto que clasifica a los sistemas de IA como productos, lo que permite demandas por responsabilidad cuando causan daño. La semana pasada le exigió a Altman por escrito detalles sobre el ataque a Hugging Face, como parte de una indagatoria formal.</p>
+    <div class="marca">Velocidad <span></span>F <span></span>A &nbsp;·&nbsp; Regla <span></span>I <span></span>E</div>
+  </div>
+  <div class="ficha">
+    <div class="nom">John Thune</div><div class="cargo">Líder de la mayoría republicana en el Senado</div>
+    <p>Dijo el lunes que prefiere un «toque liviano»: guardarraíles solo para las amenazas de mayor consecuencia, sin frenar la innovación ni ceder terreno en la carrera. Está armando un proyecto bipartidista con algunas salvaguardas de seguridad para los modelos más riesgosos.</p>
+    <div class="marca">Velocidad <span></span>F <span></span>A &nbsp;·&nbsp; Regla <span></span>I <span></span>E</div>
+  </div>
+</div>
+
+</div>
+
+<div class="grupo">
+<h3 class="tag noreg">No regular</h3>
+<div class="fichas">
+  <div class="ficha">
+    <div class="nom">Donald Trump</div><div class="cargo">Presidente de Estados Unidos</div>
+    <p>Hizo de la dominancia en IA una prioridad, como una carrera que hay que ganarle a China: construir rápido, incluida la electricidad para los centros de datos, y apoyar los modelos abiertos. El lunes rechazó el llamado de los ejecutivos a limitar la tecnología; en una llamada con Huang dio a entender que no va a intervenir.</p>
+    <div class="marca">Velocidad <span></span>F <span></span>A &nbsp;·&nbsp; Regla <span></span>I <span></span>E</div>
+  </div>
+  <div class="ficha">
+    <div class="nom">Mike Johnson</div><div class="cargo">Presidente de la Cámara de Representantes</div>
+    <p>Reconoce que los riesgos van en aumento, pero se resiste a moverse rápido: la Cámara no debería aprobar a la carrera regulaciones que le den ventaja a China. Descartó los temores de que la IA acabe con la humanidad.</p>
+    <div class="marca">Velocidad <span></span>F <span></span>A &nbsp;·&nbsp; Regla <span></span>I <span></span>E</div>
+  </div>
+</div>
+</div>
+
+<div class="observe">
+    <strong>Observa.</strong> El diario dice que estas divisiones «no siguen las líneas conocidas»: Sanders y Hawley, un socialista y un republicano, quedan del mismo lado; Trump queda enfrentado a los ejecutivos que financiaron su campaña; y los tres que más saben de la tecnología (Amodei, Altman, Musk) son los que más quieren frenarla. Antes de pasar al reportaje, escribe en una línea qué es lo que sí divide a estas trece personas. Vas a necesitar esa línea para comprobar si en Chile pasa lo mismo.
+    <div class="lineas"></div>
+</div>
+
+<h2>2 · El reportaje: la misma pelea, en la comisión de Ciencias <span class="clock">15 min</span></h2>
+<p class="attrib">Andrew Chernin y Nelly Yáñez, «Entre Thiel y el Papa: la disputa ideológica por regular la IA», <i>La Tercera</i>, 20 de septiembre de 2026. Se reproduce completo, sin las fotografías.</p>
+
+<div class="text">
+    <p><strong>Cómo recorrerlo, porque quince minutos no dan para leerlo de corrido.</strong> Un reportaje de posiciones no se lee como un ensayo. Lee con atención sólo hasta el subtítulo «Debate de derechas», que es donde queda claro qué es el giro de 180 grados y por qué la comisión de Ciencias pasó a importar. De ahí en adelante ya no leas en línea recta: caza los doce nombres de la tabla, que van en negrita, y lee el pasaje de cada uno. Son unas quince líneas por persona. Si sobra tiempo, vuelve al final, que es donde está la frase del título.</p>
+    <p>En la fila de cada nombre anota <strong>qué pide concretamente</strong> (un instrumento: una ley, una prohibición, un impuesto, un derecho, una cuota, un representante legal) y marca sus dos letras, igual que en el mapa. Si el texto no da suficiente para marcar, deja la casilla vacía: eso también es información.</p>
+</div>
+
+<table class="quien">
+    <tr><th>Quién</th><th>Sector</th><th>Qué pide, en tus palabras</th><th>Velocidad · Regla</th></tr>
+    <tr><td class="nom">Diego Schalper</td><td class="partido">RN</td><td class="pide"></td><td class="mk"><span class="marca"><span></span>F <span></span>A &nbsp;·&nbsp; <span></span>I <span></span>E</span></td></tr>
+    <tr><td class="nom">Felipe Ross</td><td class="partido">Republicano</td><td class="pide"></td><td class="mk"><span class="marca"><span></span>F <span></span>A &nbsp;·&nbsp; <span></span>I <span></span>E</span></td></tr>
+    <tr><td class="nom">Johannes Kaiser</td><td class="partido">PNL</td><td class="pide"></td><td class="mk"><span class="marca"><span></span>F <span></span>A &nbsp;·&nbsp; <span></span>I <span></span>E</span></td></tr>
+    <tr><td class="nom">Patricio Briones</td><td class="partido">PDG</td><td class="pide"></td><td class="mk"><span class="marca"><span></span>F <span></span>A &nbsp;·&nbsp; <span></span>I <span></span>E</span></td></tr>
+    <tr><td class="nom">Cristóbal Martínez</td><td class="partido">UDI</td><td class="pide"></td><td class="mk"><span class="marca"><span></span>F <span></span>A &nbsp;·&nbsp; <span></span>I <span></span>E</span></td></tr>
+    <tr><td class="nom">Gael Yeomans</td><td class="partido">FA</td><td class="pide"></td><td class="mk"><span class="marca"><span></span>F <span></span>A &nbsp;·&nbsp; <span></span>I <span></span>E</span></td></tr>
+    <tr><td class="nom">Gonzalo Winter</td><td class="partido">FA</td><td class="pide"></td><td class="mk"><span class="marca"><span></span>F <span></span>A &nbsp;·&nbsp; <span></span>I <span></span>E</span></td></tr>
+    <tr><td class="nom">Daniel Manouchehri</td><td class="partido">PS</td><td class="pide"></td><td class="mk"><span class="marca"><span></span>F <span></span>A &nbsp;·&nbsp; <span></span>I <span></span>E</span></td></tr>
+    <tr><td class="nom">Rojo Edwards</td><td class="partido">Ind. RN</td><td class="pide"></td><td class="mk"><span class="marca"><span></span>F <span></span>A &nbsp;·&nbsp; <span></span>I <span></span>E</span></td></tr>
+    <tr><td class="nom">Guido Girardi</td><td class="partido">PPD, exsenador</td><td class="pide"></td><td class="mk"><span class="marca"><span></span>F <span></span>A &nbsp;·&nbsp; <span></span>I <span></span>E</span></td></tr>
+    <tr><td class="nom">Daniela Serrano</td><td class="partido">PC</td><td class="pide"></td><td class="mk"><span class="marca"><span></span>F <span></span>A &nbsp;·&nbsp; <span></span>I <span></span>E</span></td></tr>
+    <tr><td class="nom">José Montalva</td><td class="partido">ex PPD</td><td class="pide"></td><td class="mk"><span class="marca"><span></span>F <span></span>A &nbsp;·&nbsp; <span></span>I <span></span>E</span></td></tr>
+</table>
+
+<div class="reportaje">
+    <p class="titular">Entre Thiel y el Papa: la disputa ideológica por regular la IA</p>
+    <p class="bajada">El avance de modelos avanzados de lenguaje y la necesidad de legislar sobre ellos han obligado a los partidos a tomar definiciones en áreas que antes no parecían prioritarias. El debate hoy mezcla elementos que van desde la regulación a la apertura, pasando por la última encíclica papal y el lugar de los sindicatos y trabajadores en el futuro.</p>
+    <p class="firma">Por Andrew Chernin y Nelly Yáñez · 20 de septiembre de 2026</p>
+
+    <p>Hasta hace poco, dice un diputado de izquierda, no se hablaba mucho de inteligencia artificial (IA) en el Congreso. Era, a lo más, un murmullo; una suerte de conversación de pasillo a propósito de algunos proyectos de ley que parecían haber sido redactados por un modelo de lenguaje, o una que otra broma sobre cómo -después de que muchos parlamentarios descubrieran Chat GPT- demasiados discursos pronunciados en el hemiciclo comenzaban a sonar iguales.</p>
+
+    <p>Sin embargo, explica <strong>Diego Schalper</strong> (RN), algo cambió este año.</p>
+
+    <p>–Normalmente las bancadas ponían a sus mejores parlamentarios en la Comisión de Hacienda, de Constitución, etc. Pero la legislatura pasada ocurrió una cosa: que muchos proyectos de ley de difícil despacho se tramitaron por la Comisión de Ciencias. Como la ley de ciberseguridad o la de datos personales.</p>
+
+    <p>Eso, explica el diputado por el Distrito 11, cambió el peso que, entre congresales, le daban al trabajo de esa orgánica. Una de las razones es que por ahí pasarían todos los proyectos que tuvieran que ver con redes sociales y, en específico, con la IA.</p>
+
+    <p>Un tema que empezó a acaparar la discusión. No solo por la medición de fuerzas entre Estados Unidos y China en ese campo. También, y lo más preocupante, por los límites y regulaciones que debieran imponerse a la inteligencia artificial, ante el avance que está teniendo -con sistemas capaces de mejorarse a sí mismos- y que incluso podrían poner en riesgo el futuro de la humanidad de acuerdo a las alertas de científicos y desarrolladores.</p>
+
+    <p>La propia OpenAI reveló esta semana otros seis incidentes con agentes de IA descontrolados, en un símil al episodio ocurrido en julio con el hackeo a Hugging Face.</p>
+
+    <p>Un debate que no se ve fácil en nuestro país. Esto, porque el modelo adoptado por el expresidente Gabriel Boric -que presentó en mayo de 2024 al Congreso y que estaba basado en la clasificación de riesgos de la Unión Europea- está siendo sometido a cambios.</p>
+
+    <p>El presidente de la Comisión Futuro del Senado, <strong>Rojo Edwards</strong> (Ind. RN), sostiene que este mes el gobierno del Presidente <strong>José Antonio Kast</strong> podría hacer llegar la indicación sustitutiva -de más de 20 artículos- que anunció al texto.</p>
+
+    <p>Solo ahí, con las cartas sobre la mesa, se verá si hay consensos o no, teniendo a la vista -comentan en el Congreso- que el giro entre Boric y Kast en este tema es de 180 grados: de un modelo marcado por mayores regulaciones a otro con un enfoque estratégico hacia la inversión y a evitar la sobrerregulación.</p>
+
+    <p>De ahí el interés por la Comisión de Ciencias, que puede medirse por la conformación de sus integrantes, dice un diputado del FA. «Hay gente de primera línea. Está la presidenta (Gael Yeomans), el excandidato presidencial del partido (Gonzalo Winter), la estrella ascendente del PS (Daniel Manouchehri) y el diputado más interesante de RN (Diego Schalper)».</p>
+
+    <p>Que esa balanza de nombres con más recorrido en el Congreso esté inclinada hacia la izquierda no es casualidad. Eso sostiene un diputado de ese bloque, que recuerda que la de Ciencias es sólo una de las nueve comisiones, de un total de 27, donde el Partido Republicano decidió no tener mayoría.</p>
+
+    <p>–Efectivamente, en marzo no fue de las comisiones más codiciadas –dice <strong>Felipe Ross</strong>, uno de los dos representes de republicanos en Ciencias–. Pero, como se ha visto en el desarrollo del año, ha sido una de las comisiones que más han dado que hablar.</p>
+
+    <p>Ross en la Cámara y Edwards en el Senado son dos de los nombres que más se mencionan cuando se pregunta por los parlamentarios del oficialismo que tienen mayor conocimiento sobre estos temas. La escasez de expertos, dicen algunos parlamentarios, tiene una cierta lógica: sólo ahora pareciera ser que la tecnología también puede ser una batalla ideológica. Porque la situación, hasta ahora, parecía ser técnica y de consensos. De hecho, hoy hay cuatro iniciativas que se están discutiendo, todas aprobadas por unanimidad cuando se votó la idea de legislar.</p>
+
+    <p>–Tenemos diferencias –dice el presidente de la comisión, <strong>Daniel Manouchehri</strong> (PS)–, pero por lo menos en la Cámara de Diputados existe un consenso respecto de la necesidad de poder poner límites a la IA y a las plataformas.</p>
+
+    <h4>Debate de derechas</h4>
+
+    <p>–Yo soy un partidario de establecer los derechos de las personas respecto de la inteligencia artificial, no de regular el funcionamiento de la inteligencia artificial –plantea <strong>Johannes Kaiser</strong>, líder del PNL.</p>
+
+    <p>Las preocupaciones de su partido van por otra línea.</p>
+
+    <p>–Vemos con mucha aprensión la utilización de la inteligencia artificial para la creación de un estado de supervigilancia masivo. No nos gusta la idea. Nosotros no queremos que la inteligencia artificial se transforme en un enemigo del ciudadano honesto. Por eso hemos sido muy cuidadosos.</p>
+
+    <p>Ahí, marca una duda dentro de su sector.</p>
+
+    <p>–Existe una derecha que es liberal en lo económico, pero a la cual de repente se le arranca la moto en materia de lo que es el control del ciudadano. Y olvida que nosotros, dentro de nuestros principios, defendemos en esencia que el Estado debe estar al servicio del ciudadano y no al revés. El Estado es el que tiene que ser transparente, no el ciudadano.</p>
+
+    <p>Ross, diputado por el Distrito 13, es el representante de republicanos en la Comisión de Ciencias. Para explicar la posición de su partido, da como ejemplo la postura que tuvieron frente al proyecto que abordaba las <i>deep fakes</i>.</p>
+
+    <p>–Nosotros lo votamos a favor en general, porque creemos que es un tema del que hay que hacerse cargo. Pero venía formulado así: prohíbase la creación de representaciones digitales verosímiles, pero falsas. A nosotros nos parece que eso es prohibir con la brocha y ahí caen muchísimas tácticas que podrían ser muy positivas para el futuro, como el metaverso.</p>
+
+    <p>En simple, dice, están más por regular en vez de prohibir y en contra de ponerle barreras al desarrollo tecnológico.</p>
+
+    <p>Esa posición levanta la pregunta por el desempleo que podría acarrear la automatización masiva de puestos de trabajo.</p>
+
+    <p>–Nosotros –sostiene– creemos que la rigidización del mercado laboral es algo que perjudica los intereses de los trabajadores. Creemos que los gremios, particularmente la CUT y los representantes de los sindicatos, tienen que reflexionar mucho en torno a qué es realmente aquello que está en interés de los trabajadores en la era de la inteligencia artificial.</p>
+
+    <p>Su argumento es el siguiente.</p>
+
+    <p>–Esos puestos de trabajo, esas oportunidades que se van a crear, sí o sí van a ser en el marco de un mercado laboral mucho más flexible y no heredero de la lógica de la revolución industrial.</p>
+
+    <p>Por eso es que en republicanos están a favor de la construcción de <i>data centers</i>, porque, asegura, «eso de que son una amenaza ambiental significativa es algo del pasado: hoy recirculan el agua que utilizan».</p>
+
+    <p>El PDG se sitúa en esa misma vereda que mira a la IA con optimismo.</p>
+
+    <p>–Estoy por una ley que no prohíba el desarrollo ni la innovación, porque sería como pegarse un tiro en los pies –argumenta el diputado <strong>Patricio Briones</strong>–. ¿Quién sabe si en las nuevas generaciones surgen talentos que permitan generar nuestra propia inteligencia artificial? Desde el PDG siempre vamos a proteger a los emprendedores, a las pymes, a la gente que quiere ganarle al sistema cumpliendo con los requisitos.</p>
+
+    <p>A pesar de las coincidencias, la barrera con Chile Vamos pareciera estar en el peso que se le asigna al Estado como regulador y la influencia de la encíclica <i>Magnifica Humanitas</i> del Papa León XIV, que plantea que la sociedad no puede dejarse arrastrar por un proyecto tecnocrático, que describe como deshumanizador, porque reduce a los individuos a meros datos, impulsado por monopolios digitales –como OpenAI, Palantir y Anthropic– que priorizan el lucro por sobre la dignidad humana.</p>
+
+    <p>–Hay una derecha más tradicional o libertaria que cree en el uso libre de esto. O sea, no ven un mayor riesgo. Creen que el sistema se autorregula, por decirlo así, y que si una persona lo emplea negativamente, se le sanciona –explica Schalper–. Yo me inclino más por la idea de ponerle cortapisas al uso. Que esta gente tenga que pedir derechos de autor. Por último, pagar un <i>fee</i>. No estoy por el uso indiscriminado sin regla, estoy por regularla.</p>
+
+    <p>Es como aclara <strong>Cristóbal Martínez</strong>, carta de la UDI en la Comisión de Ciencias.</p>
+
+    <p>–No se trata de frenar la tecnología ni de impedir la innovación, sino de anticiparnos a consecuencias que incluso los propios desarrolladores y expertos vienen advirtiendo.</p>
+
+    <h4>Del obrero al Uber</h4>
+
+    <p>El 28 de julio, <strong>Gonzalo Winter</strong> publicó una carta abierta en su cuenta de Substack preguntándole a la militancia del FA «¿quién será el dueño del futuro?». El texto, de 20 páginas y 71 mil caracteres, planteaba sus preocupaciones por la inteligencia artificial, el monopolio de las fortunas detrás de ellas y qué lugar debía ocupar el progresismo en ese debate que se avecinaba.</p>
+
+    <p>El artículo, con varias dosis de provocación hacia su sector, se detenía en un punto que suele reunir a los partidos que hoy están en la oposición: cómo hablarles a los trabajadores de hoy.</p>
+
+    <p>«La izquierda corre hoy el riesgo de quedar reducida a una corriente de pensamiento, a una sensibilidad. La mejor manera de conjurar ese riesgo es asumir la tarea que esta carta propone, contribuir a articular a un sujeto que hoy no está articulado en torno a su propia situación frente a la IA», dice el texto.</p>
+
+    <p>La postura conversa con una reflexión que lleva tiempo haciéndose el exsenador <strong>Guido Girardi</strong> (PPD):</p>
+
+    <p>–Hoy día toda la seguridad social, las prestaciones de salud, las pensiones se financian con impuestos al trabajo. ¿Quién va a financiar la salud cuando los seres humanos sean desplazados? También viene un cambio en la estructura laboral. Va a aumentar la contratación por tareas. Va a haber una creciente uberización del trabajo, que lo va a fragilizar aún más.</p>
+
+    <p>Ese cambio forzó una reflexión en el FA.</p>
+
+    <p>–Hay una discusión de fondo que la izquierda tiene que dar ahora –piensa la presidenta del partido, <strong>Gael Yeomans</strong>–. El trabajador que organizamos en el siglo XX era el obrero. El de hoy reparte en una aplicación, cuida a un adulto mayor, hace clases, es mujer y, muchas veces, no tiene contrato. La automatización acelera ese cambio. No podemos hacer política omitiendo esto que es tan relevante.</p>
+
+    <p>Esa conversación removió más a la izquierda que la discusión que, previamente, se daba en la Comisión de Ciencias y que no producía discrepancias con la derecha: la protección de menores de edad frente a los peligros de las redes sociales.</p>
+
+    <p>–El debate de fondo que queremos poner sobre la mesa es quién se va a beneficiar de esa productividad. Porque no sacamos nada con tener tecnología del siglo XXI, con desigualdades del siglo XIX. Creemos que tiene que ser fácil innovar, pero caro vulnerar derechos –sostiene Manouchehri.</p>
+
+    <p>Ahí surge la pregunta por los que quedarán marginados con el avance de la IA.</p>
+
+    <p>–Estuve en reunión con la Confederación Nacional de Trabajadores del Comercio y una de las principales discusiones justamente fue esto: cómo proteger a los trabajadores frente al proceso de reemplazo que puede existir –dice el diputado socialista–. Nosotros creemos que tiene que existir un plan agresivo de parte del Estado de reconversión laboral. Y más que propuestas de subsidios, es importante poner cuotas de puestos de trabajo que no se debiesen reemplazar porque son indispensables.</p>
+
+    <p>Yeomans va un paso más allá.</p>
+
+    <p>–Estas tecnologías ya están cambiando tareas y empleos en Chile. Esa transformación no puede discutirse solo entre quienes las implementan. Los trabajadores y sus sindicatos tienen que estar en esa conversación, porque la productividad que genera la inteligencia artificial también se tiene que distribuir, por ejemplo, en mayor capacitación y medidas pro empleo.</p>
+
+    <p>Lo mismo había planteado Winter en su carta.</p>
+
+    <p>«Ya circulan propuestas de mediación, desde encíclicas hasta fondos que repartirían una parte de las ganancias. Pero una mediación necesita dos actores que puedan amenazarse el uno al otro. Y aquí hay uno solo. Mientras el pueblo no se organice con un programa propio y no se vuelva temible para los dueños de la tecnología, toda mediación va a ser un monólogo y toda concesión, una limosna».</p>
+
+    <p>El otro tema que tiene apoyo transversal en la izquierda es la necesidad de que estas empresas tengan representantes legales en Chile.</p>
+
+    <p>–Considero inconcebible que haya grandes plataformas que operen aquí sin un representante legal en Chile, mientras que a una persona que establece, por ejemplo, un puesto de comida le exigimos una serie de permisos y requisitos –critica <strong>Daniela Serrano</strong>, la representante del PC en la Comisión de Ciencias–. Esta no es solamente una batalla cultural, sino que también una cuestión de soberanía.</p>
+
+    <p>La regulación es, sin duda, la idea fuerza que cruza al Socialismo Democrático. Igual que la reconversión de trabajadores. Aunque con diferentes bajadas filosóficas.</p>
+
+    <p>–Hay una discusión que va mucho más allá de si cobramos o no impuestos, o de si regulamos o no. Estamos frente a una disputa de poder que ya no va a ser entre izquierdas y derechas, sino entre otras dos visiones: la corriente tecnolibertaria, que tiene de referente a Peter Thiel -el empresario que fundó Palantir- y la que representa el Papa León XIV, que piensa que la tecnología debe permanecer siempre subordinada a la dignidad humana y al bien común –señala el diputado <strong>José Montalva</strong> (ex PPD), de la Comisión de Ciencias–. Por eso el Estado debe asegurar que no sean pocas empresas las que terminen controlando la IA.</p>
+
+    <p>En el FA la discusión ideológica incluso ha llegado al punto de llevar la conversación hacia alianzas regionales.</p>
+
+    <p>«Si la riqueza de la IA la produjo la humanidad completa, lo justo no sería un impuesto nacional, sino un impuesto global a todas las inteligencias artificiales del mundo, cuya recaudación beneficie a los pueblos que produjeron ese conocimiento, es decir, a todos –escribió Winter–. Sé las preguntas que esto abre, dónde tributa, quién administra, con qué institucionalidad, y no las voy a resolver en una carta. Pero sí puedo decir por dónde empezar. América del Sur necesita construir una institucionalidad común que le permita negociar de igual a igual con las corporaciones tecnológicas planetarias, porque ningún país del sur, solo, puede sentarse a esa mesa frente a empresas más ricas que su propio producto interno».</p>
+</div>
+
+<div class="text">
+    <p>Tres escenas merecen una segunda lectura. La primera es el <strong>giro de 180 grados</strong>: fíjate en qué cambia exactamente cuando un proyecto pasa de clasificar riesgos a promover inversión, y quién gana y quién pierde con ese cambio. La segunda es el <strong>título</strong>, que sale de la última cita de Montalva: la disputa ya no sería entre izquierdas y derechas sino entre el tecnolibertarismo de Thiel y una encíclica que llama deshumanizador al proyecto tecnocrático y nombra a las empresas que lo encarnan. Pregúntate si esa oposición describe bien a los doce de la tabla o si varios de ellos no caben en ninguno de los dos polos. La tercera es la <strong>comparación más doméstica</strong> del texto: una plataforma global opera en Chile sin representante legal mientras un puesto de comida necesita una lista de permisos. Es un argumento sobre soberanía, no sobre tecnología, y conviene tenerlo a mano para el juego.</p>
+</div>
+
+<div class="observe">
+    <strong>Observa.</strong> Vuelve a la línea que escribiste al final del mapa. En Estados Unidos la división no seguía las líneas conocidas: Sanders con Hawley, Trump contra sus propios donantes. ¿Y en Chile? Mira tus marcas. Si casi todos los diputados quedaron en la columna «la regla la pone el Estado» y las diferencias siguen el eje izquierda-derecha de siempre, entonces las dos preguntas del <i>Times</i> no alcanzan para describir la pelea chilena. Anota cuál sería la tercera pregunta. Una pista: para unos la ley es sobre el trabajo y el reparto de las ganancias; para otros, sobre los derechos de las personas y los límites del propio Estado.
+    <div class="lineas"></div>
+</div>
+
+<div class="cierre">
+    <h2>El cruce: dos preguntas, cuatro esquinas, dos países <span class="clock">3 min</span></h2>
+    <p class="anota">Ubica a las trece personas del mapa con sus iniciales, y a los doce chilenos con el apellido dentro de un círculo. Mira dónde se concentra cada país.</p>
+    <table class="cruce">
+        <tr><th></th><th>La regla la pone la industria</th><th>La regla la pone el Estado</th></tr>
+        <tr><td class="lbl">Quieren ir más lento</td><td></td><td></td></tr>
+        <tr><td class="lbl">Quieren ir más rápido</td><td></td><td></td></tr>
+    </table>
+    <p class="anota"><span class="lapiz">Guarda a una persona ▸</span> Elige a uno de los veinticinco, de cualquiera de los dos países, y anota en una frase qué instrumento le pide o le niega al Estado. En el juego te va a tocar hablar en tu teléfono ante un jurado de cinco jueces de IA y ante el resto del curso. Los jueces leen el mismo material que tú, y premian tres cosas: nombrar a una persona real, decir qué pide, y contestar lo que el otro grupo dijo de verdad en vez de una versión fácil.</p>
+    <div class="lineas"></div>
+</div>
+
+<div class="data">
+    <p><strong>Para situar esto acá.</strong> Los tres documentos chilenos que el reportaje da por sabidos.</p>
+    <p><strong>Boletín 16821-19.</strong> El proyecto que «regula los sistemas de inteligencia artificial», ingresado en mayo de 2024 por el gobierno anterior, con la clasificación de usos por nivel de riesgo tomada del reglamento europeo. Es el texto que el gobierno actual está reescribiendo mediante indicaciones sustitutivas.</p>
+    <p><strong>Boletín 17795-19.</strong> El proyecto sobre <i>deepfakes</i>, que el reportaje usa como ejemplo de una ley que la derecha apoyó y a la vez temió por su redacción amplia.</p>
+    <p><strong>Política Nacional de Inteligencia Artificial.</strong> Publicada en 2021 por el Ministerio de Ciencia y actualizada en 2023 en su eje de gobernanza y ética. No es ley: es el antecedente de cómo una política sin fuerza vinculante se convierte en obligación legal, y es justamente ese paso el que hoy está en disputa.</p>
+    <p><i>En la Semana 12, «El Estado algorítmico», vamos a ver qué hace el Estado con la IA una vez que la regla existe: automatización de decisiones públicas, vigilancia y rendición de cuentas.</i></p>
+</div>
+
+<footer>
+    <p>CSC00155 · Inteligencia Artificial y Democracia · Minor en Inteligencia Artificial · Universidad Adolfo Ibáñez · Segundo semestre 2026 · Módulo de IA, profesor Naim Bro.</p>
+    <p>La sección 1 es un resumen y traducción propios de trece de las dieciocho fichas, con fines exclusivamente docentes, de la pieza interactiva de Emmy Martin y Rebecca Lieberman, «How A.I. Risks Are Splitting Silicon Valley and Washington», <i>The New York Times</i>, 15 de septiembre de 2026; el original está enlazado desde el programa del curso. La sección 2 reproduce íntegramente el texto del reportaje de Andrew Chernin y Nelly Yáñez publicado en <i>La Tercera</i> el 20 de septiembre de 2026, propiedad de sus autores y del diario, bajo la suscripción institucional de la Universidad Adolfo Ibáñez y para uso exclusivamente pedagógico en esta asignatura. Se omitieron las fotografías y sus pies. No puede redistribuirse fuera del curso. Los boletines y la política pública citados son documentos oficiales de acceso público.</p>
+</footer>
+
+</body>
+</html>
