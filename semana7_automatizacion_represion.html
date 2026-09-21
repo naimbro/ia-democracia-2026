@@ -783,7 +783,20 @@ table.matrix td.hit{background:#F2E6E2;}
   <div class="folio"><span>DIAPO N.º 23</span><span class="dots"></span><span>THE ECONOMIST</span></div>
 </section>
 
-<!-- ══ 24 · QUIÉN SUBE Y QUIÉN BAJA ══ -->
+<!-- ══ 24 · CUELLO BLANCO ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Gráfico 2 · El empleo de cuello blanco que la IA creó</div>
+    <h2 class="xs">El trabajo cognitivo no fue el primero en caer.<br>Por ahora es el que más crece.</h2>
+    <div class="stage">
+      <div class="shot"><img src="img/semana7/eco-g2-stem.png" alt="Gráfico de áreas apiladas de The Economist: empleos de cuello blanco relacionados con IA en Estados Unidos por sobre la tendencia, en miles, entre 2023 y 2026. Suman unos 730 mil e incluyen desarrolladores de software, matemáticas y ciencia de datos, analistas de seguridad informática, ingenieros y otras ocupaciones de computación. La banda de desarrolladores de software está bajo cero hasta 2025"></div>
+    </div>
+    <p class="src-line"><strong>730 mil empleos por sobre la tendencia</strong> en ingeniería, software, matemáticas y ciencia de datos. · <strong>Ojo con el eje:</strong> no es empleo total, es el efectivo <em>menos</em> el que habría habido si el sector seguía la tendencia general. · Y miren la banda roja: los desarrolladores de software estuvieron <strong>bajo cero hasta 2025</strong>.</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 24</span><span class="dots"></span><span>CUELLO BLANCO</span></div>
+</section>
+
+<!-- ══ 25 · QUIÉN SUBE Y QUIÉN BAJA ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Gráfico 3 · La premisa 1 del modelo, puesta a prueba</div>
@@ -793,10 +806,10 @@ table.matrix td.hit{background:#F2E6E2;}
     </div>
     <p class="src-line"><strong>Los paralegales suben 11% y los abogados suben</strong>, contra un promedio nacional de 2,5%. Los que caen son los de tareas rutinarias: digitadores, servicio al cliente, secretarias. · Para el jueves: ¿esto <em>refuta</em> la premisa de que automatizar mueve ingreso del trabajo al capital, o sólo dice que todavía no? Fuente: BLS vía <em>The Economist</em>.</p>
   </div>
-  <div class="folio"><span>DIAPO N.º 24</span><span class="dots"></span><span>QUIÉN SUBE</span></div>
+  <div class="folio"><span>DIAPO N.º 25</span><span class="dots"></span><span>QUIÉN SUBE</span></div>
 </section>
 
-<!-- ══ 25 · PUENTES ══ -->
+<!-- ══ 26 · PUENTES ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Cómo conversa con el resto del curso</div>
@@ -820,10 +833,10 @@ table.matrix td.hit{background:#F2E6E2;}
       <li><strong>Semana 9 (Roberto):</strong> autoritarismo, vigilancia y retroceso democrático. Ahí discutirán a Levitsky &amp; Ziblatt con este modelo ya en la cabeza — y la observación 8, sobre la vigilancia que abarata la represión, aterriza justo en esa sesión.</li>
     </ul>
   </div>
-  <div class="folio"><span>DIAPO N.º 25</span><span class="dots"></span><span>PUENTES</span></div>
+  <div class="folio"><span>DIAPO N.º 26</span><span class="dots"></span><span>PUENTES</span></div>
 </section>
 
-<!-- ══ 26 · FICHA FINAL ══ -->
+<!-- ══ 27 · FICHA FINAL ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Referencias · Para volver al texto</div>
@@ -851,7 +864,7 @@ table.matrix td.hit{background:#F2E6E2;}
     </div>
     <p class="src-line" style="margin-top:16px;">IA y Democracia 2026 · Minor en Inteligencia Artificial · Escuela de Gobierno, Universidad Adolfo Ibáñez · <a href="https://naimbro.github.io/ia-democracia-2026/" target="_blank">naimbro.github.io/ia-democracia-2026</a></p>
   </div>
-  <div class="folio"><span>DIAPO N.º 26</span><span class="dots"></span><span>REFERENCIAS</span></div>
+  <div class="folio"><span>DIAPO N.º 27</span><span class="dots"></span><span>REFERENCIAS</span></div>
 </section>
 
 </div>
@@ -860,12 +873,12 @@ table.matrix td.hit{background:#F2E6E2;}
 <button class="nav-btn" id="N" aria-label="Siguiente">›</button>
 
 <script>
-// Ruta corta para los 30 minutos del lunes: ?ruta=corta deja 15 láminas
+// Ruta corta para los 30 minutos del lunes: ?ruta=corta deja 16 láminas
 // (portada, tesis, la portada del paper, mecanismo, Chile, revuelta, doble efecto,
 // externalidad, cruce, complementariedad, golpe, vigilancia, límites,
-// The Economist y su gráfico 3).
-// Sin el parámetro, las 26.
-const RUTA_CORTA = [1, 2, 3, 4, 9, 11, 12, 14, 16, 17, 19, 21, 22, 23, 24];
+// The Economist y sus gráficos 2 y 3).
+// Sin el parámetro, las 27.
+const RUTA_CORTA = [1, 2, 3, 4, 9, 11, 12, 14, 16, 17, 19, 21, 22, 23, 24, 25];
 const todas = Array.from(document.querySelectorAll('.slide'));
 const corta = new URLSearchParams(location.search).get('ruta') === 'corta';
 if (corta) todas.forEach((s, i) => { if (!RUTA_CORTA.includes(i + 1)) s.remove(); });
