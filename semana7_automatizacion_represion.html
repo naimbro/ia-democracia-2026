@@ -193,6 +193,9 @@ table.matrix td.hit{background:#F2E6E2;}
 /* Graficos SVG */
 .stage{flex:1; min-height:0; display:flex; flex-direction:column; align-items:center; justify-content:center; margin-top:14px;}
 .stage svg{display:block; max-width:100%; max-height:100%; height:auto;}
+.stage img{display:block; max-width:100%; max-height:100%; object-fit:contain;}
+.stage .shot{height:100%; display:flex; align-items:center; justify-content:center; min-height:0;}
+.stage .shot img{max-height:100%; max-width:min(100%,780px); object-fit:contain; background:#fff; border:1px solid var(--line); box-shadow:0 2px 14px rgba(30,25,15,.10);}
 .cred{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-soft); margin-top:12px; text-align:center; opacity:.9; line-height:1.5;}
 .gx-lbl{font-family:'IBM Plex Mono',monospace; font-size:12px; fill:var(--ink-soft); letter-spacing:.06em;}
 .gx-cap{font-family:'IBM Plex Sans',sans-serif; font-size:14px; fill:var(--ink);}
@@ -216,6 +219,7 @@ table.matrix td.hit{background:#F2E6E2;}
   .faceoff .vs{display:none;}
   .stamp{display:none;}
   .stage svg{max-height:46vh;}
+  .stage .shot img{max-height:52vh;}
   .bignum{flex-direction:column; align-items:flex-start; gap:20px;}
   .fig-n{font-size:82px;} .fig-n.sm{font-size:62px;}
   .pt{font-size:17px;} .textcols .pt,.textcols.c3 .pt{font-size:16px;}
@@ -292,7 +296,20 @@ table.matrix td.hit{background:#F2E6E2;}
   <div class="folio"><span>DIAPO N.º 03</span><span class="dots"></span><span>LA TESIS</span></div>
 </section>
 
-<!-- ══ 04 · FICHA DEL PAPER ══ -->
+<!-- ══ 04 · LA PORTADA ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Esto es lo que abren · La portada del paper</div>
+    <h2 class="xs">Así se ve el texto de esta semana.</h2>
+    <div class="stage">
+      <div class="shot"><img src="img/semana7/nber-portada.png" alt="Portada del working paper: título Automation and Repression, autores Daron Acemoglu, A. Arda Gitmez y Mehdi Shadmehr, NBER Working Paper 35336, DOI 10.3386/w35336, fecha de emisión junio de 2026, seguido del resumen del artículo"></div>
+    </div>
+    <p class="src-line">Título, tres autores, número de working paper y el resumen completo: <strong>todo el argumento cabe en ese párrafo</strong>. Vale la pena leerlo antes de entrar al modelo. · <a href="https://www.nber.org/papers/w35336" target="_blank">nber.org/papers/w35336</a></p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 04</span><span class="dots"></span><span>LA PORTADA</span></div>
+</section>
+
+<!-- ══ 05 · FICHA DEL PAPER ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Ficha · Qué es exactamente esto que estamos leyendo</div>
@@ -316,10 +333,10 @@ table.matrix td.hit{background:#F2E6E2;}
       <p>Hasta ahora había modelos de automatización <em>sin</em> política, y modelos de revoluciones <em>sin</em> tecnología. Este es, según los autores, <strong>el primero que junta los dos</strong>. Ese es su aporte, y también su fragilidad: no hay literatura previa contra la cual contrastarlo.</p>
     </div>
   </div>
-  <div class="folio"><span>DIAPO N.º 04</span><span class="dots"></span><span>FICHA</span></div>
+  <div class="folio"><span>DIAPO N.º 05</span><span class="dots"></span><span>FICHA</span></div>
 </section>
 
-<!-- ══ 05 · CÓMO SE LEE UN MODELO ══ -->
+<!-- ══ 06 · CÓMO SE LEE UN MODELO ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Instrucciones de uso · Para lectores de derecho</div>
@@ -344,10 +361,10 @@ table.matrix td.hit{background:#F2E6E2;}
     </div>
     <p class="src-line">Analogía: es como una construcción dogmática en derecho. De unas premisas normativas se sigue una consecuencia. Que la consecuencia sea válida no significa que las premisas describan bien el caso concreto. <strong>La discusión seria está en las premisas.</strong></p>
   </div>
-  <div class="folio"><span>DIAPO N.º 05</span><span class="dots"></span><span>CÓMO SE LEE</span></div>
+  <div class="folio"><span>DIAPO N.º 06</span><span class="dots"></span><span>CÓMO SE LEE</span></div>
 </section>
 
-<!-- ══ 06 · DIVISOR I ══ -->
+<!-- ══ 07 · DIVISOR I ══ -->
 <section class="slide divider">
   <div class="content" style="justify-content:center;">
     <div class="eyebrow"><span class="bar"></span>Parte I</div>
@@ -355,10 +372,10 @@ table.matrix td.hit{background:#F2E6E2;}
     <h2>Las piezas del tablero</h2>
     <p class="sub">Tres actores, una decisión tecnológica y una amenaza. Nada más. La potencia del argumento viene justamente de lo poco que necesita.</p>
   </div>
-  <div class="folio"><span>DIAPO N.º 06</span><span class="dots"></span><span>LAS PIEZAS</span></div>
+  <div class="folio"><span>DIAPO N.º 07</span><span class="dots"></span><span>LAS PIEZAS</span></div>
 </section>
 
-<!-- ══ 07 · LOS TRES PERSONAJES ══ -->
+<!-- ══ 08 · LOS TRES PERSONAJES ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Sección 2 · El elenco</div>
@@ -382,10 +399,10 @@ table.matrix td.hit{background:#F2E6E2;}
       <p>«Estado capitalista» <strong>no es una conclusión del paper ni una acusación</strong>. Es un supuesto de trabajo, una hipótesis: <em>supongamos</em> un Estado que sirve al capital; ¿qué haría? Que un Estado real sea así queda fuera del modelo. Pero fíjense en lo que viene: incluso un Estado así, con un solo instrumento, termina protegiendo salarios.</p>
     </div>
   </div>
-  <div class="folio"><span>DIAPO N.º 07</span><span class="dots"></span><span>EL ELENCO</span></div>
+  <div class="folio"><span>DIAPO N.º 08</span><span class="dots"></span><span>EL ELENCO</span></div>
 </section>
 
-<!-- ══ 08 · QUÉ ES AUTOMATIZAR ══ -->
+<!-- ══ 09 · QUÉ ES AUTOMATIZAR ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Sección 2 · La economía del modelo</div>
@@ -421,10 +438,10 @@ table.matrix td.hit{background:#F2E6E2;}
       </div>
     </div>
   </div>
-  <div class="folio"><span>DIAPO N.º 08</span><span class="dots"></span><span>AUTOMATIZAR</span></div>
+  <div class="folio"><span>DIAPO N.º 09</span><span class="dots"></span><span>AUTOMATIZAR</span></div>
 </section>
 
-<!-- ══ 09 · LA REVUELTA ══ -->
+<!-- ══ 10 · LA REVUELTA ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Sección 3 · La política del modelo</div>
@@ -447,10 +464,10 @@ table.matrix td.hit{background:#F2E6E2;}
       </div>
     </div>
   </div>
-  <div class="folio"><span>DIAPO N.º 09</span><span class="dots"></span><span>LA REVUELTA</span></div>
+  <div class="folio"><span>DIAPO N.º 10</span><span class="dots"></span><span>LA REVUELTA</span></div>
 </section>
 
-<!-- ══ 10 · EL DOBLE EFECTO ══ -->
+<!-- ══ 11 · EL DOBLE EFECTO ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>El mecanismo · Por qué automatizar es políticamente peligroso</div>
@@ -473,10 +490,10 @@ table.matrix td.hit{background:#F2E6E2;}
       <p>Los dos efectos apuntan en la misma dirección. <strong>No hay compensación posible dentro de la economía</strong>: la salida tiene que ser política. Ese es el momento en que el modelo deja de ser economía y empieza a ser teoría del Estado.</p>
     </div>
   </div>
-  <div class="folio"><span>DIAPO N.º 10</span><span class="dots"></span><span>DOBLE EFECTO</span></div>
+  <div class="folio"><span>DIAPO N.º 11</span><span class="dots"></span><span>DOBLE EFECTO</span></div>
 </section>
 
-<!-- ══ 11 · DIVISOR II ══ -->
+<!-- ══ 12 · DIVISOR II ══ -->
 <section class="slide divider">
   <div class="content" style="justify-content:center;">
     <div class="eyebrow"><span class="bar"></span>Parte II</div>
@@ -484,10 +501,10 @@ table.matrix td.hit{background:#F2E6E2;}
     <h2>El resultado central</h2>
     <p class="sub">Tres hallazgos, y ninguno es el que uno esperaría. El mercado automatiza de más; un Estado del capital termina defendiendo salarios; y la represión gana por contabilidad, no por ideología.</p>
   </div>
-  <div class="folio"><span>DIAPO N.º 11</span><span class="dots"></span><span>EL RESULTADO</span></div>
+  <div class="folio"><span>DIAPO N.º 12</span><span class="dots"></span><span>EL RESULTADO</span></div>
 </section>
 
-<!-- ══ 12 · SOBRE-AUTOMATIZACIÓN ══ -->
+<!-- ══ 13 · SOBRE-AUTOMATIZACIÓN ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Hallazgo 1 · Secciones 4 y 5.1</div>
@@ -510,10 +527,10 @@ table.matrix td.hit{background:#F2E6E2;}
       </div>
     </div>
   </div>
-  <div class="folio"><span>DIAPO N.º 12</span><span class="dots"></span><span>EXTERNALIDAD</span></div>
+  <div class="folio"><span>DIAPO N.º 13</span><span class="dots"></span><span>EXTERNALIDAD</span></div>
 </section>
 
-<!-- ══ 13 · LA ESCALA ══ -->
+<!-- ══ 14 · LA ESCALA ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Proposiciones 2, 4 y 5 · El mapa de todo el paper en una recta</div>
@@ -569,10 +586,10 @@ table.matrix td.hit{background:#F2E6E2;}
     </div>
     <p class="src-line"><strong>Lo contraintuitivo:</strong> el nivel de mercado no es el que quieren los capitalistas. Ellos quieren más. Y con represión quieren todavía más que eso — porque el costo de reprimir se paga sobre el producto y automatizar más lo diluye.</p>
   </div>
-  <div class="folio"><span>DIAPO N.º 13</span><span class="dots"></span><span>LA ESCALA</span></div>
+  <div class="folio"><span>DIAPO N.º 14</span><span class="dots"></span><span>LA ESCALA</span></div>
 </section>
 
-<!-- ══ 14 · SÓLO REGULACIÓN ══ -->
+<!-- ══ 15 · SÓLO REGULACIÓN ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Hallazgo 2 · Proposición 3</div>
@@ -590,10 +607,10 @@ table.matrix td.hit{background:#F2E6E2;}
       <p class="plain">El paper muestra que un Estado del capital sin poder represivo protege salarios por puro cálculo. Guarden esta lámina: vuelve en la Parte III.</p>
     </div>
   </div>
-  <div class="folio"><span>DIAPO N.º 14</span><span class="dots"></span><span>SÓLO REGULAR</span></div>
+  <div class="folio"><span>DIAPO N.º 15</span><span class="dots"></span><span>SÓLO REGULAR</span></div>
 </section>
 
-<!-- ══ 15 · LAS DOS SALIDAS ══ -->
+<!-- ══ 16 · LAS DOS SALIDAS ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Sección 5 · Las dos salidas, comparadas</div>
@@ -632,10 +649,10 @@ table.matrix td.hit{background:#F2E6E2;}
     </table>
     <p class="src-line">Nótese que el Estado <strong>no combina</strong> las dos: si reprime, redistribuir no aporta nada. La decisión es binaria.</p>
   </div>
-  <div class="folio"><span>DIAPO N.º 15</span><span class="dots"></span><span>DOS SALIDAS</span></div>
+  <div class="folio"><span>DIAPO N.º 16</span><span class="dots"></span><span>DOS SALIDAS</span></div>
 </section>
 
-<!-- ══ 16 · EL CRUCE ══ -->
+<!-- ══ 17 · EL CRUCE ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Hallazgo 3 · Lema 4 y Proposición 6 · El resultado principal del paper</div>
@@ -677,10 +694,10 @@ table.matrix td.hit{background:#F2E6E2;}
     </div>
     <p class="src-line"><strong>«Cruce único»</strong> quiere decir algo fuerte: una vez que la economía pasa el umbral, <strong>nunca vuelve</strong> a la zona en que redistribuir convenía. El modelo no tiene marcha atrás mientras siga acumulando capital.</p>
   </div>
-  <div class="folio"><span>DIAPO N.º 16</span><span class="dots"></span><span>EL CRUCE</span></div>
+  <div class="folio"><span>DIAPO N.º 17</span><span class="dots"></span><span>EL CRUCE</span></div>
 </section>
 
-<!-- ══ 17 · LA COMPLEMENTARIEDAD ══ -->
+<!-- ══ 18 · LA COMPLEMENTARIEDAD ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>El nombre del hallazgo</div>
@@ -704,10 +721,10 @@ table.matrix td.hit{background:#F2E6E2;}
       </div>
     </div>
   </div>
-  <div class="folio"><span>DIAPO N.º 17</span><span class="dots"></span><span>COMPLEMENTARIEDAD</span></div>
+  <div class="folio"><span>DIAPO N.º 18</span><span class="dots"></span><span>COMPLEMENTARIEDAD</span></div>
 </section>
 
-<!-- ══ 18 · LOS TRES CAMINOS ══ -->
+<!-- ══ 19 · LOS TRES CAMINOS ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Sección 6 · Teorema 1 · Qué pasa con el tiempo</div>
@@ -743,10 +760,10 @@ table.matrix td.hit{background:#F2E6E2;}
     </div>
     <p class="src-line">La fila del medio es la que debiera inquietar. <strong>La sociedad no siente que esté cambiando de régimen</strong>: sigue haciendo lo que venía haciendo —redistribuir— hasta que un día el cálculo se da vuelta. El umbral no está señalizado.</p>
   </div>
-  <div class="folio"><span>DIAPO N.º 18</span><span class="dots"></span><span>TRES CAMINOS</span></div>
+  <div class="folio"><span>DIAPO N.º 19</span><span class="dots"></span><span>TRES CAMINOS</span></div>
 </section>
 
-<!-- ══ 19 · DIVISOR III ══ -->
+<!-- ══ 20 · DIVISOR III ══ -->
 <section class="slide divider">
   <div class="content" style="justify-content:center;">
     <div class="eyebrow"><span class="bar"></span>Parte III</div>
@@ -754,10 +771,10 @@ table.matrix td.hit{background:#F2E6E2;}
     <h2>Lo que le toca al derecho</h2>
     <p class="sub">La pregunta de la semana es quién debe gobernar la IA. Este paper la reformula: antes que <em>quién</em>, importa <em>con qué instrumentos</em> — porque el instrumento disponible determina el resultado. Y la sección 8, de página y media, dice qué pasa si la sociedad parte siendo una democracia.</p>
   </div>
-  <div class="folio"><span>DIAPO N.º 19</span><span class="dots"></span><span>EL DERECHO</span></div>
+  <div class="folio"><span>DIAPO N.º 20</span><span class="dots"></span><span>EL DERECHO</span></div>
 </section>
 
-<!-- ══ 20 · EL GOLPE ══ -->
+<!-- ══ 21 · EL GOLPE ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Sección 8 · Proposición 12 · La lámina central de esta semana</div>
@@ -780,10 +797,10 @@ table.matrix td.hit{background:#F2E6E2;}
       </div>
     </div>
   </div>
-  <div class="folio"><span>DIAPO N.º 20</span><span class="dots"></span><span>EL GOLPE</span></div>
+  <div class="folio"><span>DIAPO N.º 21</span><span class="dots"></span><span>EL GOLPE</span></div>
 </section>
 
-<!-- ══ 21 · NO SALVA LA IA PRO-TRABAJADOR ══ -->
+<!-- ══ 22 · NO SALVA LA IA PRO-TRABAJADOR ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Sección 7 · Y esto lo firma el propio Acemoglu</div>
@@ -809,10 +826,10 @@ table.matrix td.hit{background:#F2E6E2;}
       <p class="plain">¿Es una contradicción, o es un argumento de que la política tecnológica sola no basta y hace falta política institucional? Si es lo segundo, es un argumento a favor de todo lo que discutimos esta semana. Contrástenlo con la crítica de <em>The Economist</em> a Acemoglu (Semana 5) y con su respuesta.</p>
     </div>
   </div>
-  <div class="folio"><span>DIAPO N.º 21</span><span class="dots"></span><span>PROWORKER</span></div>
+  <div class="folio"><span>DIAPO N.º 22</span><span class="dots"></span><span>PROWORKER</span></div>
 </section>
 
-<!-- ══ 22 · LA IA ABARATA LA REPRESIÓN ══ -->
+<!-- ══ 23 · LA IA ABARATA LA REPRESIÓN ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Observación 8 · Lo que el modelo deja fuera y agravaría el resultado</div>
@@ -829,10 +846,10 @@ table.matrix td.hit{background:#F2E6E2;}
       <p>Es el único lugar donde el paper toca explícitamente la <strong>vigilancia</strong>, y lo hace para decir que su propia conclusión es <em>conservadora</em>: el modelo subestima la deriva represiva porque supone que reprimir cuesta mañana lo mismo que hoy. Para esta semana, la consecuencia es concreta: <strong>regular la vigilancia no es sólo una política de privacidad — es una política de mantención del costo de reprimir</strong>. Vuelvan sobre esto en la Semana 9.</p>
     </div>
   </div>
-  <div class="folio"><span>DIAPO N.º 22</span><span class="dots"></span><span>VIGILANCIA</span></div>
+  <div class="folio"><span>DIAPO N.º 23</span><span class="dots"></span><span>VIGILANCIA</span></div>
 </section>
 
-<!-- ══ 23 · QUÉ NO DICE ══ -->
+<!-- ══ 24 · QUÉ NO DICE ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Lectura crítica · Las grietas, ordenadas de más a menos grave</div>
@@ -856,10 +873,10 @@ table.matrix td.hit{background:#F2E6E2;}
     </div>
     <p class="src-line"><strong>Cómo usar esto:</strong> ninguna de estas grietas «refuta» el paper. Cada una es una hipótesis sobre qué habría que agregarle al modelo para que la democracia sobreviva. <strong>Esa es exactamente la actividad de la próxima lámina.</strong></p>
   </div>
-  <div class="folio"><span>DIAPO N.º 23</span><span class="dots"></span><span>LOS LÍMITES</span></div>
+  <div class="folio"><span>DIAPO N.º 24</span><span class="dots"></span><span>LOS LÍMITES</span></div>
 </section>
 
-<!-- ══ 24 · ACTIVIDAD ══ -->
+<!-- ══ 25 · ACTIVIDAD ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Ahora · 10 minutos, en el teléfono · y después, de aquí al jueves</div>
@@ -885,10 +902,10 @@ table.matrix td.hit{background:#F2E6E2;}
       <p class="plain">Ninguna de esas tres instituciones aparece en las propuestas de Amodei, Sanders, Hassabis ni Gates, y este modelo sugiere que podrían importar más que todas ellas. Es un argumento contra las dos bancadas, y el jueves se lo queda la que lo diga primero.</p>
     </div>
   </div>
-  <div class="folio"><span>DIAPO N.º 24</span><span class="dots"></span><span>ENSAYO Y TAREA</span></div>
+  <div class="folio"><span>DIAPO N.º 25</span><span class="dots"></span><span>ENSAYO Y TAREA</span></div>
 </section>
 
-<!-- ══ 25 · PUENTES ══ -->
+<!-- ══ 26 · PUENTES ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Cómo conversa con el resto del curso</div>
@@ -912,10 +929,10 @@ table.matrix td.hit{background:#F2E6E2;}
       <li><strong>Semana 9 (Roberto):</strong> autoritarismo, vigilancia y retroceso democrático. Ahí discutirán a Levitsky &amp; Ziblatt con este modelo ya en la cabeza — y la observación 8, sobre la vigilancia que abarata la represión, aterriza justo en esa sesión.</li>
     </ul>
   </div>
-  <div class="folio"><span>DIAPO N.º 25</span><span class="dots"></span><span>PUENTES</span></div>
+  <div class="folio"><span>DIAPO N.º 26</span><span class="dots"></span><span>PUENTES</span></div>
 </section>
 
-<!-- ══ 26 · FICHA FINAL ══ -->
+<!-- ══ 27 · FICHA FINAL ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Referencias · Para volver al texto</div>
@@ -943,7 +960,7 @@ table.matrix td.hit{background:#F2E6E2;}
     </div>
     <p class="src-line" style="margin-top:16px;">IA y Democracia 2026 · Minor en Inteligencia Artificial · Escuela de Gobierno, Universidad Adolfo Ibáñez · <a href="https://naimbro.github.io/ia-democracia-2026/" target="_blank">naimbro.github.io/ia-democracia-2026</a></p>
   </div>
-  <div class="folio"><span>DIAPO N.º 26</span><span class="dots"></span><span>REFERENCIAS</span></div>
+  <div class="folio"><span>DIAPO N.º 27</span><span class="dots"></span><span>REFERENCIAS</span></div>
 </section>
 
 </div>
@@ -952,10 +969,11 @@ table.matrix td.hit{background:#F2E6E2;}
 <button class="nav-btn" id="N" aria-label="Siguiente">›</button>
 
 <script>
-// Ruta corta para los 30 minutos del lunes: ?ruta=corta deja 15 láminas
-// (portada, tesis, ficha, mecanismo, escala, dos salidas, cruce, complementariedad,
-// golpe, proworker, vigilancia, límites, ensayo y tarea). Sin el parámetro, las 26.
-const RUTA_CORTA = [1, 2, 3, 8, 9, 10, 13, 15, 16, 17, 20, 21, 22, 23, 24];
+// Ruta corta para los 30 minutos del lunes: ?ruta=corta deja 16 láminas
+// (portada, tesis, la portada del paper, mecanismo, escala, dos salidas, cruce,
+// complementariedad, golpe, proworker, vigilancia, límites, ensayo y tarea).
+// Sin el parámetro, las 27.
+const RUTA_CORTA = [1, 2, 3, 4, 9, 10, 11, 14, 16, 17, 18, 21, 22, 23, 24, 25];
 const todas = Array.from(document.querySelectorAll('.slide'));
 const corta = new URLSearchParams(location.search).get('ruta') === 'corta';
 if (corta) todas.forEach((s, i) => { if (!RUTA_CORTA.includes(i + 1)) s.remove(); });
