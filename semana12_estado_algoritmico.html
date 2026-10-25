@@ -248,6 +248,19 @@ table.matrix td.hit{background:#F2E6E2;}
 .case .n small{display:block; font-family:'IBM Plex Sans',sans-serif; font-size:16px; font-weight:400; color:var(--ink-soft); letter-spacing:0; margin-top:6px; line-height:1.4;}
 .case .cred{text-align:left; margin-top:4px;}
 
+/* Caso: el nombre manda, luego dos puntos, el gancho al final */
+h2.case-name{font-size:50px; line-height:1.04;}
+.case .tx h2.case-name{font-size:52px;}
+h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--ink-soft); margin-top:6px;}
+.case .facts{list-style:none; display:flex; flex-direction:column; gap:12px;}
+.case .facts li{font-size:21px; line-height:1.42; color:var(--ink); padding-left:26px; position:relative;}
+.case .facts li::before{content:"—"; position:absolute; left:0; color:var(--stamp);}
+.case.green .facts li::before{color:var(--forest);}
+.case .facts b{color:var(--stamp); font-weight:600;}
+.case.green .facts b{color:var(--forest);}
+.case .hook{font-family:'Fraunces',serif; font-style:italic; font-size:21px; line-height:1.35; color:var(--ink-soft); border-top:1px solid var(--line); padding-top:12px;}
+@media(max-width:900px){ .case .tx h2.case-name,h2.case-name{font-size:27px;} .case .facts li{font-size:16px;} .case .hook{font-size:16px;} }
+
 /* Dos imágenes lado a lado */
 .twin{display:grid; grid-template-columns:1fr 1fr; gap:34px; flex:1; min-height:0; margin-top:18px;}
 .twin figure{display:flex; flex-direction:column; gap:12px; min-height:0;}
@@ -520,10 +533,13 @@ table.matrix td.hit{background:#F2E6E2;}
     <div class="case">
       <div class="ph"><img src="img/semana12/ice-huellas.jpg" alt="Un agente de ICE toma las huellas digitales de un detenido"></div>
       <div class="tx">
-        <span class="where">EE.UU. · ICE + Palantir</span>
-        <h2>Ir al médico,<br>aparecer en el mapa.</h2>
-        <div class="n">US$30 M<small>ImmigrationOS: elegir a quién detener (2025)</small></div>
-        <div class="n">80 M<small>pacientes de Medicaid en el acuerdo de datos con ICE</small></div>
+        <span class="where">EE.UU. · 2025–2026</span>
+        <h2 class="case-name">ICE y Palantir</h2>
+        <ul class="facts">
+          <li><b>ImmigrationOS</b> (US$30 M): elige a quién detener.</li>
+          <li><b>ELITE</b>: un mapa de direcciones probables, con datos de Medicaid.</li>
+        </ul>
+        <p class="hook">Ir al médico, aparecer en el mapa.</p>
         <p class="cred">Business Insider (abr. 2025) · 404 Media y Fortune (ene. 2026) · Foto: ICE, dominio público</p>
       </div>
     </div>
@@ -538,9 +554,12 @@ table.matrix td.hit{background:#F2E6E2;}
       <div class="ph"><img src="img/semana12/gendarmeria-filma.jpg" alt="Gendarmes con chalecos filman con sus teléfonos a manifestantes frente al Congreso argentino durante una marcha de jubilados"></div>
       <div class="tx">
         <span class="where">Argentina · 2024–2026</span>
-        <h2>Filmar<br>la protesta.</h2>
-        <div class="n">US$1,2 M<small>Clearview AI, Maltego y 69 drones con IA</small></div>
-        <p class="pt sm">Reconocimiento facial en manifestaciones.<br>Efecto inhibidor.</p>
+        <h2 class="case-name">Argentina:<br>vigilar la protesta</h2>
+        <ul class="facts">
+          <li>Reconocimiento facial en manifestaciones.</li>
+          <li><b>US$1,2 M</b> en Clearview AI, Maltego y 69 drones.</li>
+        </ul>
+        <p class="hook">Efecto inhibidor: mejor no ir.</p>
         <p class="cred">Amnistía Internacional, <em>Estado de vigilancia</em> (ago. 2026) · Foto: Gendarmería frente al Congreso, 14-may-2025 · Iro Bosero, CC BY-SA 4.0</p>
       </div>
     </div>
@@ -554,9 +573,13 @@ table.matrix td.hit{background:#F2E6E2;}
     <div class="case">
       <div class="ph"><img src="img/semana12/navalny-funeral.jpg" alt="Multitud en el funeral de Alexei Navalny en Moscú; sobre un poste se ven cámaras de vigilancia"></div>
       <div class="tx">
-        <span class="where">Rusia · marzo 2024</span>
-        <h2>El funeral<br>de Navalny.</h2>
-        <p class="pt">Las cámaras con reconocimiento facial siguieron a los asistentes <b>hasta la puerta de su casa.</b></p>
+        <span class="where">Moscú · marzo 2024</span>
+        <h2 class="case-name">Funeral de Navalny</h2>
+        <ul class="facts">
+          <li>Cámaras nuevas en torno a la iglesia y el cementerio.</li>
+          <li>Asistentes identificados con reconocimiento facial y detenidos después.</li>
+        </ul>
+        <p class="hook">Los siguieron hasta la puerta de su casa.</p>
         <p class="cred">OVD-Info, vía Semafor (mar. 2024) · Foto: cementerio Borísovskoye, 1-mar-2024 · Акутагава, CC BY 4.0</p>
       </div>
     </div>
@@ -570,9 +593,13 @@ table.matrix td.hit{background:#F2E6E2;}
     <div class="case">
       <div class="ph"><img src="img/semana12/milei-musk-motosierra.jpg" alt="Javier Milei y Elon Musk sostienen una motosierra en la conferencia CPAC de 2025"></div>
       <div class="tx">
-        <span class="where">EE.UU. · DOGE, 2025</span>
-        <h2>Auditar desde arriba,<br>con motosierra.</h2>
-        <p class="pt">Un modelo marcó contratos de salud de veteranos como <b>«munchable»</b>. Con errores.</p>
+        <span class="where">EE.UU. · 2025</span>
+        <h2 class="case-name">DOGE</h2>
+        <ul class="facts">
+          <li>Un modelo marcó contratos de salud de veteranos como <b>«munchable»</b>.</li>
+          <li>Lo programó un ingeniero sin experiencia en compras públicas. Con errores.</li>
+        </ul>
+        <p class="hook">Auditar desde arriba, con motosierra.</p>
         <p class="cred">ProPublica (jun. 2025) · Schneier &amp; Sanders, cap. 35 · Foto: CPAC, feb. 2025 · Argentina.gob, CC BY 4.0</p>
       </div>
     </div>
@@ -597,11 +624,14 @@ table.matrix td.hit{background:#F2E6E2;}
     <div class="case green">
       <div class="ph"><img src="img/semana12/congresso-brasil.jpg" alt="Fachada del Congreso Nacional de Brasil en Brasilia"></div>
       <div class="tx">
-        <span class="where">Brasil · Operação Serenata de Amor, 2016</span>
-        <h2>Un bot audita<br>a los diputados.</h2>
-        <div class="n">8.000<small>irregularidades en reembolsos, en seis meses</small></div>
-        <div class="n">629<small>denuncias de posible corrupción</small></div>
-        <p class="cred">«Rosie», software abierto · Schneier &amp; Sanders, cap. 35 · Foto: Agência Senado, CC BY 2.0</p>
+        <span class="where">Brasil · 2016</span>
+        <h2 class="case-name">Rosie<br><span class="alt">Operação Serenata de Amor</span></h2>
+        <ul class="facts">
+          <li>Bot abierto que revisa los reembolsos de los diputados.</li>
+          <li><b>8.000</b> irregularidades y <b>629</b> denuncias en seis meses.</li>
+        </ul>
+        <p class="hook">Auditar desde abajo.</p>
+        <p class="cred">Schneier &amp; Sanders, cap. 35 · Foto: Agência Senado, CC BY 2.0</p>
       </div>
     </div>
   </div>
@@ -614,11 +644,14 @@ table.matrix td.hit{background:#F2E6E2;}
     <div class="case green">
       <div class="ph"><img src="img/semana12/chama-pana.jpg" alt="La Chama y El Pana, presentadores generados con IA de Operación Retuit, sobre fondo amarillo"></div>
       <div class="tx">
-        <span class="where">Venezuela · tras la elección de 2024</span>
-        <h2>Periodistas<br>sin rostro.</h2>
-        <div class="n">~100<small>periodistas informan detrás de dos avatares de IA</small></div>
-        <p class="pt sm">«No somos reales. Los datos sí.»</p>
-        <p class="cred">Operación Retuit (Connectas) · Schneier &amp; Sanders, cap. 35 · Imagen: Operación Retuit, vía BBC Mundo</p>
+        <span class="where">Venezuela · 2024</span>
+        <h2 class="case-name">Operación Retuit</h2>
+        <ul class="facts">
+          <li>Tras la elección, ~100 periodistas publican detrás de dos avatares de IA.</li>
+          <li>La Chama y El Pana: el rostro es falso, los datos no.</li>
+        </ul>
+        <p class="hook">«No somos reales. Los datos sí.»</p>
+        <p class="cred">Connectas · Schneier &amp; Sanders, cap. 35 · Imagen: Operación Retuit, vía BBC Mundo</p>
       </div>
     </div>
   </div>
@@ -631,34 +664,38 @@ table.matrix td.hit{background:#F2E6E2;}
     <div class="case green">
       <div class="ph"><img src="img/semana12/cpdp.jpg" alt="Collage de expedientes disciplinarios de la policía de Chicago con el título Citizens Police Data Project"></div>
       <div class="tx">
-        <span class="where">EE.UU. · Chicago y Luisiana</span>
-        <h2>Vigilar a la policía<br>con sus propios papeles.</h2>
-        <p class="pt">IA sobre registros públicos para encontrar <b>patrones de violencia policial.</b></p>
-        <p class="cred">Citizens Police Data Project (Invisible Institute) · Schneier &amp; Sanders, cap. 35</p>
+        <span class="where">Chicago · también Luisiana</span>
+        <h2 class="case-name">Citizens Police Data Project</h2>
+        <ul class="facts">
+          <li>IA sobre expedientes disciplinarios públicos de la policía.</li>
+          <li>Busca patrones de violencia policial.</li>
+        </ul>
+        <p class="hook">Vigilar a la policía con sus propios papeles.</p>
+        <p class="cred">Invisible Institute · Schneier &amp; Sanders, cap. 35</p>
       </div>
     </div>
   </div>
   <div class="folio"><span>DIAPO N.º 15</span><span class="dots"></span><span>CHICAGO</span></div>
 </section>
 
-<!-- ══ 16 · DEFENDERSE DEL TRÁMITE ══ -->
+<!-- ══ 16 · IMMPATH Y RESISTBOT ══ -->
 <section class="slide">
   <div class="content">
-    <div class="eyebrow"><span class="bar"></span>Schneier &amp; Sanders, cap. 37</div>
-    <h2 class="xs">Una IA para hablarle al Estado.</h2>
+    <div class="eyebrow"><span class="bar"></span>EE.UU. · Schneier &amp; Sanders, cap. 37</div>
+    <h2 class="case-name">IMMPATH y Resistbot</h2>
     <div class="twin">
       <figure>
         <div class="ph"><img src="img/semana12/immpath.jpg" alt="Portada del sitio de Justicia Lab AI, laboratorio sin fines de lucro de IA para la justicia migratoria"></div>
-        <figcaption><b>IMMPATH.</b> Una foto de la carta de inmigración; la IA explica qué responder.</figcaption>
+        <figcaption><b>IMMPATH</b> (Justicia Lab). Una foto de la carta de inmigración; la IA explica qué responder.</figcaption>
       </figure>
       <figure>
         <div class="ph"><img src="img/semana12/resistbot.jpg" alt="Ilustración de Resistbot: Rosie la Remachadora frente al Capitolio y el texto Text resist to 50409"></div>
-        <figcaption><b>1 de cada 5</b> reclamos al regulador financiero de EE.UU. ya se escribe con IA (2024).</figcaption>
+        <figcaption><b>Resistbot.</b> Un mensaje de texto se vuelve carta al congresista. ~10 M de usuarios.</figcaption>
       </figure>
     </div>
     <p class="cred" style="text-align:left;">Imágenes: Justicia Lab · Resistbot</p>
   </div>
-  <div class="folio"><span>DIAPO N.º 16</span><span class="dots"></span><span>EL TRÁMITE</span></div>
+  <div class="folio"><span>DIAPO N.º 16</span><span class="dots"></span><span>IMMPATH Y RESISTBOT</span></div>
 </section>
 
 <!-- ══ 17 · DIVISOR III ══ -->
@@ -681,23 +718,23 @@ table.matrix td.hit{background:#F2E6E2;}
       <div class="heads"><span></span><span style="color:var(--stamp); text-align:right;">El Estado</span><span></span><span style="color:var(--forest);">Los ciudadanos</span><span></span></div>
       <div class="pair">
         <div class="th"><img src="img/semana12/ice-huellas.jpg" alt=""></div>
-        <div class="lb red">Encontrar al inmigrante<small>ICE · ImmigrationOS</small></div>
+        <div class="lb red">ICE y Palantir<small>encontrar al inmigrante</small></div>
         <div class="vs">↔</div>
-        <div class="lb green">Defender al inmigrante<small>Justicia Lab · IMMPATH</small></div>
+        <div class="lb green">IMMPATH<small>defender al inmigrante</small></div>
         <div class="th"><img src="img/semana12/immpath.jpg" alt=""></div>
       </div>
       <div class="pair">
         <div class="th"><img src="img/semana12/gendarmeria-filma.jpg" alt=""></div>
-        <div class="lb red">Mirar la protesta<small>Argentina · Rusia</small></div>
+        <div class="lb red">Argentina · Navalny<small>mirar la protesta</small></div>
         <div class="vs">↔</div>
-        <div class="lb green">Mirar a quien reprime<small>Venezuela · Chicago</small></div>
+        <div class="lb green">Operación Retuit · CPDP<small>mirar a quien reprime</small></div>
         <div class="th"><img src="img/semana12/chama-pana.jpg" alt=""></div>
       </div>
       <div class="pair">
         <div class="th"><img src="img/semana12/milei-musk-motosierra.jpg" alt=""></div>
-        <div class="lb red">Auditar desde arriba<small>DOGE</small></div>
+        <div class="lb red">DOGE<small>auditar desde arriba</small></div>
         <div class="vs">↔</div>
-        <div class="lb green">Auditar desde abajo<small>Rosie · Serenata de Amor</small></div>
+        <div class="lb green">Rosie<small>auditar desde abajo</small></div>
         <div class="th"><img src="img/semana12/congresso-brasil.jpg" alt=""></div>
       </div>
     </div>
@@ -748,11 +785,14 @@ table.matrix td.hit{background:#F2E6E2;}
     <div class="case">
       <div class="ph"><img src="img/semana12/bab-el-mandeb.jpg" alt="Fotografía satelital del estrecho de Bab el-Mandeb, entre Yemen y el Cuerno de África"></div>
       <div class="tx">
-        <span class="where">Una objeción</span>
-        <h2>Cuando el poder sube de escala, los de abajo también.</h2>
-        <p class="pt sm">Norte de Yemen, 2026: una célula usó Claude Code para programar el guiado de un cohete. <b>Falló.</b></p>
-        <p class="pt sm" style="color:var(--ink-soft);">¿Los de abajo son los ciudadanos?</p>
-        <p class="cred">Anthropic, informe de mal uso de septiembre de 2026, vía prensa · Anthropic no la atribuye a los hutíes · Foto: NASA, dominio público</p>
+        <span class="where">Una objeción · norte de Yemen, 2026</span>
+        <h2 class="case-name">Célula GTG-87001</h2>
+        <ul class="facts">
+          <li>Usó Claude Code para programar el guiado de un cohete.</li>
+          <li>La prueba falló. Anthropic no la atribuye a los hutíes.</li>
+        </ul>
+        <p class="hook">Cuando el poder sube de escala, los de abajo también. ¿Los de abajo son los ciudadanos?</p>
+        <p class="cred">Anthropic, informe de mal uso de septiembre de 2026, vía prensa · Foto: NASA, dominio público</p>
       </div>
     </div>
   </div>
