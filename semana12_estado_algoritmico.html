@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>¿A quién empodera la IA? — IA y Democracia 2026 · Semana 12</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700;9..144,900&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+
+:root{
+  --paper:#EBE6D8; --paper-deep:#E1DAC7; --ink:#22281F;
+  --ink-soft:#4A5142; --stamp:#9C2B2F; --forest:#2E4638;
+  --gold:#A9823C; --line:#C7BEA3; --card:#F4F0E4; --card2:#EDEAD9;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html,body{height:100%; background:var(--ink); font-family:'IBM Plex Sans',sans-serif; color:var(--ink); overflow:hidden;}
+
+.deck{position:relative; width:100%; height:100vh;}
+
+.slide{
+  position:absolute; inset:0;
+  background:var(--paper);
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(34,40,31,.038) 28px);
+  opacity:0; visibility:hidden;
+  transform:translateY(12px);
+  transition:opacity .42s ease, transform .42s ease, visibility .42s;
+  padding:40px 64px 54px;
+  display:flex; flex-direction:column;
+  overflow-y:auto;
+}
+.slide.active{opacity:1; visibility:visible; transform:translateY(0);}
+.slide::before{content:""; position:absolute; inset:22px; border:1px solid var(--line); pointer-events:none; z-index:10;}
+.slide::after {content:""; position:absolute; inset:26px; border:1px solid var(--line); opacity:.45; pointer-events:none; z-index:10;}
+
+/* Divisores de seccion */
+.slide.divider{background:var(--forest); background-image:repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(255,255,255,.03) 28px);}
+.slide.divider::before,.slide.divider::after{border-color:rgba(235,230,216,.35);}
+.slide.divider .content{justify-content:center;}
+.divider .part-num{font-family:'Fraunces',serif; font-size:118px; font-weight:300; color:rgba(235,230,216,.22); line-height:.85; margin-bottom:8px;}
+.divider h2{color:var(--paper); font-size:42px; margin-bottom:14px;}
+.divider .sub{color:rgba(235,230,216,.72); font-size:17px; max-width:720px;}
+.divider .eyebrow{color:var(--gold);}
+.divider .eyebrow .bar{background:var(--gold);}
+.divider .folio{color:rgba(235,230,216,.6);}
+.divider .dot{background:rgba(235,230,216,.28);}
+.divider .dot.on{background:var(--gold);}
+
+/* Sello */
+.stamp{position:absolute; top:46px; right:60px; width:124px; height:124px; transform:rotate(-8deg); opacity:.9; pointer-events:none; z-index:5;}
+.stamp svg{width:100%; height:100%; overflow:visible;}
+.stamp .ring{fill:none; stroke:var(--stamp);}
+.stamp .cancel{stroke:var(--stamp); fill:none; opacity:.5;}
+.stamp text{fill:var(--stamp); font-family:'IBM Plex Mono',monospace; letter-spacing:2px;}
+.stamp .big{font-family:'Fraunces',serif; font-weight:700;}
+
+/* Folio */
+.folio{
+  position:absolute; bottom:26px; left:64px; right:64px;
+  display:flex; justify-content:space-between; align-items:center; gap:20px;
+  font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--ink-soft); letter-spacing:.05em;
+  z-index:12;
+}
+.dots{display:flex; gap:5px; flex-wrap:wrap; justify-content:center;}
+.dot{width:5px; height:5px; border-radius:50%; background:var(--line); cursor:pointer; transition:.2s; flex-shrink:0;}
+.dot.on{background:var(--stamp); transform:scale(1.4);}
+
+/* Tipografia */
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--stamp); display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-shrink:0;
+}
+.eyebrow .bar{height:1px; width:30px; background:var(--stamp); display:inline-block; flex-shrink:0;}
+h1{font-family:'Fraunces',serif; font-weight:700; font-size:42px; line-height:1.07; letter-spacing:-.012em; margin-bottom:6px;}
+h2{font-family:'Fraunces',serif; font-weight:600; font-size:46px; line-height:1.06; letter-spacing:-.015em; margin-bottom:0; max-width:1090px;}
+h2.sm{font-size:38px;}
+h2.xs{font-size:32px;}
+h3{font-family:'Fraunces',serif; font-weight:600; font-size:17px; color:var(--forest); margin-bottom:5px;}
+.sub{font-size:15.5px; color:var(--ink-soft); line-height:1.55; max-width:760px;}
+.content{flex:1; display:flex; flex-direction:column; justify-content:flex-start; min-height:0;}
+a{color:var(--stamp); text-decoration:none; border-bottom:1px dotted var(--stamp);}
+a:hover{color:var(--forest); border-bottom-color:var(--forest);}
+
+.src-line{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--ink-soft); letter-spacing:.03em; margin-top:12px; flex-shrink:0; line-height:1.55;}
+.src-line a{color:var(--stamp); border-bottom:1px solid rgba(156,43,47,.45); padding-bottom:1px;}
+.src-line a:hover{color:var(--forest); border-bottom-color:var(--forest); background:rgba(169,130,60,.14);}
+
+/* Meta portada */
+.meta-strip{display:flex; gap:38px; flex-wrap:wrap; margin-top:26px;}
+.meta-item .ml{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:3px;}
+.meta-item .mv{font-size:14px; color:var(--ink);}
+
+/* Puntos grandes (proyeccion) */
+.duo{display:grid; grid-template-columns:1fr 1.08fr; gap:46px; flex:1; min-height:0; align-items:center; margin-top:18px;}
+.duo.wide{grid-template-columns:.9fr 1.3fr;}
+.duo.vert{grid-template-columns:1.3fr .7fr;}
+.pts{display:flex; flex-direction:column; gap:22px;}
+.pt{font-size:22px; line-height:1.42; color:var(--ink);}
+.pt.sm{font-size:19px; line-height:1.5;}
+.pt b{color:var(--stamp); font-weight:600;}
+.pt strong{font-weight:600;}
+.pt em{font-style:italic;}
+.blockhead{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--forest); margin-bottom:14px;}
+
+.textcols{display:grid; grid-template-columns:1fr 1fr; gap:52px; flex:1; min-height:0; align-content:center; margin-top:20px;}
+.textcols .pt{font-size:21px;}
+.textcols.c3{grid-template-columns:1fr 1fr 1fr; gap:38px;}
+.textcols.c3 .pt{font-size:18px; line-height:1.5;}
+
+/* Cita grande */
+.bigquote{flex:1; min-height:0; display:flex; flex-direction:column; justify-content:center; border-left:4px solid var(--gold); padding-left:40px; margin-top:18px;}
+.bigquote p{font-family:'Fraunces',serif; font-size:34px; font-style:italic; line-height:1.28; color:var(--ink);}
+.bigquote p.sm2{font-size:27px;}
+.bigquote p + p{margin-top:22px;}
+.bigquote cite{display:block; font-family:'IBM Plex Mono',monospace; font-size:13px; font-style:normal; color:var(--ink-soft); letter-spacing:.06em; margin-top:14px;}
+.qrow{display:flex; gap:28px; align-items:center;}
+.qrow + .qrow{margin-top:34px;}
+.qrow .qph{width:min(212px,29vh); height:min(212px,29vh); flex-shrink:0; border:1px solid var(--line); background:var(--ink); overflow:hidden;}
+.qrow .qph img{width:100%; height:100%; object-fit:cover; object-position:50% 15%; display:block; filter:sepia(18%) saturate(.85) contrast(1.04) brightness(.99);}
+.qrow .qtx{flex:1; min-width:0;}
+
+/* Cifra gigante */
+.bignum{display:flex; align-items:center; gap:54px; flex:1; min-height:0; margin-top:10px;}
+.fig-n{font-family:'Fraunces',serif; font-weight:600; font-size:150px; line-height:.84; color:var(--stamp); letter-spacing:-.03em; flex-shrink:0;}
+.fig-n.sm{font-size:96px;}
+.fig-n small{display:block; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:400; color:var(--ink-soft); letter-spacing:.14em; text-transform:uppercase; margin-top:18px; line-height:1.55;}
+.fig-t2{font-size:23px; line-height:1.44; color:var(--ink); max-width:700px;}
+.fig-t2 strong{color:var(--stamp); font-weight:600;}
+.fig-t2 .counter{display:block; margin-top:22px; padding-top:18px; border-top:1px solid var(--line); font-size:18px; color:var(--ink-soft);}
+.fig-t2 .counter strong{color:var(--ink);}
+
+/* Duelo */
+.faceoff{display:grid; grid-template-columns:1fr auto 1fr; gap:34px; flex:1; min-height:0; align-items:start; margin-top:22px;}
+.faceoff .side{border-top:3px solid var(--forest); padding-top:20px;}
+.faceoff .side.red{border-top-color:var(--stamp);}
+.faceoff .side .lbl{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--forest); margin-bottom:14px;}
+.faceoff .side.red .lbl{color:var(--stamp);}
+.faceoff .side p{font-size:19px; line-height:1.46; color:var(--ink); margin-bottom:14px;}
+.faceoff .side p:last-child{margin-bottom:0;}
+.faceoff .side p strong{color:var(--stamp); font-weight:600;}
+.faceoff .side.green p strong{color:var(--forest);}
+.faceoff .vs{display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-size:22px; color:var(--gold); font-weight:600; padding-top:60px;}
+
+/* Nota / pregunta */
+.note{background:var(--card2); border:1px solid var(--line); border-left:3px solid var(--forest); padding:15px 20px; margin-top:16px; flex-shrink:0;}
+.note .nl{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--forest); margin-bottom:7px;}
+.note p{font-size:15px; line-height:1.6; color:var(--ink-soft);}
+.note p strong{color:var(--ink);}
+.note.red{border-left-color:var(--stamp);} .note.red .nl{color:var(--stamp);}
+
+.ask{background:var(--forest); color:var(--paper); padding:20px 26px; margin-top:16px; border:1px solid var(--forest); flex-shrink:0;}
+.ask .al{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); margin-bottom:8px;}
+.ask p{font-family:'Fraunces',serif; font-size:21px; line-height:1.36; font-style:italic;}
+.ask p.plain{font-family:'IBM Plex Sans',sans-serif; font-size:14.5px; font-style:normal; color:rgba(235,230,216,.84); margin-top:9px; line-height:1.55;}
+
+/* Listas */
+.dash-list{list-style:none; margin-top:10px;}
+.dash-list li{font-size:17px; line-height:1.55; color:var(--ink-soft); margin-bottom:13px; padding-left:22px; position:relative;}
+.dash-list li::before{content:"—"; position:absolute; left:0; color:var(--stamp);}
+.dash-list li strong{color:var(--ink); font-weight:600;}
+.num-list{list-style:none; margin-top:12px; display:flex; flex-direction:column; gap:15px;}
+.num-list li{font-size:17.5px; line-height:1.5; color:var(--ink-soft); padding-left:44px; position:relative;}
+.num-list li::before{content:counter(li); counter-increment:li; position:absolute; left:0; top:-2px; font-family:'Fraunces',serif; font-size:26px; font-weight:600; color:var(--line);}
+.num-list{counter-reset:li;}
+.num-list li strong{color:var(--ink); font-weight:600;}
+
+.readings{list-style:none; margin-top:8px;}
+.readings li{font-size:14px; color:var(--ink-soft); padding:11px 0; border-bottom:1px solid var(--line); line-height:1.55;}
+.readings li:last-child{border-bottom:none;}
+.readings li b{color:var(--ink); font-family:'Fraunces',serif; font-weight:600; font-size:15.5px; display:block; margin-bottom:3px;}
+
+/* Matriz */
+table.matrix{width:100%; border-collapse:collapse; font-size:15px; margin-top:18px;}
+table.matrix th{background:var(--card2); color:var(--forest); text-align:left; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; padding:11px 14px; border:1px solid var(--line); font-weight:600;}
+table.matrix td{border:1px solid var(--line); padding:13px 14px; vertical-align:top; color:var(--ink-soft); line-height:1.5; background:var(--card);}
+table.matrix td strong{color:var(--ink);}
+table.matrix td.lead-c{background:var(--card2); color:var(--ink); font-weight:600; width:20%; font-size:14px;}
+table.matrix td.hit{background:#F2E6E2;}
+
+/* Tarjetas */
+.cards{display:grid; gap:16px; margin-top:16px;}
+.cards.c2{grid-template-columns:repeat(2,1fr);}
+.cards.c3{grid-template-columns:repeat(3,1fr);}
+.card{background:var(--card); border:1px solid var(--line); border-left:3px solid var(--forest); padding:17px 20px; display:flex; flex-direction:column; gap:8px;}
+.card.red{border-left-color:var(--stamp);}
+.card.gold{border-left-color:var(--gold);}
+.card .k{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--stamp);}
+.card.gold .k{color:var(--gold);}
+.card.green .k{color:var(--forest);}
+.card p{font-size:15px; line-height:1.55; color:var(--ink-soft);}
+.card p strong{color:var(--ink); font-weight:600;}
+
+/* Etiquetas */
+.tags{display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;}
+.tag{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; border:1px solid var(--line); color:var(--ink-soft); padding:5px 10px; background:var(--card);}
+.tag.red{border-color:var(--stamp); color:var(--stamp);}
+.tag.gold{border-color:var(--gold); color:var(--gold);}
+
+/* Graficos SVG */
+.stage{flex:1; min-height:0; display:flex; flex-direction:column; align-items:center; justify-content:center; margin-top:14px;}
+.stage svg{display:block; max-width:100%; max-height:100%; height:auto;}
+.stage img{display:block; max-width:100%; max-height:100%; object-fit:contain;}
+.stage .shot{height:100%; display:flex; align-items:center; justify-content:center; min-height:0;}
+.stage .shot img{max-height:100%; max-width:min(100%,780px); object-fit:contain; background:#fff; border:1px solid var(--line); box-shadow:0 2px 14px rgba(30,25,15,.10);}
+.cred{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-soft); margin-top:12px; text-align:center; opacity:.9; line-height:1.5;}
+.gx-lbl{font-family:'IBM Plex Mono',monospace; font-size:12px; fill:var(--ink-soft); letter-spacing:.06em;}
+.gx-cap{font-family:'IBM Plex Sans',sans-serif; font-size:14px; fill:var(--ink);}
+.gx-cap.b{font-weight:600;}
+.gx-key{font-family:'IBM Plex Mono',monospace; font-size:11px; fill:var(--stamp); letter-spacing:.1em; text-transform:uppercase;}
+.gx-key.g{fill:var(--forest);}
+.gx-axis{stroke:var(--ink-soft); stroke-width:1.2;}
+.gx-grid{stroke:var(--line); stroke-width:1; stroke-dasharray:4 4;}
+
+/* Navegacion */
+.nav-btn{position:fixed; top:50%; transform:translateY(-50%); width:42px; height:42px; border-radius:50%; border:1px solid var(--line); background:rgba(244,240,228,.9); color:var(--ink); font-size:19px; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:20; transition:.2s;}
+.nav-btn:hover{background:var(--stamp); color:var(--paper); border-color:var(--stamp);}
+#P{left:16px;} #N{right:16px;}
+.progress{position:fixed; top:0; left:0; height:2px; width:0; background:var(--stamp); z-index:30; transition:width .3s ease;}
+
+@media(max-width:900px){
+  .slide{padding:34px 20px 54px;}
+  h1{font-size:25px;} h2{font-size:22px;} h2.sm{font-size:20px;} h2.xs{font-size:19px;}
+  .divider h2{font-size:26px;} .divider .part-num{font-size:70px;}
+  .duo,.duo.wide,.duo.vert,.textcols,.textcols.c3,.faceoff,.cards.c2,.cards.c3{grid-template-columns:1fr; gap:22px;}
+  .faceoff .vs{display:none;}
+  .stamp{display:none;}
+  .stage svg{max-height:46vh;}
+  .stage .shot img{max-height:52vh;}
+  .bignum{flex-direction:column; align-items:flex-start; gap:20px;}
+  .fig-n{font-size:82px;} .fig-n.sm{font-size:62px;}
+  .pt{font-size:17px;} .textcols .pt,.textcols.c3 .pt{font-size:16px;}
+  .bigquote p{font-size:21px;} .bigquote p.sm2{font-size:18px;} .bigquote{padding-left:20px;}
+  .qrow{gap:18px;} .qrow .qph{width:116px; height:116px;} .qrow + .qrow{margin-top:24px;}
+  table.matrix{font-size:12.5px;} table.matrix td{padding:8px;}
+  .folio{left:20px; right:20px;}
+}
+
+/* ── Semana 12: láminas de caso con imagen ── */
+.case{display:grid; grid-template-columns:1.25fr 1fr; gap:46px; flex:1; min-height:0; align-items:center; margin-top:6px;}
+.case.flip{grid-template-columns:1fr 1.25fr;}
+.case .ph{height:100%; max-height:64vh; min-height:0; border:1px solid var(--line); background:var(--ink); overflow:hidden; box-shadow:0 2px 14px rgba(30,25,15,.12);}
+.case .ph img{width:100%; height:100%; object-fit:cover; display:block;}
+.case .tx{display:flex; flex-direction:column; gap:18px; min-width:0;}
+.case .tx h2{font-size:40px;}
+.case .where{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--stamp);}
+.case.green .where{color:var(--forest);}
+.case .n{font-family:'Fraunces',serif; font-weight:600; font-size:54px; line-height:1; color:var(--stamp); letter-spacing:-.02em;}
+.case.green .n{color:var(--forest);}
+.case .n small{display:block; font-family:'IBM Plex Sans',sans-serif; font-size:16px; font-weight:400; color:var(--ink-soft); letter-spacing:0; margin-top:6px; line-height:1.4;}
+.case .cred{text-align:left; margin-top:4px;}
+
+/* Dos imágenes lado a lado */
+.twin{display:grid; grid-template-columns:1fr 1fr; gap:34px; flex:1; min-height:0; margin-top:18px;}
+.twin figure{display:flex; flex-direction:column; gap:12px; min-height:0;}
+.twin .ph{flex:1; min-height:0; max-height:46vh; border:1px solid var(--line); overflow:hidden; background:var(--card);}
+.twin .ph img{width:100%; height:100%; object-fit:cover; display:block;}
+.twin figcaption{font-size:19px; line-height:1.4; color:var(--ink);}
+.twin figcaption b{color:var(--forest); font-weight:600;}
+
+/* Tres pares */
+.pairs{display:flex; flex-direction:column; gap:16px; flex:1; min-height:0; justify-content:center; margin-top:14px;}
+.pair{display:grid; grid-template-columns:150px 1fr 60px 1fr 150px; gap:18px; align-items:center;}
+.pair .th{height:92px; border:1px solid var(--line); overflow:hidden; background:var(--ink);}
+.pair .th img{width:100%; height:100%; object-fit:cover; display:block;}
+.pair .lb{font-size:20px; line-height:1.3;}
+.pair .lb.red{color:var(--stamp); text-align:right;}
+.pair .lb.green{color:var(--forest);}
+.pair .lb small{display:block; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin-top:3px;}
+.pair .vs{font-family:'Fraunces',serif; font-size:26px; color:var(--gold); text-align:center;}
+.pairs .heads{display:grid; grid-template-columns:150px 1fr 60px 1fr 150px; gap:18px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase;}
+
+/* Antes / ahora */
+.split{display:grid; grid-template-columns:1fr 1fr; flex:1; min-height:0; margin-top:18px; border:1px solid var(--line);}
+.split > div{padding:40px 42px; display:flex; flex-direction:column; justify-content:center; gap:16px;}
+.split > div + div{background:var(--card2); border-left:1px solid var(--line);}
+.split .k{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft);}
+.split .big{font-family:'Fraunces',serif; font-size:40px; line-height:1.12; font-weight:600;}
+.split > div + div .big{color:var(--stamp);}
+.split p{font-size:18px; line-height:1.5; color:var(--ink-soft);}
+
+/* Pregunta grande */
+.bigask{font-family:'Fraunces',serif; font-weight:600; font-size:58px; line-height:1.1; color:var(--paper); max-width:1050px; letter-spacing:-.015em;}
+
+@media(max-width:900px){
+  .case,.case.flip,.twin,.split{grid-template-columns:1fr; gap:20px;}
+  .case .ph{max-height:34vh; height:34vh;}
+  .case .tx h2{font-size:24px;}
+  .case .n{font-size:36px;}
+  .pair,.pairs .heads{grid-template-columns:64px 1fr 24px 1fr 64px; gap:8px;}
+  .pair .th{height:48px;} .pair .lb{font-size:14px;}
+  .split .big{font-size:24px;} .split > div{padding:22px;}
+  .bigask{font-size:30px;}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<div class="deck" id="deck">
+
+<!-- ══ 01 · PORTADA ══ -->
+<section class="slide active">
+  <div class="stamp"><svg viewBox="0 0 140 140">
+    <defs><clipPath id="c12"><circle cx="70" cy="70" r="63"/></clipPath>
+    <path id="t12" d="M18,72 A52,52 0 0 1 122,72" fill="none"/>
+    <path id="b12" d="M122,70 A52,52 0 0 1 18,70" fill="none"/></defs>
+    <circle class="ring" cx="70" cy="70" r="63" stroke-width="2.2"/>
+    <circle class="ring" cx="70" cy="70" r="51" stroke-width="1"/>
+    <g clip-path="url(#c12)"><g class="cancel" stroke-width="1.2">
+      <path d="M-5,50 Q35,60 70,50 T145,50"/><path d="M-5,68 Q35,78 70,68 T145,68"/><path d="M-5,86 Q35,96 70,86 T145,86"/>
+    </g></g>
+    <text font-size="10.5"><textPath href="#t12" startOffset="50%" text-anchor="middle">UAI · 26 OCT 2026</textPath></text>
+    <text class="big" font-size="27" x="70" y="79" text-anchor="middle">12</text>
+    <text font-size="10.5"><textPath href="#b12" startOffset="50%" text-anchor="middle">SEMANA 12</textPath></text>
+  </svg></div>
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>IA y Democracia 2026 — Semana 12</div>
+    <h1 style="font-size:66px;">¿A quién empodera<br>la IA?</h1>
+    <h1 style="color:var(--forest); font-size:31px; font-weight:600; margin-top:16px; max-width:900px;">El Estado algorítmico: vigilancia, administración y rendición de cuentas</h1>
+    <div class="meta-strip" style="margin-top:34px;">
+      <div class="meta-item"><div class="ml">Fechas</div><div class="mv">Lunes 26 y jueves 29 de octubre</div></div>
+      <div class="meta-item"><div class="ml">Jueves</div><div class="mv">Ejercicio escrito 2 · 15%</div></div>
+      <div class="meta-item"><div class="ml">Imparte</div><div class="mv">Naim Bro</div></div>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 01</span><span class="dots"></span><span>GOB542 · IA Y DEMOCRACIA</span></div>
+</section>
+
+<!-- ══ 02 · MAPA DEL SEMESTRE ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Dónde estamos</div>
+    <h2 class="xs">Doce semanas recorridas, cuatro por delante.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1100 330" role="img" aria-label="Línea de tiempo de las 16 semanas del curso. Las semanas 1 a 11 ya pasaron; la semana 12, Estado algorítmico, es hoy; quedan polarización, IA deliberativa, el taller integrador y la Prueba II. Se destacan las semanas 7 y 9, que esta clase retoma.">
+        <!-- tramos -->
+        <text class="gx-lbl" x="390" y="40" text-anchor="middle">DE DÓNDE VENIMOS</text>
+        <line x1="62" y1="52" x2="718" y2="52" stroke="#C7BEA3" stroke-width="1.5"/>
+        <line x1="62" y1="46" x2="62" y2="58" stroke="#C7BEA3" stroke-width="1.5"/><line x1="718" y1="46" x2="718" y2="58" stroke="#C7BEA3" stroke-width="1.5"/>
+        <text class="gx-key" x="774" y="40" text-anchor="middle">HOY</text>
+        <text class="gx-lbl" x="934" y="40" text-anchor="middle">A DÓNDE VAMOS</text>
+        <line x1="830" y1="52" x2="1038" y2="52" stroke="#C7BEA3" stroke-width="1.5"/>
+        <line x1="830" y1="46" x2="830" y2="58" stroke="#C7BEA3" stroke-width="1.5"/><line x1="1038" y1="46" x2="1038" y2="58" stroke="#C7BEA3" stroke-width="1.5"/>
+
+        <!-- eje -->
+        <line x1="70" y1="170" x2="1030" y2="170" stroke="#C7BEA3" stroke-width="2"/>
+        <line x1="70" y1="170" x2="774" y2="170" stroke="#4A5142" stroke-width="2.5"/>
+
+        <!-- etiquetas: impares arriba, pares un poco más abajo -->
+        <g class="gx-cap" font-size="13" text-anchor="middle" fill="#4A5142">
+          <text x="70"   y="110">Apertura</text>
+          <text x="134"  y="134">Democracia</text>
+          <text x="198"  y="110">Backlash</text>
+          <text x="262"  y="134">Élites</text>
+          <text x="326"  y="110">Oligarquía IA</text>
+          <text x="390"  y="134">Esfera pública</text>
+          <text x="454"  y="110" font-weight="600" fill="#22281F">Gobernanza</text>
+          <text x="518"  y="134">Prueba I</text>
+          <text x="582"  y="110" font-weight="600" fill="#22281F">Autoritarismo</text>
+          <text x="646"  y="134">Cerebro</text>
+          <text x="710"  y="110">Orden global</text>
+          <text x="838"  y="110">Polarización</text>
+          <text x="902"  y="134">IA deliberativa</text>
+          <text x="966"  y="110">Taller</text>
+          <text x="1030" y="134">Prueba II</text>
+        </g>
+
+        <!-- nodos pasados (rellenos, atenuados) -->
+        <g font-family="IBM Plex Mono, monospace" font-size="11" text-anchor="middle">
+          <circle cx="70"  cy="170" r="15" fill="#A9823C" opacity=".55"/><text x="70"  y="174" fill="#fff">1</text>
+          <circle cx="134" cy="170" r="15" fill="#2E4638" opacity=".55"/><text x="134" y="174" fill="#fff">2</text>
+          <circle cx="198" cy="170" r="15" fill="#9C2B2F" opacity=".55"/><text x="198" y="174" fill="#fff">3</text>
+          <circle cx="262" cy="170" r="15" fill="#2E4638" opacity=".55"/><text x="262" y="174" fill="#fff">4</text>
+          <circle cx="326" cy="170" r="15" fill="#9C2B2F" opacity=".55"/><text x="326" y="174" fill="#fff">5</text>
+          <circle cx="390" cy="170" r="15" fill="#2E4638" opacity=".55"/><text x="390" y="174" fill="#fff">6</text>
+          <circle cx="454" cy="170" r="15" fill="#9C2B2F"/><text x="454" y="174" fill="#fff">7</text>
+          <circle cx="454" cy="170" r="21" fill="none" stroke="#A9823C" stroke-width="2"/>
+          <circle cx="518" cy="170" r="15" fill="#EBE6D8" stroke="#4A5142" stroke-width="1.5" opacity=".7"/><text x="518" y="174" fill="#4A5142">8</text>
+          <circle cx="582" cy="170" r="15" fill="#2E4638"/><text x="582" y="174" fill="#fff">9</text>
+          <circle cx="582" cy="170" r="21" fill="none" stroke="#A9823C" stroke-width="2"/>
+          <circle cx="646" cy="170" r="15" fill="#8A8F7E" opacity=".6"/><text x="646" y="174" fill="#fff">10</text>
+          <circle cx="710" cy="170" r="15" fill="#2E4638" opacity=".55"/><text x="710" y="174" fill="#fff">11</text>
+          <!-- hoy -->
+          <circle cx="774" cy="170" r="31" fill="none" stroke="#9C2B2F" stroke-width="1.2" opacity=".5"/>
+          <circle cx="774" cy="170" r="24" fill="#9C2B2F"/><text x="774" y="176" fill="#fff" font-size="16" font-weight="700">12</text>
+          <!-- futuros (contorno) -->
+          <circle cx="838"  cy="170" r="15" fill="#EBE6D8" stroke="#2E4638" stroke-width="2"/><text x="838"  y="174" fill="#2E4638">13</text>
+          <circle cx="902"  cy="170" r="15" fill="#EBE6D8" stroke="#9C2B2F" stroke-width="2"/><text x="902"  y="174" fill="#9C2B2F">14</text>
+          <circle cx="966"  cy="170" r="15" fill="#EBE6D8" stroke="#A9823C" stroke-width="2"/><text x="966"  y="174" fill="#A9823C">15</text>
+          <circle cx="1030" cy="170" r="15" fill="#EBE6D8" stroke="#4A5142" stroke-width="1.5"/><text x="1030" y="174" fill="#4A5142">16</text>
+        </g>
+
+        <text class="gx-cap b" x="774" y="228" text-anchor="middle" fill="#9C2B2F" font-size="16">Estado algorítmico</text>
+
+        <!-- leyenda -->
+        <g font-family="IBM Plex Mono, monospace" font-size="11" fill="#4A5142" letter-spacing=".06em">
+          <circle cx="250" cy="300" r="7" fill="#9C2B2F"/><text x="264" y="304">MÓDULO IA</text>
+          <circle cx="390" cy="300" r="7" fill="#2E4638"/><text x="404" y="304">MÓDULO DEMOCRACIA</text>
+          <circle cx="580" cy="300" r="7" fill="#A9823C"/><text x="594" y="304">CONJUNTA</text>
+          <circle cx="700" cy="300" r="7" fill="#EBE6D8" stroke="#4A5142" stroke-width="1.5"/><text x="714" y="304">EVALUACIÓN</text>
+          <circle cx="836" cy="300" r="9" fill="none" stroke="#A9823C" stroke-width="2"/><text x="852" y="304">HOY LAS RETOMAMOS</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 02</span><span class="dots"></span><span>EL MAPA</span></div>
+</section>
+
+<!-- ══ 03 · EL CRUCE ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Semana 7 · Acemoglu, Gitmez &amp; Shadmehr (2026)</div>
+    <h2 class="xs">Pasado el umbral, reprimir sale<br>más barato que redistribuir.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 900 380" role="img" aria-label="Gráfico: a medida que crece el capital acumulado, el costo de redistribuir crece rápido y el de reprimir casi no cambia; las curvas se cruzan en un umbral, después del cual al Estado le conviene reprimir">
+        <rect x="80" y="30" width="380" height="300" fill="#2E4638" opacity=".055"/>
+        <rect x="460" y="30" width="360" height="300" fill="#9C2B2F" opacity=".06"/>
+        <line class="gx-axis" x1="80" y1="330" x2="850" y2="330"/>
+        <line class="gx-axis" x1="80" y1="330" x2="80" y2="30"/>
+        <polygon points="850,330 838,325 838,335" fill="#4A5142"/>
+        <polygon points="80,30 75,42 85,42" fill="#4A5142"/>
+        <text class="gx-lbl" x="850" y="358" text-anchor="end">AUTOMATIZACIÓN →</text>
+        <text class="gx-lbl" x="66" y="330" transform="rotate(-90 66 330)">COSTO DE COMPRAR LA PAZ →</text>
+        <line class="gx-grid" x1="460" y1="30" x2="460" y2="330"/>
+        <path d="M80,324 C260,312 380,275 460,221 C548,158 640,95 720,44" fill="none" stroke="#2E4638" stroke-width="3.4"/>
+        <path d="M80,244 Q400,226 800,204" fill="none" stroke="#9C2B2F" stroke-width="3.4"/>
+        <circle cx="460" cy="221" r="7" fill="#A9823C"/>
+        <circle cx="460" cy="221" r="13" fill="none" stroke="#A9823C" stroke-width="1.5"/>
+        <text class="gx-key g" x="700" y="66" text-anchor="end" style="font-size:13px;">redistribuir</text>
+        <text class="gx-key" x="806" y="195" text-anchor="end" style="font-size:13px;">reprimir</text>
+        <text class="gx-cap b" x="460" y="18" text-anchor="middle" fill="#A9823C">el umbral</text>
+      </svg>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 03</span><span class="dots"></span><span>EL CRUCE</span></div>
+</section>
+
+<!-- ══ 04 · LA IA MUEVE LA CURVA ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>En el modelo, el costo de reprimir está fijo. La IA lo mueve.</div>
+    <h2 class="xs">¿Hacia dónde?</h2>
+    <div class="stage">
+      <svg viewBox="0 0 900 380" role="img" aria-label="El mismo gráfico con dos curvas de represión alternativas: si la IA abarata la vigilancia estatal, la curva baja y el umbral se adelanta; si la IA fortalece a los ciudadanos, la curva sube y el umbral se aleja">
+        <line class="gx-axis" x1="80" y1="330" x2="850" y2="330"/>
+        <line class="gx-axis" x1="80" y1="330" x2="80" y2="30"/>
+        <polygon points="850,330 838,325 838,335" fill="#4A5142"/>
+        <polygon points="80,30 75,42 85,42" fill="#4A5142"/>
+        <text class="gx-lbl" x="850" y="358" text-anchor="end">AUTOMATIZACIÓN →</text>
+        <text class="gx-lbl" x="66" y="330" transform="rotate(-90 66 330)">COSTO DE COMPRAR LA PAZ →</text>
+        <path d="M80,324 C260,312 380,275 460,221 C548,158 640,95 720,44" fill="none" stroke="#2E4638" stroke-width="3" opacity=".8"/>
+        <path d="M80,244 Q400,226 800,204" fill="none" stroke="#9C2B2F" stroke-width="2.5" opacity=".28"/>
+        <!-- Estado ve más: la curva baja -->
+        <path d="M80,290 Q400,274 800,252" fill="none" stroke="#9C2B2F" stroke-width="3.2" stroke-dasharray="9 6"/>
+        <!-- ciudadanos ven más: la curva sube -->
+        <path d="M80,200 Q400,182 800,160" fill="none" stroke="#A9823C" stroke-width="3.2" stroke-dasharray="9 6"/>
+        <!-- flechas -->
+        <line x1="620" y1="218" x2="620" y2="252" stroke="#9C2B2F" stroke-width="1.6"/>
+        <polygon points="620,262 615,250 625,250" fill="#9C2B2F"/>
+        <line x1="660" y1="212" x2="660" y2="180" stroke="#A9823C" stroke-width="1.6"/>
+        <polygon points="660,170 655,182 665,182" fill="#A9823C"/>
+        <!-- umbrales -->
+        <circle cx="460" cy="221" r="5" fill="#A9823C" opacity=".35"/>
+        <circle cx="350" cy="285" r="7" fill="#9C2B2F"/>
+        <circle cx="525" cy="184" r="7" fill="#A9823C"/>
+        <line class="gx-grid" x1="350" y1="285" x2="350" y2="330"/>
+        <line class="gx-grid" x1="525" y1="184" x2="525" y2="330"/>
+        <text class="gx-lbl" x="350" y="318" text-anchor="end" dx="-8" style="fill:#9C2B2F;">el umbral llega antes</text>
+        <text class="gx-lbl" x="533" y="318" style="fill:#A9823C;">el umbral se aleja</text>
+        <text class="gx-key" x="806" y="270" text-anchor="end" style="font-size:12.5px;">el Estado ve más</text>
+        <text class="gx-key" x="806" y="150" text-anchor="end" style="font-size:12.5px; fill:#A9823C;">los ciudadanos ven más</text>
+      </svg>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 04</span><span class="dots"></span><span>LA CURVA ROJA</span></div>
+</section>
+
+<!-- ══ 05 · LA PREGUNTA ══ -->
+<section class="slide divider">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>La pregunta de la semana</div>
+    <p class="bigask">¿Cómo cambia la IA el balance de poder entre el Estado y los ciudadanos?</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 05</span><span class="dots"></span><span>LA PREGUNTA</span></div>
+</section>
+
+<!-- ══ 06 · DIVISOR I ══ -->
+<section class="slide divider">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>Parte I</div>
+    <div class="part-num">01</div>
+    <h2>El Estado ve más</h2>
+    <p class="sub">La curva roja baja.</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 06</span><span class="dots"></span><span>EL ESTADO</span></div>
+</section>
+
+<!-- ══ 07 · ANTES / AHORA ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Qué cambió con la IA generativa</div>
+    <h2 class="xs">Los datos siempre estuvieron ahí.</h2>
+    <div class="split">
+      <div>
+        <span class="k">Antes</span>
+        <span class="big">Muchos datos,<br>pocos ojos.</span>
+        <p>Se interceptaba casi todo. Se leía casi nada.</p>
+      </div>
+      <div>
+        <span class="k">Ahora</span>
+        <span class="big">Alguien —algo—<br>puede leerlos todos.</span>
+        <p>Leer, resumir, cruzar y marcar personas, en tiempo real.</p>
+      </div>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 07</span><span class="dots"></span><span>ANTES Y AHORA</span></div>
+</section>
+
+<!-- ══ 08 · ICE ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="case">
+      <div class="ph"><img src="img/semana12/ice-huellas.jpg" alt="Un agente de ICE toma las huellas digitales de un detenido"></div>
+      <div class="tx">
+        <span class="where">EE.UU. · ICE + Palantir</span>
+        <h2>Ir al médico,<br>aparecer en el mapa.</h2>
+        <div class="n">US$30 M<small>ImmigrationOS: elegir a quién detener (2025)</small></div>
+        <div class="n">80 M<small>pacientes de Medicaid en el acuerdo de datos con ICE</small></div>
+        <p class="cred">Business Insider (abr. 2025) · 404 Media y Fortune (ene. 2026) · Foto: ICE, dominio público</p>
+      </div>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 08</span><span class="dots"></span><span>ICE</span></div>
+</section>
+
+<!-- ══ 09 · ARGENTINA ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="case">
+      <div class="ph"><img src="img/semana12/gendarmeria-filma.jpg" alt="Gendarmes con chalecos filman con sus teléfonos a manifestantes frente al Congreso argentino durante una marcha de jubilados"></div>
+      <div class="tx">
+        <span class="where">Argentina · 2024–2026</span>
+        <h2>Filmar<br>la protesta.</h2>
+        <div class="n">US$1,2 M<small>Clearview AI, Maltego y 69 drones con IA</small></div>
+        <p class="pt sm">Reconocimiento facial en manifestaciones.<br>Efecto inhibidor.</p>
+        <p class="cred">Amnistía Internacional, <em>Estado de vigilancia</em> (ago. 2026) · Foto: Gendarmería frente al Congreso, 14-may-2025 · Iro Bosero, CC BY-SA 4.0</p>
+      </div>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 09</span><span class="dots"></span><span>ARGENTINA</span></div>
+</section>
+
+<!-- ══ 10 · RUSIA ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="case">
+      <div class="ph"><img src="img/semana12/navalny-funeral.jpg" alt="Multitud en el funeral de Alexei Navalny en Moscú; sobre un poste se ven cámaras de vigilancia"></div>
+      <div class="tx">
+        <span class="where">Rusia · marzo 2024</span>
+        <h2>El funeral<br>de Navalny.</h2>
+        <p class="pt">Las cámaras con reconocimiento facial siguieron a los asistentes <b>hasta la puerta de su casa.</b></p>
+        <p class="cred">OVD-Info, vía Semafor (mar. 2024) · Foto: cementerio Borísovskoye, 1-mar-2024 · Акутагава, CC BY 4.0</p>
+      </div>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 10</span><span class="dots"></span><span>RUSIA</span></div>
+</section>
+
+<!-- ══ 11 · DOGE ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="case">
+      <div class="ph"><img src="img/semana12/milei-musk-motosierra.jpg" alt="Javier Milei y Elon Musk sostienen una motosierra en la conferencia CPAC de 2025"></div>
+      <div class="tx">
+        <span class="where">EE.UU. · DOGE, 2025</span>
+        <h2>Auditar desde arriba,<br>con motosierra.</h2>
+        <p class="pt">Un modelo marcó contratos de salud de veteranos como <b>«munchable»</b>. Con errores.</p>
+        <p class="cred">ProPublica (jun. 2025) · Schneier &amp; Sanders, cap. 35 · Foto: CPAC, feb. 2025 · Argentina.gob, CC BY 4.0</p>
+      </div>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 11</span><span class="dots"></span><span>DOGE</span></div>
+</section>
+
+<!-- ══ 12 · DIVISOR II ══ -->
+<section class="slide divider">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>Parte II</div>
+    <div class="part-num">02</div>
+    <h2>Los ciudadanos ven más</h2>
+    <p class="sub">La curva roja sube. Schneier &amp; Sanders, <em>Rewiring Democracy</em>, caps. 35–37.</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 12</span><span class="dots"></span><span>LOS CIUDADANOS</span></div>
+</section>
+
+<!-- ══ 13 · ROSIE ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="case green">
+      <div class="ph"><img src="img/semana12/congresso-brasil.jpg" alt="Fachada del Congreso Nacional de Brasil en Brasilia"></div>
+      <div class="tx">
+        <span class="where">Brasil · Operação Serenata de Amor, 2016</span>
+        <h2>Un bot audita<br>a los diputados.</h2>
+        <div class="n">8.000<small>irregularidades en reembolsos, en seis meses</small></div>
+        <div class="n">629<small>denuncias de posible corrupción</small></div>
+        <p class="cred">«Rosie», software abierto · Schneier &amp; Sanders, cap. 35 · Foto: Agência Senado, CC BY 2.0</p>
+      </div>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 13</span><span class="dots"></span><span>ROSIE</span></div>
+</section>
+
+<!-- ══ 14 · VENEZUELA ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="case green">
+      <div class="ph"><img src="img/semana12/chama-pana.jpg" alt="La Chama y El Pana, presentadores generados con IA de Operación Retuit, sobre fondo amarillo"></div>
+      <div class="tx">
+        <span class="where">Venezuela · tras la elección de 2024</span>
+        <h2>Periodistas<br>sin rostro.</h2>
+        <div class="n">~100<small>periodistas informan detrás de dos avatares de IA</small></div>
+        <p class="pt sm">«No somos reales. Los datos sí.»</p>
+        <p class="cred">Operación Retuit (Connectas) · Schneier &amp; Sanders, cap. 35 · Imagen: Operación Retuit, vía BBC Mundo</p>
+      </div>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 14</span><span class="dots"></span><span>VENEZUELA</span></div>
+</section>
+
+<!-- ══ 15 · CHICAGO ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="case green">
+      <div class="ph"><img src="img/semana12/cpdp.jpg" alt="Collage de expedientes disciplinarios de la policía de Chicago con el título Citizens Police Data Project"></div>
+      <div class="tx">
+        <span class="where">EE.UU. · Chicago y Luisiana</span>
+        <h2>Vigilar a la policía<br>con sus propios papeles.</h2>
+        <p class="pt">IA sobre registros públicos para encontrar <b>patrones de violencia policial.</b></p>
+        <p class="cred">Citizens Police Data Project (Invisible Institute) · Schneier &amp; Sanders, cap. 35</p>
+      </div>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 15</span><span class="dots"></span><span>CHICAGO</span></div>
+</section>
+
+<!-- ══ 16 · DEFENDERSE DEL TRÁMITE ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Schneier &amp; Sanders, cap. 37</div>
+    <h2 class="xs">Una IA para hablarle al Estado.</h2>
+    <div class="twin">
+      <figure>
+        <div class="ph"><img src="img/semana12/immpath.jpg" alt="Portada del sitio de Justicia Lab AI, laboratorio sin fines de lucro de IA para la justicia migratoria"></div>
+        <figcaption><b>IMMPATH.</b> Una foto de la carta de inmigración; la IA explica qué responder.</figcaption>
+      </figure>
+      <figure>
+        <div class="ph"><img src="img/semana12/resistbot.jpg" alt="Ilustración de Resistbot: Rosie la Remachadora frente al Capitolio y el texto Text resist to 50409"></div>
+        <figcaption><b>1 de cada 5</b> reclamos al regulador financiero de EE.UU. ya se escribe con IA (2024).</figcaption>
+      </figure>
+    </div>
+    <p class="cred" style="text-align:left;">Imágenes: Justicia Lab · Resistbot</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 16</span><span class="dots"></span><span>EL TRÁMITE</span></div>
+</section>
+
+<!-- ══ 17 · DIVISOR III ══ -->
+<section class="slide divider">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>Parte III</div>
+    <div class="part-num">03</div>
+    <h2>El balance</h2>
+    <p class="sub">La misma tecnología, en las dos manos.</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 17</span><span class="dots"></span><span>EL BALANCE</span></div>
+</section>
+
+<!-- ══ 18 · TRES PARES ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Mismo terreno, dos usos</div>
+    <h2 class="xs">Tres pares.</h2>
+    <div class="pairs">
+      <div class="heads"><span></span><span style="color:var(--stamp); text-align:right;">El Estado</span><span></span><span style="color:var(--forest);">Los ciudadanos</span><span></span></div>
+      <div class="pair">
+        <div class="th"><img src="img/semana12/ice-huellas.jpg" alt=""></div>
+        <div class="lb red">Encontrar al inmigrante<small>ICE · ImmigrationOS</small></div>
+        <div class="vs">↔</div>
+        <div class="lb green">Defender al inmigrante<small>Justicia Lab · IMMPATH</small></div>
+        <div class="th"><img src="img/semana12/immpath.jpg" alt=""></div>
+      </div>
+      <div class="pair">
+        <div class="th"><img src="img/semana12/gendarmeria-filma.jpg" alt=""></div>
+        <div class="lb red">Mirar la protesta<small>Argentina · Rusia</small></div>
+        <div class="vs">↔</div>
+        <div class="lb green">Mirar a quien reprime<small>Venezuela · Chicago</small></div>
+        <div class="th"><img src="img/semana12/chama-pana.jpg" alt=""></div>
+      </div>
+      <div class="pair">
+        <div class="th"><img src="img/semana12/milei-musk-motosierra.jpg" alt=""></div>
+        <div class="lb red">Auditar desde arriba<small>DOGE</small></div>
+        <div class="vs">↔</div>
+        <div class="lb green">Auditar desde abajo<small>Rosie · Serenata de Amor</small></div>
+        <div class="th"><img src="img/semana12/congresso-brasil.jpg" alt=""></div>
+      </div>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 18</span><span class="dots"></span><span>TRES PARES</span></div>
+</section>
+
+<!-- ══ 19 · LA ASIMETRÍA ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Lo admite el libro optimista · cap. 36</div>
+    <div class="bigquote">
+      <div class="qrow">
+        <div class="qph" style="background:var(--card); border:none;"><img src="img/semana12/rewiring-cover.jpg" alt="Portada del libro Rewiring Democracy, de Bruce Schneier y Nathan E. Sanders" style="object-fit:contain; filter:none;"></div>
+        <div class="qtx">
+          <p>Los dos lados usan la IA.<br>Pero uno parte con <em>más poder</em>.</p>
+          <cite>Schneier &amp; Sanders (2025), <em>Rewiring Democracy</em>, cap. 36 (paráfrasis)</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 19</span><span class="dots"></span><span>LA ASIMETRÍA</span></div>
+</section>
+
+<!-- ══ 20 · QUIÉN ESCRIBE LAS REGLAS ══ -->
+<section class="slide">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>La asimetría que no es de recursos</div>
+    <h2 class="sm">El Estado escribe las reglas<br>de la IA ciudadana.</h2>
+    <div class="cards c2" style="margin-top:34px;">
+      <div class="card red">
+        <span class="k">Estado de Washington</span>
+        <p style="font-size:19px;">Puede rechazar solicitudes de información <strong>escritas por bots.</strong></p>
+      </div>
+      <div class="card red">
+        <span class="k">Reino Unido</span>
+        <p style="font-size:19px;">Ante la avalancha de reclamos escritos por agentes, se discute <strong>recortar derechos procedimentales.</strong></p>
+      </div>
+    </div>
+    <p class="src-line">Schneier &amp; Sanders, caps. 35 y 37 · The Economist, «How AI is breaking the British state» (ago. 2026)</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 20</span><span class="dots"></span><span>LAS REGLAS</span></div>
+</section>
+
+<!-- ══ 21 · LA OBJECIÓN ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="case">
+      <div class="ph"><img src="img/semana12/bab-el-mandeb.jpg" alt="Fotografía satelital del estrecho de Bab el-Mandeb, entre Yemen y el Cuerno de África"></div>
+      <div class="tx">
+        <span class="where">Una objeción</span>
+        <h2>Cuando el poder sube de escala, los de abajo también.</h2>
+        <p class="pt sm">Norte de Yemen, 2026: una célula usó Claude Code para programar el guiado de un cohete. <b>Falló.</b></p>
+        <p class="pt sm" style="color:var(--ink-soft);">¿Los de abajo son los ciudadanos?</p>
+        <p class="cred">Anthropic, informe de mal uso de septiembre de 2026, vía prensa · Anthropic no la atribuye a los hutíes · Foto: NASA, dominio público</p>
+      </div>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 21</span><span class="dots"></span><span>LA OBJECIÓN</span></div>
+</section>
+
+<!-- ══ 22 · EL JUEVES ══ -->
+<section class="slide">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>Jueves 29 de octubre · en clase</div>
+    <h2 class="sm">Ejercicio escrito 2</h2>
+    <div class="ask" style="margin-top:26px;">
+      <div class="al">La pregunta</div>
+      <p>¿La IA achica o agranda la asimetría de poder entre el Estado y los ciudadanos?</p>
+      <p class="plain">Argumenta con un par de casos de esta clase: uno de cada lado.</p>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 22</span><span class="dots"></span><span>EL JUEVES</span></div>
+</section>
+
+<!-- ══ 23 · CIERRE ══ -->
+<section class="slide divider">
+  <div class="content" style="justify-content:center;">
+    <p class="bigask" style="font-size:46px;">Los datos siempre estuvieron ahí.<br>Ahora alguien —algo— puede leerlos todos.</p>
+    <p class="sub" style="font-size:26px; margin-top:26px; color:var(--gold); font-family:'Fraunces',serif; font-style:italic;">¿Quién?</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 23</span><span class="dots"></span><span>naim.bro.k@uai.cl</span></div>
+</section>
+
+</div>
+
+<button class="nav-btn" id="P" aria-label="Anterior">‹</button>
+<button class="nav-btn" id="N" aria-label="Siguiente">›</button>
+
+<script>
+const slides = Array.from(document.querySelectorAll('.slide'));
+let cur = 0;
+
+function buildDots(){
+  slides.forEach((s, i)=>{
+    const box = s.querySelector('.folio .dots');
+    if(!box) return;
+    box.innerHTML = '';
+    slides.forEach((_, j)=>{
+      const d = document.createElement('span');
+      d.className = 'dot' + (j===i ? ' on' : '');
+      d.title = 'Diapositiva ' + (j+1);
+      d.addEventListener('click', ()=> go(j));
+      box.appendChild(d);
+    });
+  });
+}
+
+function render(){
+  slides.forEach((s,i)=> s.classList.toggle('active', i===cur));
+  buildDots();
+  document.getElementById('prog').style.width = ((cur+1)/slides.length*100) + '%';
+  const act = slides[cur];
+  if(act) act.scrollTop = 0;
+}
+
+function go(i){
+  cur = Math.max(0, Math.min(slides.length-1, i));
+  history.replaceState(null, '', '#' + (cur+1));
+  render();
+}
+
+function fromHash(){
+  const n = parseInt((location.hash || '').slice(1), 10);
+  if(!isNaN(n) && n >= 1 && n <= slides.length) cur = n - 1;
+}
+
+document.getElementById('P').addEventListener('click', ()=> go(cur-1));
+document.getElementById('N').addEventListener('click', ()=> go(cur+1));
+
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown'){ e.preventDefault(); go(cur+1); }
+  if(e.key === 'ArrowLeft'  || e.key === 'PageUp'){ e.preventDefault(); go(cur-1); }
+  if(e.key === 'Home'){ go(0); }
+  if(e.key === 'End'){ go(slides.length-1); }
+});
+
+window.addEventListener('hashchange', ()=>{ fromHash(); render(); });
+
+fromHash();
+render();
+</script>
+
+</body>
+</html>
