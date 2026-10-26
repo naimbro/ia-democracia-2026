@@ -261,6 +261,16 @@ h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--in
 .case .hook{font-family:'Fraunces',serif; font-style:italic; font-size:21px; line-height:1.35; color:var(--ink-soft); border-top:1px solid var(--line); padding-top:12px;}
 @media(max-width:900px){ .case .tx h2.case-name,h2.case-name{font-size:27px;} .case .facts li{font-size:16px;} .case .hook{font-size:16px;} }
 
+/* Lista de casos con enlace */
+.caselist{display:grid; grid-template-columns:1fr 1fr; gap:56px; flex:1; min-height:0; margin-top:18px; align-content:start;}
+.caselist ul{list-style:none; display:flex; flex-direction:column; gap:7px;}
+.caselist li{display:flex; justify-content:space-between; align-items:baseline; gap:14px; border-bottom:1px solid var(--line); padding-bottom:6px;}
+.caselist li a{font-size:18px; color:var(--stamp); border-bottom:none;}
+.caselist ul.green li a{color:var(--forest);}
+.caselist li a:hover{text-decoration:underline;}
+.caselist li small{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; color:var(--ink-soft); white-space:nowrap;}
+@media(max-width:900px){ .caselist{grid-template-columns:1fr; gap:26px;} .caselist li a{font-size:15px;} }
+
 /* Dos imágenes lado a lado */
 .twin{display:grid; grid-template-columns:1fr 1fr; gap:34px; flex:1; min-height:0; margin-top:18px;}
 .twin figure{display:flex; flex-direction:column; gap:12px; min-height:0;}
@@ -739,18 +749,58 @@ h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--in
   <div class="folio"><span>DIAPO N.º 18</span><span class="dots"></span><span>LA ASIMETRÍA</span></div>
 </section>
 
-<!-- ══ 22 · EL JUEVES ══ -->
+<!-- ══ EL JUEVES ══ -->
 <section class="slide">
   <div class="content" style="justify-content:center;">
-    <div class="eyebrow"><span class="bar"></span>Jueves 29 de octubre · en clase</div>
-    <h2 class="sm">Ejercicio escrito 2</h2>
+    <div class="eyebrow"><span class="bar"></span>Jueves 29 de octubre · en clase · 15%</div>
+    <h2 class="sm">Ensayo manuscrito</h2>
     <div class="ask" style="margin-top:26px;">
       <div class="al">La pregunta</div>
-      <p>¿La IA achica o agranda la asimetría de poder entre el Estado y los ciudadanos?</p>
-      <p class="plain">Argumenta con un par de casos de esta clase: uno de cada lado.</p>
+      <p>¿Cómo cambia la IA el balance de poder entre el Estado y los ciudadanos?</p>
+      <p class="plain">Se evalúa el argumento y el uso de los casos: los de esta clase, los de la lámina siguiente u otros que encuentren. Lleguen leídos.</p>
     </div>
   </div>
   <div class="folio"><span>DIAPO N.º 19</span><span class="dots"></span><span>EL JUEVES</span></div>
+</section>
+
+<!-- ══ CASOS PARA EL ENSAYO ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Para llegar informados · cada caso es un enlace</div>
+    <h2 class="xs">Casos para el ensayo.</h2>
+    <div class="caselist">
+      <div>
+        <div class="blockhead" style="color:var(--stamp);">El Estado ve más</div>
+        <ul>
+          <li><a href="https://www.404media.co/elite-the-palantir-app-ice-uses-to-find-neighborhoods-to-raid" target="_blank">ICE y Palantir</a><small>EE.UU. · 2026</small></li>
+          <li><a href="https://www.emol.com/noticias/Nacional/2026/05/14/1200042/gobierno-propuesta-instituciones-migrantes-irregulares.html" target="_blank">Datos de migrantes, art. 104 bis</a><small>Chile · 2026</small></li>
+          <li><a href="https://noticias.perfil.com/noticias/politica/amnistia-internacional-denuncia-las-politicas-de-vigilancia-masiva-del-gobierno.phtml" target="_blank">«Estado de vigilancia»</a><small>Argentina · 2026</small></li>
+          <li><a href="https://apublica.org/2025/04/smart-sampa-gravida-e-presa-em-posto-de-saude-e-acaba-tendo-parto-prematuro/" target="_blank">Smart Sampa</a><small>São Paulo · 2025</small></li>
+          <li><a href="https://natlawreview.com/article/catch-and-revoke-program-takes-state-department-ai-driven-visa-crackdown" target="_blank">Catch and Revoke</a><small>EE.UU. · 2025</small></li>
+          <li><a href="https://semafor.com/article/03/05/2024/russian-authorities-use-facial-recognition-to-detain-navalny-funeral-attendees" target="_blank">Funeral de Navalny</a><small>Rusia · 2024</small></li>
+          <li><a href="https://krdo.com/news/2025/03/14/iran-is-using-drones-and-apps-to-catch-women-who-arent-wearing-hijabs-says-un-report/" target="_blank">Cámaras y velo</a><small>Irán · 2025</small></li>
+          <li><a href="https://www.hrw.org/report/2019/05/01/chinas-algorithms-repression/reverse-engineering-xinjiang-police-mass" target="_blank">La app IJOP</a><small>Xinjiang · 2019</small></li>
+          <li><a href="https://www.amnesty.org/en/latest/news/2021/10/xenophobic-machines-dutch-child-benefit-scandal/" target="_blank">Escándalo de los subsidios</a><small>Países Bajos · 2021</small></li>
+          <li><a href="https://www.mortgagebusiness.com.au/regulation/18122-royal-commission-finds-robodebt-scheme-cruel-and-crude" target="_blank">Robodebt</a><small>Australia · 2023</small></li>
+          <li><a href="https://www.nextgov.com/artificial-intelligence/2025/06/democrats-raise-alarm-over-ai-driven-contract-cuts-va/405972/" target="_blank">DOGE y los veteranos</a><small>EE.UU. · 2025</small></li>
+        </ul>
+      </div>
+      <div>
+        <div class="blockhead">Los ciudadanos ven más</div>
+        <ul class="green">
+          <li><a href="https://www.vice.com/pt/article/robos-contra-corrupcao/" target="_blank">Rosie · Serenata de Amor</a><small>Brasil · 2016</small></li>
+          <li><a href="https://gijn.org/es/memoria-contra-la-corrupcion-datos-y-algoritmos-para-investigar-compras-publicas/" target="_blank">Funes, de Ojo Público</a><small>Perú · 2018</small></li>
+          <li><a href="https://www.24horas.cl/internacional/noticias-bbc/la-chama-y-el-pana-los-presentadores-creados-con-inteligencia-artificial-venezuela-arrestos" target="_blank">Operación Retuit</a><small>Venezuela · 2024</small></li>
+          <li><a href="https://hrdag.org/2021/12/01/bts/" target="_blank">Citizens Police Data Project</a><small>Chicago · 2015</small></li>
+          <li><a href="https://justicialab.org/ai" target="_blank">IMMPATH, de Justicia Lab</a><small>EE.UU.</small></li>
+          <li><a href="https://resist.bot" target="_blank">Resistbot</a><small>EE.UU. · 2017</small></li>
+          <li><a href="https://www.technologyreview.com/2018/08/21/240284/" target="_blank">vTaiwan y Pol.is</a><small>Taiwán · 2015</small></li>
+          <li><a href="https://www.science.org/doi/10.1126/science.adq2852" target="_blank">Máquina de Habermas</a><small>Reino Unido · 2024</small></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 20</span><span class="dots"></span><span>CASOS</span></div>
 </section>
 
 <!-- ══ 23 · CIERRE ══ -->
@@ -759,7 +809,7 @@ h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--in
     <p class="bigask" style="font-size:46px;">Los datos siempre estuvieron ahí.<br>Ahora alguien —algo— puede leerlos todos.</p>
     <p class="sub" style="font-size:26px; margin-top:26px; color:var(--gold); font-family:'Fraunces',serif; font-style:italic;">¿Quién?</p>
   </div>
-  <div class="folio"><span>DIAPO N.º 20</span><span class="dots"></span><span>naim.bro.k@uai.cl</span></div>
+  <div class="folio"><span>DIAPO N.º 21</span><span class="dots"></span><span>naim.bro.k@uai.cl</span></div>
 </section>
 
 </div>
