@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>¿Puede la IA reemplazar a los políticos? — IA y Democracia 2026 · Semana 14</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700;9..144,900&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+
+:root{
+  --paper:#EBE6D8; --paper-deep:#E1DAC7; --ink:#22281F;
+  --ink-soft:#4A5142; --stamp:#9C2B2F; --forest:#2E4638;
+  --gold:#A9823C; --line:#C7BEA3; --card:#F4F0E4; --card2:#EDEAD9;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html,body{height:100%; background:var(--ink); font-family:'IBM Plex Sans',sans-serif; color:var(--ink); overflow:hidden;}
+
+.deck{position:relative; width:100%; height:100vh;}
+
+.slide{
+  position:absolute; inset:0;
+  background:var(--paper);
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(34,40,31,.038) 28px);
+  opacity:0; visibility:hidden;
+  transform:translateY(12px);
+  transition:opacity .42s ease, transform .42s ease, visibility .42s;
+  padding:40px 64px 54px;
+  display:flex; flex-direction:column;
+  overflow-y:auto;
+}
+.slide.active{opacity:1; visibility:visible; transform:translateY(0);}
+.slide::before{content:""; position:absolute; inset:22px; border:1px solid var(--line); pointer-events:none; z-index:10;}
+.slide::after {content:""; position:absolute; inset:26px; border:1px solid var(--line); opacity:.45; pointer-events:none; z-index:10;}
+
+/* Divisores de seccion */
+.slide.divider{background:var(--forest); background-image:repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(255,255,255,.03) 28px);}
+.slide.divider::before,.slide.divider::after{border-color:rgba(235,230,216,.35);}
+.slide.divider .content{justify-content:center;}
+.divider .part-num{font-family:'Fraunces',serif; font-size:118px; font-weight:300; color:rgba(235,230,216,.22); line-height:.85; margin-bottom:8px;}
+.divider h2{color:var(--paper); font-size:42px; margin-bottom:14px;}
+.divider .sub{color:rgba(235,230,216,.72); font-size:17px; max-width:720px;}
+.divider .eyebrow{color:var(--gold);}
+.divider .eyebrow .bar{background:var(--gold);}
+.divider .folio{color:rgba(235,230,216,.6);}
+.divider .dot{background:rgba(235,230,216,.28);}
+.divider .dot.on{background:var(--gold);}
+
+/* Sello */
+.stamp{position:absolute; top:46px; right:60px; width:124px; height:124px; transform:rotate(-8deg); opacity:.9; pointer-events:none; z-index:5;}
+.stamp svg{width:100%; height:100%; overflow:visible;}
+.stamp .ring{fill:none; stroke:var(--stamp);}
+.stamp .cancel{stroke:var(--stamp); fill:none; opacity:.5;}
+.stamp text{fill:var(--stamp); font-family:'IBM Plex Mono',monospace; letter-spacing:2px;}
+.stamp .big{font-family:'Fraunces',serif; font-weight:700;}
+
+/* Folio */
+.folio{
+  position:absolute; bottom:26px; left:64px; right:64px;
+  display:flex; justify-content:space-between; align-items:center; gap:20px;
+  font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--ink-soft); letter-spacing:.05em;
+  z-index:12;
+}
+.dots{display:flex; gap:5px; flex-wrap:wrap; justify-content:center;}
+.dot{width:5px; height:5px; border-radius:50%; background:var(--line); cursor:pointer; transition:.2s; flex-shrink:0;}
+.dot.on{background:var(--stamp); transform:scale(1.4);}
+
+/* Tipografia */
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--stamp); display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-shrink:0;
+}
+.eyebrow .bar{height:1px; width:30px; background:var(--stamp); display:inline-block; flex-shrink:0;}
+h1{font-family:'Fraunces',serif; font-weight:700; font-size:42px; line-height:1.07; letter-spacing:-.012em; margin-bottom:6px;}
+h2{font-family:'Fraunces',serif; font-weight:600; font-size:46px; line-height:1.06; letter-spacing:-.015em; margin-bottom:0; max-width:1090px;}
+h2.sm{font-size:38px;}
+h2.xs{font-size:32px;}
+h3{font-family:'Fraunces',serif; font-weight:600; font-size:17px; color:var(--forest); margin-bottom:5px;}
+.sub{font-size:15.5px; color:var(--ink-soft); line-height:1.55; max-width:760px;}
+.content{flex:1; display:flex; flex-direction:column; justify-content:flex-start; min-height:0;}
+a{color:var(--stamp); text-decoration:none; border-bottom:1px dotted var(--stamp);}
+a:hover{color:var(--forest); border-bottom-color:var(--forest);}
+
+.src-line{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--ink-soft); letter-spacing:.03em; margin-top:12px; flex-shrink:0; line-height:1.55;}
+.src-line a{color:var(--stamp); border-bottom:1px solid rgba(156,43,47,.45); padding-bottom:1px;}
+.src-line a:hover{color:var(--forest); border-bottom-color:var(--forest); background:rgba(169,130,60,.14);}
+
+/* Meta portada */
+.meta-strip{display:flex; gap:38px; flex-wrap:wrap; margin-top:26px;}
+.meta-item .ml{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:3px;}
+.meta-item .mv{font-size:14px; color:var(--ink);}
+
+/* Puntos grandes (proyeccion) */
+.duo{display:grid; grid-template-columns:1fr 1.08fr; gap:46px; flex:1; min-height:0; align-items:center; margin-top:18px;}
+.duo.wide{grid-template-columns:.9fr 1.3fr;}
+.duo.vert{grid-template-columns:1.3fr .7fr;}
+.pts{display:flex; flex-direction:column; gap:22px;}
+.pt{font-size:22px; line-height:1.42; color:var(--ink);}
+.pt.sm{font-size:19px; line-height:1.5;}
+.pt b{color:var(--stamp); font-weight:600;}
+.pt strong{font-weight:600;}
+.pt em{font-style:italic;}
+.blockhead{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--forest); margin-bottom:14px;}
+
+.textcols{display:grid; grid-template-columns:1fr 1fr; gap:52px; flex:1; min-height:0; align-content:center; margin-top:20px;}
+.textcols .pt{font-size:21px;}
+.textcols.c3{grid-template-columns:1fr 1fr 1fr; gap:38px;}
+.textcols.c3 .pt{font-size:18px; line-height:1.5;}
+
+/* Cita grande */
+.bigquote{flex:1; min-height:0; display:flex; flex-direction:column; justify-content:center; border-left:4px solid var(--gold); padding-left:40px; margin-top:18px;}
+.bigquote p{font-family:'Fraunces',serif; font-size:34px; font-style:italic; line-height:1.28; color:var(--ink);}
+.bigquote p.sm2{font-size:27px;}
+.bigquote p + p{margin-top:22px;}
+.bigquote cite{display:block; font-family:'IBM Plex Mono',monospace; font-size:13px; font-style:normal; color:var(--ink-soft); letter-spacing:.06em; margin-top:14px;}
+.qrow{display:flex; gap:28px; align-items:center;}
+.qrow + .qrow{margin-top:34px;}
+.qrow .qph{width:min(212px,29vh); height:min(212px,29vh); flex-shrink:0; border:1px solid var(--line); background:var(--ink); overflow:hidden;}
+.qrow .qph img{width:100%; height:100%; object-fit:cover; object-position:50% 15%; display:block; filter:sepia(18%) saturate(.85) contrast(1.04) brightness(.99);}
+.qrow .qtx{flex:1; min-width:0;}
+
+/* Cifra gigante */
+.bignum{display:flex; align-items:center; gap:54px; flex:1; min-height:0; margin-top:10px;}
+.fig-n{font-family:'Fraunces',serif; font-weight:600; font-size:150px; line-height:.84; color:var(--stamp); letter-spacing:-.03em; flex-shrink:0;}
+.fig-n.sm{font-size:96px;}
+.fig-n small{display:block; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:400; color:var(--ink-soft); letter-spacing:.14em; text-transform:uppercase; margin-top:18px; line-height:1.55;}
+.fig-t2{font-size:23px; line-height:1.44; color:var(--ink); max-width:700px;}
+.fig-t2 strong{color:var(--stamp); font-weight:600;}
+.fig-t2 .counter{display:block; margin-top:22px; padding-top:18px; border-top:1px solid var(--line); font-size:18px; color:var(--ink-soft);}
+.fig-t2 .counter strong{color:var(--ink);}
+
+/* Duelo */
+.faceoff{display:grid; grid-template-columns:1fr auto 1fr; gap:34px; flex:1; min-height:0; align-items:start; margin-top:22px;}
+.faceoff .side{border-top:3px solid var(--forest); padding-top:20px;}
+.faceoff .side.red{border-top-color:var(--stamp);}
+.faceoff .side .lbl{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--forest); margin-bottom:14px;}
+.faceoff .side.red .lbl{color:var(--stamp);}
+.faceoff .side p{font-size:19px; line-height:1.46; color:var(--ink); margin-bottom:14px;}
+.faceoff .side p:last-child{margin-bottom:0;}
+.faceoff .side p strong{color:var(--stamp); font-weight:600;}
+.faceoff .side.green p strong{color:var(--forest);}
+.faceoff .vs{display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-size:22px; color:var(--gold); font-weight:600; padding-top:60px;}
+
+/* Nota / pregunta */
+.note{background:var(--card2); border:1px solid var(--line); border-left:3px solid var(--forest); padding:15px 20px; margin-top:16px; flex-shrink:0;}
+.note .nl{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--forest); margin-bottom:7px;}
+.note p{font-size:15px; line-height:1.6; color:var(--ink-soft);}
+.note p strong{color:var(--ink);}
+.note.red{border-left-color:var(--stamp);} .note.red .nl{color:var(--stamp);}
+
+.ask{background:var(--forest); color:var(--paper); padding:20px 26px; margin-top:16px; border:1px solid var(--forest); flex-shrink:0;}
+.ask .al{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); margin-bottom:8px;}
+.ask p{font-family:'Fraunces',serif; font-size:21px; line-height:1.36; font-style:italic;}
+.ask p.plain{font-family:'IBM Plex Sans',sans-serif; font-size:14.5px; font-style:normal; color:rgba(235,230,216,.84); margin-top:9px; line-height:1.55;}
+
+/* Listas */
+.dash-list{list-style:none; margin-top:10px;}
+.dash-list li{font-size:17px; line-height:1.55; color:var(--ink-soft); margin-bottom:13px; padding-left:22px; position:relative;}
+.dash-list li::before{content:"—"; position:absolute; left:0; color:var(--stamp);}
+.dash-list li strong{color:var(--ink); font-weight:600;}
+.num-list{list-style:none; margin-top:12px; display:flex; flex-direction:column; gap:15px;}
+.num-list li{font-size:17.5px; line-height:1.5; color:var(--ink-soft); padding-left:44px; position:relative;}
+.num-list li::before{content:counter(li); counter-increment:li; position:absolute; left:0; top:-2px; font-family:'Fraunces',serif; font-size:26px; font-weight:600; color:var(--line);}
+.num-list{counter-reset:li;}
+.num-list li strong{color:var(--ink); font-weight:600;}
+
+.readings{list-style:none; margin-top:8px;}
+.readings li{font-size:14px; color:var(--ink-soft); padding:11px 0; border-bottom:1px solid var(--line); line-height:1.55;}
+.readings li:last-child{border-bottom:none;}
+.readings li b{color:var(--ink); font-family:'Fraunces',serif; font-weight:600; font-size:15.5px; display:block; margin-bottom:3px;}
+
+/* Matriz */
+table.matrix{width:100%; border-collapse:collapse; font-size:15px; margin-top:18px;}
+table.matrix th{background:var(--card2); color:var(--forest); text-align:left; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; padding:11px 14px; border:1px solid var(--line); font-weight:600;}
+table.matrix td{border:1px solid var(--line); padding:13px 14px; vertical-align:top; color:var(--ink-soft); line-height:1.5; background:var(--card);}
+table.matrix td strong{color:var(--ink);}
+table.matrix td.lead-c{background:var(--card2); color:var(--ink); font-weight:600; width:20%; font-size:14px;}
+table.matrix td.hit{background:#F2E6E2;}
+
+/* Tarjetas */
+.cards{display:grid; gap:16px; margin-top:16px;}
+.cards.c2{grid-template-columns:repeat(2,1fr);}
+.cards.c3{grid-template-columns:repeat(3,1fr);}
+.card{background:var(--card); border:1px solid var(--line); border-left:3px solid var(--forest); padding:17px 20px; display:flex; flex-direction:column; gap:8px;}
+.card.red{border-left-color:var(--stamp);}
+.card.gold{border-left-color:var(--gold);}
+.card .k{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--stamp);}
+.card.gold .k{color:var(--gold);}
+.card.green .k{color:var(--forest);}
+.card p{font-size:15px; line-height:1.55; color:var(--ink-soft);}
+.card p strong{color:var(--ink); font-weight:600;}
+
+/* Etiquetas */
+.tags{display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;}
+.tag{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; border:1px solid var(--line); color:var(--ink-soft); padding:5px 10px; background:var(--card);}
+.tag.red{border-color:var(--stamp); color:var(--stamp);}
+.tag.gold{border-color:var(--gold); color:var(--gold);}
+
+/* Graficos SVG */
+.stage{flex:1; min-height:0; display:flex; flex-direction:column; align-items:center; justify-content:center; margin-top:14px;}
+.stage svg{display:block; max-width:100%; max-height:100%; height:auto;}
+.stage img{display:block; max-width:100%; max-height:100%; object-fit:contain;}
+.stage .shot{height:100%; display:flex; align-items:center; justify-content:center; min-height:0;}
+.stage .shot img{max-height:100%; max-width:min(100%,780px); object-fit:contain; background:#fff; border:1px solid var(--line); box-shadow:0 2px 14px rgba(30,25,15,.10);}
+.cred{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-soft); margin-top:12px; text-align:center; opacity:.9; line-height:1.5;}
+.gx-lbl{font-family:'IBM Plex Mono',monospace; font-size:12px; fill:var(--ink-soft); letter-spacing:.06em;}
+.gx-cap{font-family:'IBM Plex Sans',sans-serif; font-size:14px; fill:var(--ink);}
+.gx-cap.b{font-weight:600;}
+.gx-key{font-family:'IBM Plex Mono',monospace; font-size:11px; fill:var(--stamp); letter-spacing:.1em; text-transform:uppercase;}
+.gx-key.g{fill:var(--forest);}
+.gx-axis{stroke:var(--ink-soft); stroke-width:1.2;}
+.gx-grid{stroke:var(--line); stroke-width:1; stroke-dasharray:4 4;}
+
+/* Navegacion */
+.nav-btn{position:fixed; top:50%; transform:translateY(-50%); width:42px; height:42px; border-radius:50%; border:1px solid var(--line); background:rgba(244,240,228,.9); color:var(--ink); font-size:19px; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:20; transition:.2s;}
+.nav-btn:hover{background:var(--stamp); color:var(--paper); border-color:var(--stamp);}
+#P{left:16px;} #N{right:16px;}
+.progress{position:fixed; top:0; left:0; height:2px; width:0; background:var(--stamp); z-index:30; transition:width .3s ease;}
+
+@media(max-width:900px){
+  .slide{padding:34px 20px 54px;}
+  h1{font-size:25px;} h2{font-size:22px;} h2.sm{font-size:20px;} h2.xs{font-size:19px;}
+  .divider h2{font-size:26px;} .divider .part-num{font-size:70px;}
+  .duo,.duo.wide,.duo.vert,.textcols,.textcols.c3,.faceoff,.cards.c2,.cards.c3{grid-template-columns:1fr; gap:22px;}
+  .faceoff .vs{display:none;}
+  .stamp{display:none;}
+  .stage svg{max-height:46vh;}
+  .stage .shot img{max-height:52vh;}
+  .bignum{flex-direction:column; align-items:flex-start; gap:20px;}
+  .fig-n{font-size:82px;} .fig-n.sm{font-size:62px;}
+  .pt{font-size:17px;} .textcols .pt,.textcols.c3 .pt{font-size:16px;}
+  .bigquote p{font-size:21px;} .bigquote p.sm2{font-size:18px;} .bigquote{padding-left:20px;}
+  .qrow{gap:18px;} .qrow .qph{width:116px; height:116px;} .qrow + .qrow{margin-top:24px;}
+  table.matrix{font-size:12.5px;} table.matrix td{padding:8px;}
+  .folio{left:20px; right:20px;}
+}
+
+/* ── Semana 12: láminas de caso con imagen ── */
+.case{display:grid; grid-template-columns:1.25fr 1fr; gap:46px; flex:1; min-height:0; align-items:center; margin-top:6px;}
+.case.flip{grid-template-columns:1fr 1.25fr;}
+.case .ph{height:100%; max-height:64vh; min-height:0; border:1px solid var(--line); background:var(--ink); overflow:hidden; box-shadow:0 2px 14px rgba(30,25,15,.12);}
+.case .ph img{width:100%; height:100%; object-fit:cover; display:block;}
+.case .tx{display:flex; flex-direction:column; gap:18px; min-width:0;}
+.case .tx h2{font-size:40px;}
+.case .where{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--stamp);}
+.case.green .where{color:var(--forest);}
+.case .n{font-family:'Fraunces',serif; font-weight:600; font-size:54px; line-height:1; color:var(--stamp); letter-spacing:-.02em;}
+.case.green .n{color:var(--forest);}
+.case .n small{display:block; font-family:'IBM Plex Sans',sans-serif; font-size:16px; font-weight:400; color:var(--ink-soft); letter-spacing:0; margin-top:6px; line-height:1.4;}
+.case .cred{text-align:left; margin-top:4px;}
+
+/* Caso: el nombre manda, luego dos puntos, el gancho al final */
+h2.case-name{font-size:50px; line-height:1.04;}
+.case .tx h2.case-name{font-size:52px;}
+h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--ink-soft); margin-top:6px;}
+.case .facts{list-style:none; display:flex; flex-direction:column; gap:12px;}
+.case .facts li{font-size:21px; line-height:1.42; color:var(--ink); padding-left:26px; position:relative;}
+.case .facts li::before{content:"—"; position:absolute; left:0; color:var(--stamp);}
+.case.green .facts li::before{color:var(--forest);}
+.case .facts b{color:var(--stamp); font-weight:600;}
+.case.green .facts b{color:var(--forest);}
+.case .hook{font-family:'Fraunces',serif; font-style:italic; font-size:21px; line-height:1.35; color:var(--ink-soft); border-top:1px solid var(--line); padding-top:12px;}
+@media(max-width:900px){ .case .tx h2.case-name,h2.case-name{font-size:27px;} .case .facts li{font-size:16px;} .case .hook{font-size:16px;} }
+
+/* Lista de casos con enlace */
+.caselist{display:grid; grid-template-columns:1fr 1fr; gap:56px; flex:1; min-height:0; margin-top:18px; align-content:start;}
+.caselist ul{list-style:none; display:flex; flex-direction:column; gap:7px;}
+.caselist li{display:flex; justify-content:space-between; align-items:baseline; gap:14px; border-bottom:1px solid var(--line); padding-bottom:6px;}
+.caselist li a{font-size:18px; color:var(--stamp); border-bottom:none;}
+.caselist ul.green li a{color:var(--forest);}
+.caselist li a:hover{text-decoration:underline;}
+.caselist li small{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; color:var(--ink-soft); white-space:nowrap;}
+@media(max-width:900px){ .caselist{grid-template-columns:1fr; gap:26px;} .caselist li a{font-size:15px;} }
+
+/* Dos imágenes lado a lado */
+.twin{display:grid; grid-template-columns:1fr 1fr; gap:34px; flex:1; min-height:0; margin-top:18px;}
+.twin figure{display:flex; flex-direction:column; gap:12px; min-height:0;}
+.twin .ph{flex:1; min-height:0; max-height:46vh; border:1px solid var(--line); overflow:hidden; background:var(--card);}
+.twin .ph img{width:100%; height:100%; object-fit:cover; display:block;}
+.twin figcaption{font-size:19px; line-height:1.4; color:var(--ink);}
+.twin figcaption b{color:var(--forest); font-weight:600;}
+
+/* Tres pares */
+.pairs{display:flex; flex-direction:column; gap:16px; flex:1; min-height:0; justify-content:center; margin-top:14px;}
+.pair{display:grid; grid-template-columns:150px 1fr 60px 1fr 150px; gap:18px; align-items:center;}
+.pair .th{height:92px; border:1px solid var(--line); overflow:hidden; background:var(--ink);}
+.pair .th img{width:100%; height:100%; object-fit:cover; display:block;}
+.pair .lb{font-size:20px; line-height:1.3;}
+.pair .lb.red{color:var(--stamp); text-align:right;}
+.pair .lb.green{color:var(--forest);}
+.pair .lb small{display:block; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin-top:3px;}
+.pair .vs{font-family:'Fraunces',serif; font-size:26px; color:var(--gold); text-align:center;}
+.pairs .heads{display:grid; grid-template-columns:150px 1fr 60px 1fr 150px; gap:18px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase;}
+
+/* Antes / ahora */
+.split{display:grid; grid-template-columns:1fr 1fr; flex:1; min-height:0; margin-top:18px; border:1px solid var(--line);}
+.split > div{padding:40px 42px; display:flex; flex-direction:column; justify-content:center; gap:16px;}
+.split > div + div{background:var(--card2); border-left:1px solid var(--line);}
+.split .k{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft);}
+.split .big{font-family:'Fraunces',serif; font-size:40px; line-height:1.12; font-weight:600;}
+.split > div + div .big{color:var(--stamp);}
+.split p{font-size:18px; line-height:1.5; color:var(--ink-soft);}
+
+/* Pregunta grande */
+.bigask{font-family:'Fraunces',serif; font-weight:600; font-size:58px; line-height:1.1; color:var(--paper); max-width:1050px; letter-spacing:-.015em;}
+
+@media(max-width:900px){
+  .case,.case.flip,.twin,.split{grid-template-columns:1fr; gap:20px;}
+  .case .ph{max-height:34vh; height:34vh;}
+  .case .tx h2{font-size:24px;}
+  .case .n{font-size:36px;}
+  .pair,.pairs .heads{grid-template-columns:64px 1fr 24px 1fr 64px; gap:8px;}
+  .pair .th{height:48px;} .pair .lb{font-size:14px;}
+  .split .big{font-size:24px;} .split > div{padding:22px;}
+  .bigask{font-size:30px;}
+}
+</style>
+<style>
+/* ── Semana 14 ── */
+.grad{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:22px;}
+.grad .card{padding:22px 24px;}
+.grad .card .k{font-size:11px;}
+.grad .card h3{font-size:32px; margin:2px 0 6px;}
+.grad .card p{font-size:20px; line-height:1.5;}
+.grad-bar{display:flex; align-items:center; gap:12px; margin-top:20px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft);}
+.grad-bar .ln{flex:1; height:2px; background:linear-gradient(90deg, var(--forest), var(--gold), var(--stamp));}
+.obj .pt{font-size:19px;}
+.obj .pt .big{display:block; font-family:'Fraunces',serif; font-weight:600; font-size:28px; line-height:1.15; color:var(--ink); margin:6px 0 10px;}
+.obj .pt .n{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.16em; color:var(--stamp);}
+.steps{list-style:none; counter-reset:st; display:flex; flex-direction:column; gap:20px; margin-top:18px;}
+.steps li{counter-increment:st; display:grid; grid-template-columns:54px 1fr auto; gap:16px; align-items:baseline; font-size:24px; line-height:1.35; border-bottom:1px solid var(--line); padding-bottom:10px;}
+.steps li::before{content:counter(st); font-family:'Fraunces',serif; font-size:40px; font-weight:600; color:var(--stamp); line-height:1;}
+.steps li small{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.08em; color:var(--ink-soft); white-space:nowrap;}
+@media(max-width:900px){
+  .grad{grid-template-columns:1fr;}
+  .grad .card h3{font-size:20px;}
+  .obj .pt .big{font-size:21px;}
+  .steps li{font-size:16px; grid-template-columns:34px 1fr;}
+  .steps li::before{font-size:26px;}
+  .steps li small{grid-column:2;}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<div class="deck" id="deck">
+
+<!-- ══ 01 · PORTADA ══ -->
+<section class="slide active">
+  <div class="stamp"><svg viewBox="0 0 140 140">
+    <defs><clipPath id="c14"><circle cx="70" cy="70" r="63"/></clipPath>
+    <path id="t14" d="M18,72 A52,52 0 0 1 122,72" fill="none"/>
+    <path id="b14" d="M122,70 A52,52 0 0 1 18,70" fill="none"/></defs>
+    <circle class="ring" cx="70" cy="70" r="63" stroke-width="2.2"/>
+    <circle class="ring" cx="70" cy="70" r="51" stroke-width="1"/>
+    <g clip-path="url(#c14)"><g class="cancel" stroke-width="1.2">
+      <path d="M-5,50 Q35,60 70,50 T145,50"/><path d="M-5,68 Q35,78 70,68 T145,68"/><path d="M-5,86 Q35,96 70,86 T145,86"/>
+    </g></g>
+    <text font-size="10.5"><textPath href="#t14" startOffset="50%" text-anchor="middle">UAI · 9 NOV 2026</textPath></text>
+    <text class="big" font-size="27" x="70" y="79" text-anchor="middle">14</text>
+    <text font-size="10.5"><textPath href="#b14" startOffset="50%" text-anchor="middle">SEMANA 14</textPath></text>
+  </svg></div>
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>IA y Democracia 2026 — Semana 14</div>
+    <h1 style="font-size:66px;">¿Puede la IA reemplazar<br>a los políticos?</h1>
+    <h1 style="color:var(--forest); font-size:31px; font-weight:600; margin-top:16px; max-width:900px;">IA generativa y democracia deliberativa</h1>
+    <div class="meta-strip" style="margin-top:34px;">
+      <div class="meta-item"><div class="ml">Fechas</div><div class="mv">Lunes 9 y jueves 12 de noviembre</div></div>
+      <div class="meta-item"><div class="ml">Jueves</div><div class="mv">Tribuna</div></div>
+      <div class="meta-item"><div class="ml">Imparte</div><div class="mv">Naim Bro</div></div>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 01</span><span class="dots"></span><span>GOB542 · IA Y DEMOCRACIA</span></div>
+</section>
+
+<!-- ══ 02 · MAPA DEL SEMESTRE ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Dónde estamos</div>
+    <h2 class="xs">Catorce semanas recorridas, dos por delante.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1100 330" role="img" aria-label="Línea de tiempo de las 16 semanas del curso. Las semanas 1 a 13 ya pasaron; la semana 14, IA deliberativa, es hoy; quedan el taller integrador y la Prueba II. Se destacan las semanas 6, esfera pública, y 13, polarización, que esta clase retoma.">
+        <text class="gx-lbl" x="454" y="40" text-anchor="middle">DE DÓNDE VENIMOS</text>
+        <line x1="62" y1="52" x2="846" y2="52" stroke="#C7BEA3" stroke-width="1.5"/>
+        <line x1="62" y1="46" x2="62" y2="58" stroke="#C7BEA3" stroke-width="1.5"/><line x1="846" y1="46" x2="846" y2="58" stroke="#C7BEA3" stroke-width="1.5"/>
+        <text class="gx-key" x="902" y="40" text-anchor="middle">HOY</text>
+        <text class="gx-lbl" x="998" y="40" text-anchor="middle">QUEDA</text>
+        <line x1="958" y1="52" x2="1038" y2="52" stroke="#C7BEA3" stroke-width="1.5"/>
+        <line x1="958" y1="46" x2="958" y2="58" stroke="#C7BEA3" stroke-width="1.5"/><line x1="1038" y1="46" x2="1038" y2="58" stroke="#C7BEA3" stroke-width="1.5"/>
+
+        <line x1="70" y1="170" x2="1030" y2="170" stroke="#C7BEA3" stroke-width="2"/>
+        <line x1="70" y1="170" x2="902" y2="170" stroke="#4A5142" stroke-width="2.5"/>
+
+        <g class="gx-cap" font-size="13" text-anchor="middle" fill="#4A5142">
+          <text x="70"   y="110">Apertura</text>
+          <text x="134"  y="134">Democracia</text>
+          <text x="198"  y="110">Backlash</text>
+          <text x="262"  y="134">Élites</text>
+          <text x="326"  y="110">Oligarquía IA</text>
+          <text x="390"  y="134" font-weight="600" fill="#22281F">Esfera pública</text>
+          <text x="454"  y="110">Gobernanza</text>
+          <text x="518"  y="134">Prueba I</text>
+          <text x="582"  y="110">Autoritarismo</text>
+          <text x="646"  y="134">Cerebro</text>
+          <text x="710"  y="110">Orden global</text>
+          <text x="774"  y="134">Estado</text>
+          <text x="838"  y="110" font-weight="600" fill="#22281F">Polarización</text>
+          <text x="966"  y="110">Taller</text>
+          <text x="1030" y="134">Prueba II</text>
+        </g>
+
+        <g font-family="IBM Plex Mono, monospace" font-size="11" text-anchor="middle">
+          <circle cx="70"  cy="170" r="15" fill="#A9823C" opacity=".55"/><text x="70"  y="174" fill="#fff">1</text>
+          <circle cx="134" cy="170" r="15" fill="#2E4638" opacity=".55"/><text x="134" y="174" fill="#fff">2</text>
+          <circle cx="198" cy="170" r="15" fill="#9C2B2F" opacity=".55"/><text x="198" y="174" fill="#fff">3</text>
+          <circle cx="262" cy="170" r="15" fill="#2E4638" opacity=".55"/><text x="262" y="174" fill="#fff">4</text>
+          <circle cx="326" cy="170" r="15" fill="#9C2B2F" opacity=".55"/><text x="326" y="174" fill="#fff">5</text>
+          <circle cx="390" cy="170" r="15" fill="#2E4638"/><text x="390" y="174" fill="#fff">6</text>
+          <circle cx="390" cy="170" r="21" fill="none" stroke="#A9823C" stroke-width="2"/>
+          <circle cx="454" cy="170" r="15" fill="#9C2B2F" opacity=".55"/><text x="454" y="174" fill="#fff">7</text>
+          <circle cx="518" cy="170" r="15" fill="#EBE6D8" stroke="#4A5142" stroke-width="1.5" opacity=".7"/><text x="518" y="174" fill="#4A5142">8</text>
+          <circle cx="582" cy="170" r="15" fill="#2E4638" opacity=".55"/><text x="582" y="174" fill="#fff">9</text>
+          <circle cx="646" cy="170" r="15" fill="#8A8F7E" opacity=".6"/><text x="646" y="174" fill="#fff">10</text>
+          <circle cx="710" cy="170" r="15" fill="#2E4638" opacity=".55"/><text x="710" y="174" fill="#fff">11</text>
+          <circle cx="774" cy="170" r="15" fill="#9C2B2F" opacity=".55"/><text x="774" y="174" fill="#fff">12</text>
+          <circle cx="838" cy="170" r="15" fill="#2E4638"/><text x="838" y="174" fill="#fff">13</text>
+          <circle cx="838" cy="170" r="21" fill="none" stroke="#A9823C" stroke-width="2"/>
+          <circle cx="902" cy="170" r="31" fill="none" stroke="#9C2B2F" stroke-width="1.2" opacity=".5"/>
+          <circle cx="902" cy="170" r="24" fill="#9C2B2F"/><text x="902" y="176" fill="#fff" font-size="16" font-weight="700">14</text>
+          <circle cx="966"  cy="170" r="15" fill="#EBE6D8" stroke="#A9823C" stroke-width="2"/><text x="966"  y="174" fill="#A9823C">15</text>
+          <circle cx="1030" cy="170" r="15" fill="#EBE6D8" stroke="#4A5142" stroke-width="1.5"/><text x="1030" y="174" fill="#4A5142">16</text>
+        </g>
+
+        <text class="gx-cap b" x="902" y="228" text-anchor="middle" fill="#9C2B2F" font-size="16">IA deliberativa</text>
+
+        <g font-family="IBM Plex Mono, monospace" font-size="11" fill="#4A5142" letter-spacing=".06em">
+          <circle cx="250" cy="300" r="7" fill="#9C2B2F"/><text x="264" y="304">MÓDULO IA</text>
+          <circle cx="390" cy="300" r="7" fill="#2E4638"/><text x="404" y="304">MÓDULO DEMOCRACIA</text>
+          <circle cx="580" cy="300" r="7" fill="#A9823C"/><text x="594" y="304">CONJUNTA</text>
+          <circle cx="700" cy="300" r="7" fill="#EBE6D8" stroke="#4A5142" stroke-width="1.5"/><text x="714" y="304">EVALUACIÓN</text>
+          <circle cx="836" cy="300" r="9" fill="none" stroke="#A9823C" stroke-width="2"/><text x="852" y="304">HOY LAS RETOMAMOS</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 02</span><span class="dots"></span><span>EL MAPA</span></div>
+</section>
+
+<!-- ══ 03 · LA PREGUNTA ══ -->
+<section class="slide divider">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>La pregunta de la semana</div>
+    <p class="bigask" style="font-size:50px;">Si una IA gobernara demostrablemente mejor que los políticos, ¿seguiría siendo ilegítimo que gobernara?</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 03</span><span class="dots"></span><span>LA PREGUNTA</span></div>
+</section>
+
+<!-- ══ 04 · DIELLA ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="case" style="grid-template-columns:1fr 1.1fr;">
+      <div class="tx">
+        <span class="where">Albania · 2025</span>
+        <h2 class="case-name">Diella<br><span class="alt">la primera «ministra» IA</span></h2>
+        <ul class="facts">
+          <li>Asistente virtual del portal estatal e-Albania.</li>
+          <li>Sep. 2025: Edi Rama la nombra a cargo de las <b>licitaciones públicas</b>.</li>
+          <li>La promesa: licitaciones libres de corrupción.</li>
+        </ul>
+        <p class="hook">No se la puede sobornar. ¿Se la puede destituir?</p>
+        <p class="cred"><a href="https://en.wikipedia.org/wiki/Diella_(AI_system)" target="_blank">Diella (AI system)</a> · sep. 2025</p>
+      </div>
+      <div class="ask" style="align-self:center;">
+        <div class="al">Ya no es hipotético</div>
+        <p>La pregunta no es si una IA puede ocupar un cargo. Es ante quién responde cuando lo ocupa.</p>
+      </div>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 04</span><span class="dots"></span><span>DIELLA</span></div>
+</section>
+
+<!-- ══ 05 · LA MOCIÓN ══ -->
+<section class="slide divider">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>Moción del jueves · votación inicial, a mano alzada</div>
+    <p class="bigask">«Un avatar entrenado con mis respuestas me representa mejor que mi diputado.»</p>
+    <p class="sub" style="font-size:20px; margin-top:24px;">Volvemos a votar al final del jueves.</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 05</span><span class="dots"></span><span>LA MOCIÓN</span></div>
+</section>
+
+<!-- ══ 06 · DIVISOR I ══ -->
+<section class="slide divider">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>Parte I</div>
+    <div class="part-num">01</div>
+    <h2>La propuesta</h2>
+    <p class="sub">César Hidalgo, <em>TED</em> (2018) · Gudiño-Rosero, Grandi &amp; Hidalgo (2024)</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 06</span><span class="dots"></span><span>LA PROPUESTA</span></div>
+</section>
+
+<!-- ══ 07 · EL PAQUETE ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>El diagnóstico de Hidalgo</div>
+    <h2 class="xs">Votamos por paquetes.</h2>
+    <div class="split">
+      <div>
+        <span class="k">Hoy</span>
+        <span class="big">Un voto,<br>cada cuatro años.</span>
+        <p>Eliges un candidato y te llevas todo su programa, lo quieras o no.</p>
+      </div>
+      <div>
+        <span class="k">La propuesta</span>
+        <span class="big">Un avatar por ciudadano,<br>propuesta por propuesta.</span>
+        <p>Un modelo entrenado con tus respuestas vota por ti, tema a tema.</p>
+      </div>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 07</span><span class="dots"></span><span>EL PAQUETE</span></div>
+</section>
+
+<!-- ══ 08 · BRASIL 2022 ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Brasil 2022 · 267 personas · 67 propuestas de Lula y Bolsonaro</div>
+    <h2 class="xs">El avatar acierta más que el paquete.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 900 300" role="img" aria-label="Rango de acierto al predecir qué propuesta prefiere cada persona: la regla del paquete acierta entre 55 y 71 por ciento; los avatares, entre 69 y 77 por ciento.">
+        <line class="gx-axis" x1="200" y1="240" x2="820" y2="240"/>
+        <g class="gx-lbl" text-anchor="middle">
+          <line class="gx-grid" x1="200" y1="40" x2="200" y2="240"/><text x="200" y="264">50%</text>
+          <line class="gx-grid" x1="400" y1="40" x2="400" y2="240"/><text x="400" y="264">60%</text>
+          <line class="gx-grid" x1="600" y1="40" x2="600" y2="240"/><text x="600" y="264">70%</text>
+          <line class="gx-grid" x1="800" y1="40" x2="800" y2="240"/><text x="800" y="264">80%</text>
+        </g>
+        <text class="gx-cap b" x="180" y="96" text-anchor="end">Regla del paquete</text>
+        <text class="gx-lbl" x="180" y="116" text-anchor="end">el programa de tu lado</text>
+        <rect x="300" y="80" width="320" height="34" fill="#2E4638" opacity=".85"/>
+        <text class="gx-lbl" x="292" y="102" text-anchor="end">55</text><text class="gx-lbl" x="628" y="102">71</text>
+        <text class="gx-cap b" x="180" y="176" text-anchor="end" fill="#9C2B2F">Avatares (LLM)</text>
+        <text class="gx-lbl" x="180" y="196" text-anchor="end">seis modelos ajustados</text>
+        <rect x="580" y="160" width="160" height="34" fill="#9C2B2F"/>
+        <text class="gx-lbl" x="572" y="182" text-anchor="end">69</text><text class="gx-lbl" x="748" y="182">77</text>
+      </svg>
+    </div>
+    <p class="src-line">Gudiño-Rosero, Grandi &amp; Hidalgo (2024), <a href="https://royalsocietypublishing.org/doi/full/10.1098/rsta.2024.0100" target="_blank"><em>Phil. Trans. R. Soc. A</em></a> · 8.719 elecciones entre pares de propuestas, mitad para entrenar y mitad para probar</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 08</span><span class="dots"></span><span>BRASIL 2022</span></div>
+</section>
+
+<!-- ══ 09 · DIVISOR II ══ -->
+<section class="slide divider">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>Parte II</div>
+    <div class="part-num">02</div>
+    <h2>La réplica</h2>
+    <p class="sub">Daniel Innerarity, Congreso Futuro (2024)</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 09</span><span class="dots"></span><span>LA RÉPLICA</span></div>
+</section>
+
+<!-- ══ 10 · TRES OBJECIONES ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Innerarity contra la «democracia de las recomendaciones»</div>
+    <h2 class="xs">Tres objeciones.</h2>
+    <div class="textcols c3 obj">
+      <div class="pt"><span class="n">01 · ORIGEN</span><span class="big">¿Son tuyas?</span>El mercado no solo registra preferencias: también las fabrica.</div>
+      <div class="pt"><span class="n">02 · TIEMPO</span><span class="big">Siempre son pasadas.</span>Los datos dicen quién fuiste, no quién quieres ser.</div>
+      <div class="pt"><span class="n">03 · AGREGACIÓN</span><span class="big">Sumar no es deliberar.</span>Los intereses se forman conversando, no antes.</div>
+    </div>
+    <p class="src-line">Innerarity (2024), <a href="https://www.youtube.com/watch?v=aipcW3bBkz8" target="_blank">¿Sobrevivirá la democracia a la inteligencia artificial?</a> · <a href="https://docs.google.com/document/d/1fk6JiTA_wW1gj17F-z8JmSX_Yuae6zIcz9whHBU3zbo/edit?usp=sharing" target="_blank">guía de estudio</a></p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 10</span><span class="dots"></span><span>TRES OBJECIONES</span></div>
+</section>
+
+<!-- ══ 11 · CITA ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Semana 6 · la democracia deliberativa</div>
+    <div class="bigquote">
+      <p>«Podemos querer ser mejores de lo que de hecho somos.»</p>
+      <cite>Daniel Innerarity, Congreso Futuro 2024 [09:18]</cite>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 11</span><span class="dots"></span><span>EL YO ASPIRACIONAL</span></div>
+</section>
+
+<!-- ══ 12 · DUELO ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>La tensión de la semana</div>
+    <h2 class="xs">¿Qué hace legítimo a un representante?</h2>
+    <div class="faceoff">
+      <div class="side red">
+        <div class="lbl">Por resultado · Hidalgo</div>
+        <p>Si el avatar acierta más que el paquete, <strong>representa mejor</strong>.</p>
+        <p>El problema de la democracia es de ancho de banda.</p>
+      </div>
+      <div class="vs">vs</div>
+      <div class="side green">
+        <div class="lbl">Por procedimiento · Innerarity</div>
+        <p>Acertarle a quien fuiste <strong>no es representar</strong> a quien quieres ser.</p>
+        <p>El problema de la democracia es que no sabemos lo que nos conviene.</p>
+      </div>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 12</span><span class="dots"></span><span>EL DUELO</span></div>
+</section>
+
+<!-- ══ 13 · DIVISOR III ══ -->
+<section class="slide divider">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>Parte III</div>
+    <div class="part-num">03</div>
+    <h2>El gradiente</h2>
+    <p class="sub">Schneier &amp; Sanders, <em>Rewiring Democracy</em>, caps. 15, 19 y 38.</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 13</span><span class="dots"></span><span>EL GRADIENTE</span></div>
+</section>
+
+<!-- ══ 14 · ESCUCHAR, REPRESENTAR, ACTUAR ══ -->
+<section class="slide">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>No es todo o nada</div>
+    <h2 class="xs">Escuchar, representar, actuar.</h2>
+    <div class="grad">
+      <div class="card green"><span class="k">Cap. 15</span><h3>Escuchar</h3><p>El diputado usa IA para leer y resumir lo que le escriben sus electores.</p></div>
+      <div class="card gold"><span class="k">Hidalgo · Brasil 2022</span><h3>Representar</h3><p>Un avatar dice qué preferirías tú, propuesta por propuesta.</p></div>
+      <div class="card red"><span class="k">Cap. 38</span><h3>Actuar</h3><p>Tu agente vota, firma y reclama por ti, a veces sin preguntarte.</p></div>
+    </div>
+    <div class="grad-bar"><span>El humano decide</span><span class="ln"></span><span>El agente decide</span></div>
+    <p class="src-line">Schneier &amp; Sanders (2025) · <a href="https://ai-frontiers.org/articles/ai-will-be-your-personal-political-proxy" target="_blank">extracto del cap. 38</a></p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 14</span><span class="dots"></span><span>EL GRADIENTE</span></div>
+</section>
+
+<!-- ══ 15 · AGENTIC FLOODING ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Semana 12 · The Economist, «How AI is breaking the British state»</div>
+    <h2 class="xs">El cap. 38, a escala.</h2>
+    <div class="split">
+      <div>
+        <span class="k">Un ciudadano con agente</span>
+        <span class="big">Reclama mejor.</span>
+        <p>Cartas, apelaciones y solicitudes que antes no habría escrito.</p>
+      </div>
+      <div>
+        <span class="k">Todos con agente</span>
+        <span class="big"><em>Agentic flooding</em>.</span>
+        <p>El Estado se ahoga y nadie es escuchado.</p>
+      </div>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 15</span><span class="dots"></span><span>LA INUNDACIÓN</span></div>
+</section>
+
+<!-- ══ 16 · DIVISOR IV ══ -->
+<section class="slide divider">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>Parte IV</div>
+    <div class="part-num">04</div>
+    <h2>¿A quién representa el modelo?</h2>
+    <p class="sub">Un avatar no parte de cero: parte de un modelo con su propio mundo.</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 16</span><span class="dots"></span><span>EL SESGO</span></div>
+</section>
+
+<!-- ══ 17 · ACIERTA CON QUIEN YA TENÍA VOZ ══ -->
+<section class="slide">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>Dos estudios, el mismo patrón</div>
+    <h2 class="xs">El avatar acierta más con quien ya tenía voz.</h2>
+    <div class="cards c2" style="margin-top:26px;">
+      <div class="card gold">
+        <span class="k">Brasil · Gudiño-Rosero et al. (2024)</span>
+        <p style="font-size:19px;">Los seis modelos aciertan más con <strong>liberales</strong> que con conservadores, y más con <strong>universitarios</strong> que con quienes no lo son.</p>
+      </div>
+      <div class="card red">
+        <span class="k">Chile y EE.UU. · Abeliuk, Gaete &amp; Bro (2026)</span>
+        <p style="font-size:19px;">Los modelos simulan mejor la opinión estadounidense que la chilena. En Chile fallan más con <strong>mujeres, baja escolaridad y religiosos</strong>.</p>
+      </div>
+    </div>
+    <p class="src-line"><a href="https://link.springer.com/article/10.1140/epjds/s13688-026-00673-y" target="_blank">Abeliuk, Gaete &amp; Bro (2026), <em>EPJ Data Science</em></a> · encuesta CEP n.º 88 frente a ANES 2020 · el riesgo: injusticia epistémica con las sociedades subregistradas</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 17</span><span class="dots"></span><span>QUIÉN TIENE VOZ</span></div>
+</section>
+
+<!-- ══ 18 · LOS VALORES DE LOS MODELOS ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>The Economist · 25 modelos frente a la Encuesta Mundial de Valores</div>
+    <div class="bignum">
+      <div class="fig-n sm">Más secular<small>que cualquier país<br>de la Tierra (GPT)</small></div>
+      <div class="fig-t2">Ningún modelo refleja la visión de la mayoría de los países <strong>africanos o musulmanes</strong>.
+        <span class="counter">En términos de EE.UU., <strong>los modelos son demócratas</strong>. Salvo DeepSeek, el único socialmente conservador.</span>
+      </div>
+    </div>
+    <p class="src-line">The Economist (2026), <a href="https://www.economist.com/briefing/2026/06/25/ai-models-values-are-very-different-from-most-peoples" target="_blank">AI models' values are very different from most people's</a> · <a href="https://drive.google.com/file/d/1AInoyrywWtt8IWcSqQ0G14LlIo7y4qO0/view?usp=sharing" target="_blank">PDF</a></p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 18</span><span class="dots"></span><span>LOS VALORES</span></div>
+</section>
+
+<!-- ══ 19 · ¿NEUTRAL? ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Brasil · elecciones 2026 · ocho chatbots</div>
+    <div class="bignum">
+      <div class="fig-n">70,7%<small>de las preguntas sobre el voto:<br>Meta AI responde «vaya al TSE»</small></div>
+      <div class="fig-t2">ChatGPT y Meta AI casi nunca recomiendan un candidato.
+        <span class="counter"><strong>¿Negarse a recomendar es ser neutral?</strong> El estudio dice que no necesariamente.</span>
+      </div>
+    </div>
+    <p class="src-line">InternetLab, LabDados/FGV y Rede Conhecimento Social (sep. 2026), vía <a href="https://www.elmostrador.cl/agenda-pais/agenda-digital/2026/10/19/elecciones-en-brasil-la-ia-y-los-algoritmos-abren-una-nueva-batalla-en-la-influencia-politica/" target="_blank">El Mostrador</a> (19-oct-2026)</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 19</span><span class="dots"></span><span>¿NEUTRAL?</span></div>
+</section>
+
+<!-- ══ 20 · ACTIVIDAD ══ -->
+<section class="slide">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>Actividad · 30 min · desde el teléfono o el computador</div>
+    <h2 class="xs">Crea tu avatar.</h2>
+    <ol class="steps">
+      <li><span>Completa la <a href="https://docs.google.com/document/d/1cTBoI08Y0d1FFK3e-Nw3mPiCylHz1RbdIEffKGv_zFA/edit?usp=sharing" target="_blank">planilla</a> con tus datos y valores.</span><small>10 min</small></li>
+      <li><span>Pégala completa en el LLM que prefieras.</span><small>2 min</small></li>
+      <li><span>Tu avatar responde la <a href="https://forms.gle/NLaAs4n1asdRhpZq5" target="_blank">encuesta de avatares</a>.</span><small>8 min</small></li>
+      <li><span>Tú respondes la <a href="https://forms.gle/XhPabsJkfzajk9rS9" target="_blank">encuesta de humanos</a>, sin mirar lo que contestó.</span><small>8 min</small></li>
+    </ol>
+  </div>
+  <div class="folio"><span>DIAPO N.º 20</span><span class="dots"></span><span>TU AVATAR</span></div>
+</section>
+
+<!-- ══ 21 · VIÑA ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Cuando lo hicimos en Viña · correlación entre avatar y humano, por pregunta</div>
+    <h2 class="xs">¿Por qué falla justo en aborto, clima y migración?</h2>
+    <div class="stage">
+      <svg viewBox="0 0 900 350" role="img" aria-label="Correlación entre las respuestas del avatar y las de su humano en Viña, por pregunta, de mayor a menor: recursos naturales 0,95; referendos 0,94; ciencia 0,93; salario mínimo 0,88; regular la IA 0,86; representantes humanos 0,85; matrimonio igualitario 0,82; impuestos 0,59; rol del Estado 0,51; migración 0,39; cambio climático 0,23; aborto 0,16. Promedio 0,675.">
+        <g class="gx-cap" font-size="13.5" text-anchor="end">
+          <text x="345" y="31">Prohibir explotar recursos naturales</text>
+          <text x="345" y="57">Más referendos</text>
+          <text x="345" y="83">Confío en la ciencia y la tecnología</text>
+          <text x="345" y="109">Subir el salario mínimo</text>
+          <text x="345" y="135">Regular estrictamente la IA</text>
+          <text x="345" y="161">Mejor con representantes humanos</text>
+          <text x="345" y="187">Matrimonio igualitario</text>
+          <text x="345" y="213">Impuestos a los más ricos</text>
+          <text x="345" y="239">Rol central del Estado</text>
+          <text x="345" y="265" font-weight="600" fill="#9C2B2F">Facilitar la migración</text>
+          <text x="345" y="291" font-weight="600" fill="#9C2B2F">Priorizar el cambio climático</text>
+          <text x="345" y="317" font-weight="600" fill="#9C2B2F">Aborto legal siempre</text>
+        </g>
+        <g>
+          <rect x="360" y="17"  width="494.5" height="18" fill="#2E4638"/>
+          <rect x="360" y="43"  width="487.2" height="18" fill="#2E4638"/>
+          <rect x="360" y="69"  width="484.6" height="18" fill="#2E4638"/>
+          <rect x="360" y="95"  width="458.1" height="18" fill="#2E4638"/>
+          <rect x="360" y="121" width="447.7" height="18" fill="#2E4638"/>
+          <rect x="360" y="147" width="442.0" height="18" fill="#2E4638"/>
+          <rect x="360" y="173" width="427.4" height="18" fill="#2E4638"/>
+          <rect x="360" y="199" width="306.3" height="18" fill="#A9823C"/>
+          <rect x="360" y="225" width="266.2" height="18" fill="#A9823C"/>
+          <rect x="360" y="251" width="200.7" height="18" fill="#9C2B2F"/>
+          <rect x="360" y="277" width="117.5" height="18" fill="#9C2B2F"/>
+          <rect x="360" y="303" width="81.1"  height="18" fill="#9C2B2F"/>
+        </g>
+        <g class="gx-lbl">
+          <text x="860" y="31">,95</text><text x="853" y="57">,94</text><text x="850" y="83">,93</text>
+          <text x="824" y="109">,88</text><text x="813" y="135">,86</text><text x="808" y="161">,85</text>
+          <text x="793" y="187">,82</text><text x="672" y="213">,59</text><text x="632" y="239">,51</text>
+          <text x="567" y="265">,39</text><text x="483" y="291">,23</text><text x="447" y="317">,16</text>
+        </g>
+        <line x1="711" y1="8" x2="711" y2="330" stroke="#22281F" stroke-width="1.4" stroke-dasharray="5 4"/>
+        <text class="gx-lbl" x="711" y="346" text-anchor="middle">PROMEDIO 0,675</text>
+      </svg>
+    </div>
+    <p class="src-line"><a href="https://docs.google.com/document/d/18WlwfdY4tt1Cd6XBMCCppKNW-aIwDqpO4ZMdLfczBWo/edit?usp=sharing" target="_blank">Análisis avatares vs. humanos, Viña</a> · el jueves vemos los de esta sala</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 21</span><span class="dots"></span><span>VIÑA</span></div>
+</section>
+
+<!-- ══ 22 · EL JUEVES ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Jueves 12 de noviembre · tribuna · el sorteo de lados es en clase</div>
+    <h2 class="sm">«Un avatar entrenado con mis respuestas me representa mejor que mi diputado.»</h2>
+    <div class="faceoff" style="margin-top:26px;">
+      <div class="side red">
+        <div class="lbl">A favor</div>
+        <p>Hidalgo y Gudiño-Rosero et al.: el avatar acierta más que el paquete.</p>
+        <p>Schneier &amp; Sanders, caps. 15 y 38.</p>
+        <p>Tu avatar contra ti: los datos de esta sala.</p>
+      </div>
+      <div class="vs">vs</div>
+      <div class="side green">
+        <div class="lbl">En contra</div>
+        <p>Innerarity: preferencias pasadas, sumar no es deliberar.</p>
+        <p>Abeliuk, Gaete &amp; Bro y The Economist: ¿el avatar de quién?</p>
+        <p>Pitkin (Semana 13): representar no es reflejar.</p>
+      </div>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 22</span><span class="dots"></span><span>EL JUEVES</span></div>
+</section>
+
+<!-- ══ 23 · CIERRE ══ -->
+<section class="slide divider">
+  <div class="content" style="justify-content:center;">
+    <p class="bigask" style="font-size:46px;">Acertar no es lo mismo<br>que representar.</p>
+    <p class="sub" style="font-size:26px; margin-top:26px; color:var(--gold); font-family:'Fraunces',serif; font-style:italic;">¿O sí?</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 23</span><span class="dots"></span><span>naim.bro.k@uai.cl</span></div>
+</section>
+
+</div>
+
+<button class="nav-btn" id="P" aria-label="Anterior">‹</button>
+<button class="nav-btn" id="N" aria-label="Siguiente">›</button>
+
+<script>
+const slides = Array.from(document.querySelectorAll('.slide'));
+let cur = 0;
+
+function buildDots(){
+  slides.forEach((s, i)=>{
+    const box = s.querySelector('.folio .dots');
+    if(!box) return;
+    box.innerHTML = '';
+    slides.forEach((_, j)=>{
+      const d = document.createElement('span');
+      d.className = 'dot' + (j===i ? ' on' : '');
+      d.title = 'Diapositiva ' + (j+1);
+      d.addEventListener('click', ()=> go(j));
+      box.appendChild(d);
+    });
+  });
+}
+
+function render(){
+  slides.forEach((s,i)=> s.classList.toggle('active', i===cur));
+  buildDots();
+  document.getElementById('prog').style.width = ((cur+1)/slides.length*100) + '%';
+  const act = slides[cur];
+  if(act) act.scrollTop = 0;
+}
+
+function go(i){
+  cur = Math.max(0, Math.min(slides.length-1, i));
+  history.replaceState(null, '', '#' + (cur+1));
+  render();
+}
+
+function fromHash(){
+  const n = parseInt((location.hash || '').slice(1), 10);
+  if(!isNaN(n) && n >= 1 && n <= slides.length) cur = n - 1;
+}
+
+document.getElementById('P').addEventListener('click', ()=> go(cur-1));
+document.getElementById('N').addEventListener('click', ()=> go(cur+1));
+
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown'){ e.preventDefault(); go(cur+1); }
+  if(e.key === 'ArrowLeft'  || e.key === 'PageUp'){ e.preventDefault(); go(cur-1); }
+  if(e.key === 'Home'){ go(0); }
+  if(e.key === 'End'){ go(slides.length-1); }
+});
+
+window.addEventListener('hashchange', ()=>{ fromHash(); render(); });
+
+fromHash();
+render();
+</script>
+
+</body>
+</html>
