@@ -330,7 +330,48 @@ h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--in
 .steps li{counter-increment:st; display:grid; grid-template-columns:54px 1fr auto; gap:16px; align-items:baseline; font-size:24px; line-height:1.35; border-bottom:1px solid var(--line); padding-bottom:10px;}
 .steps li::before{content:counter(st); font-family:'Fraunces',serif; font-size:40px; font-weight:600; color:var(--stamp); line-height:1;}
 .steps li small{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.08em; color:var(--ink-soft); white-space:nowrap;}
+/* Video */
+.videostage{flex:1; min-height:0; display:flex; align-items:center; justify-content:center; margin-top:16px; gap:38px;}
+.videostage .vbox{flex:1 1 auto; height:100%; min-width:0; display:flex; align-items:center; justify-content:center;}
+.videostage video{display:block; width:auto; height:auto; max-width:100%; max-height:100%; background:#000; border:1px solid var(--line);}
+.videostage .vside{max-width:330px; flex-shrink:0;}
+.videostage .vside .qlead{font-family:'Fraunces',serif; font-size:24px; font-style:italic; line-height:1.32; color:var(--ink); border-left:3px solid var(--gold); padding-left:18px;}
+.videostage .vside .qwho{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.08em; color:var(--ink-soft); margin-top:12px; padding-left:21px;}
+.videostage .vside .tcode{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--stamp); margin-top:22px; padding-left:21px;}
+/* Portada de paper */
+.paper{flex:1; min-height:0; display:grid; grid-template-columns:1.3fr 1fr; gap:44px; align-items:center; margin-top:16px;}
+.paper .sheet{height:100%; min-height:0; display:flex; align-items:center; justify-content:center;}
+.paper .sheet img{max-height:100%; max-width:100%; object-fit:contain; display:block; background:#fff; border:1px solid var(--line); box-shadow:0 2px 14px rgba(30,25,15,.12);}
+.paper .dash-list li{font-size:19px; margin-bottom:16px;}
+/* Figura de paper con clave de lectura */
+.figkey{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:12px; flex-shrink:0;}
+.figkey div{border-top:2px solid var(--line); padding-top:8px; font-size:15.5px; line-height:1.45; color:var(--ink-soft);}
+.figkey div.red{border-top-color:var(--stamp);}
+.figkey b{display:block; font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:var(--ink); margin-bottom:3px;}
+.figkey div.red b{color:var(--stamp);}
+.stage img.fig{background:#fff; padding:10px 14px; border:1px solid var(--line);}
+/* Respuestas a Innerarity */
+.resp{width:100%; border-collapse:collapse; margin-top:18px;}
+.resp th{font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); text-align:left; padding:0 16px 10px 0; border-bottom:2px solid var(--ink);}
+.resp td{font-size:18px; line-height:1.42; color:var(--ink-soft); padding:16px 16px 16px 0; border-bottom:1px solid var(--line); vertical-align:top;}
+.resp td:first-child{font-family:'Fraunces',serif; font-size:22px; font-weight:600; color:var(--ink); width:24%;}
+.resp td strong{color:var(--ink); font-weight:600;}
+.resp td.no{color:var(--stamp);}
+/* Cifras de America in One Room */
+.nums{display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:24px;}
+.nums div{border-top:3px solid var(--forest); padding-top:12px;}
+.nums b{display:block; font-family:'Fraunces',serif; font-size:64px; font-weight:600; line-height:1; color:var(--forest); letter-spacing:-.02em;}
+.nums span{display:block; font-size:18px; line-height:1.45; color:var(--ink-soft); margin-top:10px;}
+.nums .ctl{border-top-color:var(--line);} .nums .ctl b{color:var(--ink-soft);}
+.closeq{margin-top:30px; font-family:'Fraunces',serif; font-size:28px; line-height:1.25; color:var(--stamp); border-left:4px solid var(--stamp); padding-left:22px;}
+.paper .sheet img.photo{background:none; filter:sepia(12%) saturate(.9);}
 @media(max-width:900px){
+  .videostage{flex-direction:column; gap:16px;} .videostage .vbox{height:auto; width:100%;} .videostage video{width:100%;} .videostage .vside{max-width:none;}
+  .paper{grid-template-columns:1fr; gap:16px;}
+  .figkey{grid-template-columns:1fr; gap:8px;}
+  .nums{grid-template-columns:1fr; gap:14px;} .nums b{font-size:40px;}
+  .resp td{font-size:14px;} .resp td:first-child{font-size:16px;}
+  .closeq{font-size:20px;}
   .grad{grid-template-columns:1fr;}
   .grad .card h3{font-size:20px;}
   .obj .pt .big{font-size:21px;}
@@ -445,50 +486,17 @@ h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--in
   <div class="folio"><span>DIAPO N.º 02</span><span class="dots"></span><span>EL MAPA</span></div>
 </section>
 
-<!-- ══ 03 · LA PREGUNTA ══ -->
-<section class="slide divider">
-  <div class="content" style="justify-content:center;">
-    <div class="eyebrow"><span class="bar"></span>La pregunta de la semana</div>
-    <p class="bigask" style="font-size:50px;">Si una IA gobernara demostrablemente mejor que los políticos, ¿seguiría siendo ilegítimo que gobernara?</p>
-  </div>
-  <div class="folio"><span>DIAPO N.º 03</span><span class="dots"></span><span>LA PREGUNTA</span></div>
-</section>
-
-<!-- ══ 04 · DIELLA ══ -->
-<section class="slide">
-  <div class="content">
-    <div class="case" style="grid-template-columns:1fr 1.1fr;">
-      <div class="tx">
-        <span class="where">Albania · 2025</span>
-        <h2 class="case-name">Diella<br><span class="alt">la primera «ministra» IA</span></h2>
-        <ul class="facts">
-          <li>Asistente virtual del portal estatal e-Albania.</li>
-          <li>Sep. 2025: Edi Rama la nombra a cargo de las <b>licitaciones públicas</b>.</li>
-          <li>La promesa: licitaciones libres de corrupción.</li>
-        </ul>
-        <p class="hook">No se la puede sobornar. ¿Se la puede destituir?</p>
-        <p class="cred"><a href="https://en.wikipedia.org/wiki/Diella_(AI_system)" target="_blank">Diella (AI system)</a> · sep. 2025</p>
-      </div>
-      <div class="ask" style="align-self:center;">
-        <div class="al">Ya no es hipotético</div>
-        <p>La pregunta no es si una IA puede ocupar un cargo. Es ante quién responde cuando lo ocupa.</p>
-      </div>
-    </div>
-  </div>
-  <div class="folio"><span>DIAPO N.º 04</span><span class="dots"></span><span>DIELLA</span></div>
-</section>
-
-<!-- ══ 05 · LA MOCIÓN ══ -->
+<!-- ══ 03 · LA MOCIÓN ══ -->
 <section class="slide divider">
   <div class="content" style="justify-content:center;">
     <div class="eyebrow"><span class="bar"></span>Moción del jueves · votación inicial, a mano alzada</div>
     <p class="bigask">«Un avatar entrenado con mis respuestas me representa mejor que mi diputado.»</p>
     <p class="sub" style="font-size:20px; margin-top:24px;">Volvemos a votar al final del jueves.</p>
   </div>
-  <div class="folio"><span>DIAPO N.º 05</span><span class="dots"></span><span>LA MOCIÓN</span></div>
+  <div class="folio"><span>DIAPO N.º 03</span><span class="dots"></span><span>LA MOCIÓN</span></div>
 </section>
 
-<!-- ══ 06 · DIVISOR I ══ -->
+<!-- ══ 04 · DIVISOR I ══ -->
 <section class="slide divider">
   <div class="content" style="justify-content:center;">
     <div class="eyebrow"><span class="bar"></span>Parte I</div>
@@ -496,60 +504,68 @@ h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--in
     <h2>La propuesta</h2>
     <p class="sub">César Hidalgo, <em>TED</em> (2018) · Gudiño-Rosero, Grandi &amp; Hidalgo (2024)</p>
   </div>
-  <div class="folio"><span>DIAPO N.º 06</span><span class="dots"></span><span>LA PROPUESTA</span></div>
+  <div class="folio"><span>DIAPO N.º 04</span><span class="dots"></span><span>LA PROPUESTA</span></div>
 </section>
 
-<!-- ══ 07 · EL PAQUETE ══ -->
+<!-- ══ 05 · HIDALGO EN TED ══ -->
 <section class="slide">
   <div class="content">
-    <div class="eyebrow"><span class="bar"></span>El diagnóstico de Hidalgo</div>
-    <h2 class="xs">Votamos por paquetes.</h2>
-    <div class="split">
-      <div>
-        <span class="k">Hoy</span>
-        <span class="big">Un voto,<br>cada cuatro años.</span>
-        <p>Eliges un candidato y te llevas todo su programa, lo quieras o no.</p>
+    <div class="eyebrow"><span class="bar"></span>La propuesta, en su voz · César Hidalgo, TED 2018</div>
+    <h2 class="xs">No es un problema de comunicación: es de ancho de banda.</h2>
+    <div class="videostage">
+      <div class="vbox">
+        <video controls preload="metadata" playsinline poster="img/semana14/hidalgo-poster.jpg">
+          <source src="media/semana14/hidalgo-ted.mp4" type="video/mp4">
+          <a href="https://www.youtube.com/watch?v=UUp39T3fPAo&amp;t=419s" target="_blank">Ver el fragmento en YouTube</a>
+        </video>
       </div>
-      <div>
-        <span class="k">La propuesta</span>
-        <span class="big">Un avatar por ciudadano,<br>propuesta por propuesta.</span>
-        <p>Un modelo entrenado con tus respuestas vota por ti, tema a tema.</p>
+      <div class="vside">
+        <p class="qlead">«No necesitamos tecnología de comunicación, sino tecnología de aumentación.»</p>
+        <p class="qwho">— César Hidalgo</p>
+        <p class="tcode">▶ 06:59 – 09:44 · 2 min 45 s</p>
       </div>
     </div>
+    <p class="src-line">Fíjense en tres cosas: nueve proyectos de ley al día, un representante personalizado para cada uno y el paquete que no te satisface · <a href="https://www.youtube.com/watch?v=UUp39T3fPAo" target="_blank">Charla completa (15 min)</a></p>
   </div>
-  <div class="folio"><span>DIAPO N.º 07</span><span class="dots"></span><span>EL PAQUETE</span></div>
+  <div class="folio"><span>DIAPO N.º 05</span><span class="dots"></span><span>HIDALGO EN TED</span></div>
 </section>
 
-<!-- ══ 08 · BRASIL 2022 ══ -->
+<!-- ══ 06 · EL PAPER ══ -->
 <section class="slide">
   <div class="content">
-    <div class="eyebrow"><span class="bar"></span>Brasil 2022 · 267 personas · 67 propuestas de Lula y Bolsonaro</div>
-    <h2 class="xs">El avatar acierta más que el paquete.</h2>
+    <div class="eyebrow"><span class="bar"></span>De la charla al experimento</div>
+    <h2 class="xs">Gudiño-Rosero, Grandi &amp; Hidalgo (2024)</h2>
+    <div class="paper">
+      <div class="sheet"><img src="img/semana14/gudino-portada.jpg" alt="Primera página del artículo Large Language Models (LLMs) as Agents for Augmented Democracy, de Jairo F. Gudiño, Umberto Grandi y César Hidalgo"></div>
+      <ul class="dash-list">
+        <li><strong>Brasil 2022:</strong> 267 personas eligen entre pares de 67 propuestas de Lula y Bolsonaro.</li>
+        <li><strong>8.719 elecciones.</strong> Seis LLM se ajustan con la mitad de las personas y se prueban con la otra mitad.</li>
+        <li><strong>La vara:</strong> la regla del paquete, que predice que eliges siempre el programa de tu lado.</li>
+      </ul>
+    </div>
+    <p class="src-line"><a href="https://royalsocietypublishing.org/doi/full/10.1098/rsta.2024.0100" target="_blank"><em>Phil. Trans. R. Soc. A</em> 382: 20240100</a></p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 06</span><span class="dots"></span><span>EL PAPER</span></div>
+</section>
+
+<!-- ══ 07 · LA FIGURA ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Fig. 2a · proporción de aciertos · 0,50 = azar</div>
+    <h2 class="xs">El avatar acierta más que el paquete, casi siempre.</h2>
     <div class="stage">
-      <svg viewBox="0 0 900 300" role="img" aria-label="Rango de acierto al predecir qué propuesta prefiere cada persona: la regla del paquete acierta entre 55 y 71 por ciento; los avatares, entre 69 y 77 por ciento.">
-        <line class="gx-axis" x1="200" y1="240" x2="820" y2="240"/>
-        <g class="gx-lbl" text-anchor="middle">
-          <line class="gx-grid" x1="200" y1="40" x2="200" y2="240"/><text x="200" y="264">50%</text>
-          <line class="gx-grid" x1="400" y1="40" x2="400" y2="240"/><text x="400" y="264">60%</text>
-          <line class="gx-grid" x1="600" y1="40" x2="600" y2="240"/><text x="600" y="264">70%</text>
-          <line class="gx-grid" x1="800" y1="40" x2="800" y2="240"/><text x="800" y="264">80%</text>
-        </g>
-        <text class="gx-cap b" x="180" y="96" text-anchor="end">Regla del paquete</text>
-        <text class="gx-lbl" x="180" y="116" text-anchor="end">el programa de tu lado</text>
-        <rect x="300" y="80" width="320" height="34" fill="#2E4638" opacity=".85"/>
-        <text class="gx-lbl" x="292" y="102" text-anchor="end">55</text><text class="gx-lbl" x="628" y="102">71</text>
-        <text class="gx-cap b" x="180" y="176" text-anchor="end" fill="#9C2B2F">Avatares (LLM)</text>
-        <text class="gx-lbl" x="180" y="196" text-anchor="end">seis modelos ajustados</text>
-        <rect x="580" y="160" width="160" height="34" fill="#9C2B2F"/>
-        <text class="gx-lbl" x="572" y="182" text-anchor="end">69</text><text class="gx-lbl" x="748" y="182">77</text>
-      </svg>
+      <img class="fig" src="img/semana14/gudino-fig2a.png" alt="Figura 2a del artículo: siete matrices de dos por dos. La regla del paquete acierta 0,71 y 0,63 con liberales, y 0,56 y 0,55 con conservadores. Los seis LLM aciertan entre 0,82 y 0,88 cuando un liberal elige una propuesta de Lula; cuando un liberal elige una de Bolsonaro, van de 0,50 a 0,71.">
     </div>
-    <p class="src-line">Gudiño-Rosero, Grandi &amp; Hidalgo (2024), <a href="https://royalsocietypublishing.org/doi/full/10.1098/rsta.2024.0100" target="_blank"><em>Phil. Trans. R. Soc. A</em></a> · 8.719 elecciones entre pares de propuestas, mitad para entrenar y mitad para probar</p>
+    <div class="figkey">
+      <div><b>Cómo se lee</b>Fila: quién elige. Columna: de qué programa es la propuesta. Abajo a la izquierda, la vara.</div>
+      <div class="red"><b>Donde gana</b>Liberal que elige a Lula: paquete 0,71; avatares, de 0,82 a 0,88. Con conservadores, el paquete apenas supera el azar.</div>
+      <div><b>Donde no</b>Liberal que elige a Bolsonaro: tres modelos quedan bajo el paquete (0,63). Gana en 21 de 24 celdas.</div>
+    </div>
   </div>
-  <div class="folio"><span>DIAPO N.º 08</span><span class="dots"></span><span>BRASIL 2022</span></div>
+  <div class="folio"><span>DIAPO N.º 07</span><span class="dots"></span><span>LA FIGURA</span></div>
 </section>
 
-<!-- ══ 09 · DIVISOR II ══ -->
+<!-- ══ 08 · DIVISOR II ══ -->
 <section class="slide divider">
   <div class="content" style="justify-content:center;">
     <div class="eyebrow"><span class="bar"></span>Parte II</div>
@@ -557,10 +573,10 @@ h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--in
     <h2>La réplica</h2>
     <p class="sub">Daniel Innerarity, Congreso Futuro (2024)</p>
   </div>
-  <div class="folio"><span>DIAPO N.º 09</span><span class="dots"></span><span>LA RÉPLICA</span></div>
+  <div class="folio"><span>DIAPO N.º 08</span><span class="dots"></span><span>LA RÉPLICA</span></div>
 </section>
 
-<!-- ══ 10 · TRES OBJECIONES ══ -->
+<!-- ══ 09 · TRES OBJECIONES ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Innerarity contra la «democracia de las recomendaciones»</div>
@@ -568,26 +584,37 @@ h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--in
     <div class="textcols c3 obj">
       <div class="pt"><span class="n">01 · ORIGEN</span><span class="big">¿Son tuyas?</span>El mercado no solo registra preferencias: también las fabrica.</div>
       <div class="pt"><span class="n">02 · TIEMPO</span><span class="big">Siempre son pasadas.</span>Los datos dicen quién fuiste, no quién quieres ser.</div>
-      <div class="pt"><span class="n">03 · AGREGACIÓN</span><span class="big">Sumar no es deliberar.</span>Los intereses se forman conversando, no antes.</div>
+      <div class="pt"><span class="n">03 · AGREGACIÓN</span><span class="big">Sumar no es deliberar.</span>Los intereses también se forman conversando.</div>
     </div>
     <p class="src-line">Innerarity (2024), <a href="https://www.youtube.com/watch?v=aipcW3bBkz8" target="_blank">¿Sobrevivirá la democracia a la inteligencia artificial?</a> · <a href="https://docs.google.com/document/d/1fk6JiTA_wW1gj17F-z8JmSX_Yuae6zIcz9whHBU3zbo/edit?usp=sharing" target="_blank">guía de estudio</a></p>
   </div>
-  <div class="folio"><span>DIAPO N.º 10</span><span class="dots"></span><span>TRES OBJECIONES</span></div>
+  <div class="folio"><span>DIAPO N.º 09</span><span class="dots"></span><span>TRES OBJECIONES</span></div>
 </section>
 
-<!-- ══ 11 · CITA ══ -->
+<!-- ══ 10 · INNERARITY EN CONGRESO FUTURO ══ -->
 <section class="slide">
   <div class="content">
-    <div class="eyebrow"><span class="bar"></span>Semana 6 · la democracia deliberativa</div>
-    <div class="bigquote">
-      <p>«Podemos querer ser mejores de lo que de hecho somos.»</p>
-      <cite>Daniel Innerarity, Congreso Futuro 2024 [09:18]</cite>
+    <div class="eyebrow"><span class="bar"></span>Objeción 2, en su voz · Daniel Innerarity, Congreso Futuro 2024</div>
+    <h2 class="xs">El yo aspiracional.</h2>
+    <div class="videostage">
+      <div class="vbox">
+        <video controls preload="metadata" playsinline poster="img/semana14/innerarity-poster.jpg">
+          <source src="media/semana14/innerarity-congreso-futuro.mp4" type="video/mp4">
+          <a href="https://www.youtube.com/watch?v=aipcW3bBkz8&amp;t=416s" target="_blank">Ver el fragmento en YouTube</a>
+        </video>
+      </div>
+      <div class="vside">
+        <p class="qlead">«Podemos querer ser mejores de lo que de hecho somos.»</p>
+        <p class="qwho">— Daniel Innerarity</p>
+        <p class="tcode">▶ 06:56 – 09:22 · 2 min 25 s</p>
+      </div>
     </div>
+    <p class="src-line">Fíjense en tres cosas: la ley de Massachusetts sobre la historia salarial, la natalidad de Arendt y la brecha entre lo que declaramos y lo que hacemos · <a href="https://www.youtube.com/watch?v=aipcW3bBkz8" target="_blank">Charla completa (15 min)</a></p>
   </div>
-  <div class="folio"><span>DIAPO N.º 11</span><span class="dots"></span><span>EL YO ASPIRACIONAL</span></div>
+  <div class="folio"><span>DIAPO N.º 10</span><span class="dots"></span><span>INNERARITY</span></div>
 </section>
 
-<!-- ══ 12 · DUELO ══ -->
+<!-- ══ 11 · DUELO ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>La tensión de la semana</div>
@@ -606,69 +633,39 @@ h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--in
       </div>
     </div>
   </div>
-  <div class="folio"><span>DIAPO N.º 12</span><span class="dots"></span><span>EL DUELO</span></div>
+  <div class="folio"><span>DIAPO N.º 11</span><span class="dots"></span><span>EL DUELO</span></div>
 </section>
 
-<!-- ══ 13 · DIVISOR III ══ -->
+<!-- ══ 12 · DIVISOR III ══ -->
 <section class="slide divider">
   <div class="content" style="justify-content:center;">
     <div class="eyebrow"><span class="bar"></span>Parte III</div>
     <div class="part-num">03</div>
-    <h2>El gradiente</h2>
-    <p class="sub">Schneier &amp; Sanders, <em>Rewiring Democracy</em>, caps. 15, 19 y 38.</p>
-  </div>
-  <div class="folio"><span>DIAPO N.º 13</span><span class="dots"></span><span>EL GRADIENTE</span></div>
-</section>
-
-<!-- ══ 14 · ESCUCHAR, REPRESENTAR, ACTUAR ══ -->
-<section class="slide">
-  <div class="content" style="justify-content:center;">
-    <div class="eyebrow"><span class="bar"></span>No es todo o nada</div>
-    <h2 class="xs">Escuchar, representar, actuar.</h2>
-    <div class="grad">
-      <div class="card green"><span class="k">Cap. 15</span><h3>Escuchar</h3><p>El diputado usa IA para leer y resumir lo que le escriben sus electores.</p></div>
-      <div class="card gold"><span class="k">Hidalgo · Brasil 2022</span><h3>Representar</h3><p>Un avatar dice qué preferirías tú, propuesta por propuesta.</p></div>
-      <div class="card red"><span class="k">Cap. 38</span><h3>Actuar</h3><p>Tu agente vota, firma y reclama por ti, a veces sin preguntarte.</p></div>
-    </div>
-    <div class="grad-bar"><span>El humano decide</span><span class="ln"></span><span>El agente decide</span></div>
-    <p class="src-line">Schneier &amp; Sanders (2025) · <a href="https://ai-frontiers.org/articles/ai-will-be-your-personal-political-proxy" target="_blank">extracto del cap. 38</a></p>
-  </div>
-  <div class="folio"><span>DIAPO N.º 14</span><span class="dots"></span><span>EL GRADIENTE</span></div>
-</section>
-
-<!-- ══ 15 · AGENTIC FLOODING ══ -->
-<section class="slide">
-  <div class="content">
-    <div class="eyebrow"><span class="bar"></span>Semana 12 · The Economist, «How AI is breaking the British state»</div>
-    <h2 class="xs">El cap. 38, a escala.</h2>
-    <div class="split">
-      <div>
-        <span class="k">Un ciudadano con agente</span>
-        <span class="big">Reclama mejor.</span>
-        <p>Cartas, apelaciones y solicitudes que antes no habría escrito.</p>
-      </div>
-      <div>
-        <span class="k">Todos con agente</span>
-        <span class="big"><em>Agentic flooding</em>.</span>
-        <p>El Estado se ahoga y nadie es escuchado.</p>
-      </div>
-    </div>
-  </div>
-  <div class="folio"><span>DIAPO N.º 15</span><span class="dots"></span><span>LA INUNDACIÓN</span></div>
-</section>
-
-<!-- ══ 16 · DIVISOR IV ══ -->
-<section class="slide divider">
-  <div class="content" style="justify-content:center;">
-    <div class="eyebrow"><span class="bar"></span>Parte IV</div>
-    <div class="part-num">04</div>
     <h2>¿A quién representa el modelo?</h2>
     <p class="sub">Un avatar no parte de cero: parte de un modelo con su propio mundo.</p>
   </div>
-  <div class="folio"><span>DIAPO N.º 16</span><span class="dots"></span><span>EL SESGO</span></div>
+  <div class="folio"><span>DIAPO N.º 12</span><span class="dots"></span><span>EL SESGO</span></div>
 </section>
 
-<!-- ══ 17 · ACIERTA CON QUIEN YA TENÍA VOZ ══ -->
+<!-- ══ 13 · EL PAPER DE CHILE ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>¿A quién simula bien un modelo? · Chile frente a EE.UU.</div>
+    <h2 class="xs">Abeliuk, Gaete &amp; Bro (2026)</h2>
+    <div class="paper">
+      <div class="sheet"><img src="img/semana14/abeliuk-portada.jpg" alt="Primera página del artículo Auditing socio-demographic and cross-societal fairness in LLM-simulated public opinion, de Andrés Abeliuk, Vanessa Gaete y Naim Bro, EPJ Data Science 2026"></div>
+      <ul class="dash-list">
+        <li><strong>La pregunta:</strong> si un LLM responde una encuesta «como» un chileno o un estadounidense, ¿a quién se parece?</li>
+        <li><strong>Los datos:</strong> encuestas representativas de ambos países, comparadas grupo por grupo.</li>
+        <li><strong>La vara:</strong> métricas de equidad: ¿el error es parejo entre géneros, edades, escolaridad, religión?</li>
+      </ul>
+    </div>
+    <p class="src-line"><a href="https://link.springer.com/article/10.1140/epjds/s13688-026-00673-y" target="_blank"><em>EPJ Data Science</em> 15: 75</a></p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 13</span><span class="dots"></span><span>EL PAPER</span></div>
+</section>
+
+<!-- ══ 14 · ACIERTA CON QUIEN YA TENÍA VOZ ══ -->
 <section class="slide">
   <div class="content" style="justify-content:center;">
     <div class="eyebrow"><span class="bar"></span>Dos estudios, el mismo patrón</div>
@@ -685,10 +682,10 @@ h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--in
     </div>
     <p class="src-line"><a href="https://link.springer.com/article/10.1140/epjds/s13688-026-00673-y" target="_blank">Abeliuk, Gaete &amp; Bro (2026), <em>EPJ Data Science</em></a> · encuesta CEP n.º 88 frente a ANES 2020 · el riesgo: injusticia epistémica con las sociedades subregistradas</p>
   </div>
-  <div class="folio"><span>DIAPO N.º 17</span><span class="dots"></span><span>QUIÉN TIENE VOZ</span></div>
+  <div class="folio"><span>DIAPO N.º 14</span><span class="dots"></span><span>QUIÉN TIENE VOZ</span></div>
 </section>
 
-<!-- ══ 18 · LOS VALORES DE LOS MODELOS ══ -->
+<!-- ══ 15 · LOS VALORES DE LOS MODELOS ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>The Economist · 25 modelos frente a la Encuesta Mundial de Valores</div>
@@ -700,25 +697,88 @@ h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--in
     </div>
     <p class="src-line">The Economist (2026), <a href="https://www.economist.com/briefing/2026/06/25/ai-models-values-are-very-different-from-most-peoples" target="_blank">AI models' values are very different from most people's</a> · <a href="https://drive.google.com/file/d/1AInoyrywWtt8IWcSqQ0G14LlIo7y4qO0/view?usp=sharing" target="_blank">PDF</a></p>
   </div>
-  <div class="folio"><span>DIAPO N.º 18</span><span class="dots"></span><span>LOS VALORES</span></div>
+  <div class="folio"><span>DIAPO N.º 15</span><span class="dots"></span><span>LOS VALORES</span></div>
 </section>
 
-<!-- ══ 19 · ¿NEUTRAL? ══ -->
+<!-- ══ 16 · DIVISOR IV ══ -->
+<section class="slide divider">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>Parte IV</div>
+    <div class="part-num">04</div>
+    <h2>La respuesta desde la IA</h2>
+    <p class="sub">¿Y si la IA no solo sumara, sino que ayudara a deliberar? Evans &amp; Weyl (2026) · MiroFish</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 16</span><span class="dots"></span><span>LA RESPUESTA</span></div>
+</section>
+
+<!-- ══ 17 · EVANS Y WEYL ══ -->
+<section class="slide">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>Evans &amp; Weyl (2026), <em>Science</em></div>
+    <h2 class="xs">Instituciones a imagen de sus herramientas.</h2>
+    <div class="grad">
+      <div class="card green"><span class="k">Era industrial</span><h3>Jerarquía</h3><p>Contabilidad estándar y línea de montaje: la corporación por divisiones.</p></div>
+      <div class="card gold"><span class="k">Internet</span><h3>Capas</h3><p>Protocolos apilados: organismos cooperativos que fijan estándares.</p></div>
+      <div class="card red"><span class="k">Redes neuronales</span><h3>Espacio</h3><p>Ubicar por posición, no por etiqueta. Ponderar cómo cada aporte incide en los demás.</p></div>
+    </div>
+    <p class="src-line">La fábrica electrificada rindió poco mientras conservó el diseño de la era del vapor · <a href="https://doi.org/10.1126/science.aem6470" target="_blank">Evans &amp; Weyl (2026), «In the image of their tools»</a></p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 17</span><span class="dots"></span><span>EVANS Y WEYL</span></div>
+</section>
+
+<!-- ══ 18 · EN LA APP ══ -->
+<section class="slide">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>Lo que verán hoy en la app · respuesta a «sumar no es deliberar»</div>
+    <h2 class="xs">El mapa, el puente y los bots.</h2>
+    <div class="grad">
+      <div class="card green"><span class="k">Posición, no etiqueta</span><h3>El mapa</h3><p>Personas y propuestas en un mismo plano, aprendido de los votos de la sala.</p></div>
+      <div class="card gold"><span class="k">Mayoría contra puente</span><h3>El puente</h3><p>Sube la propuesta que apoyan grupos que suelen discrepar, no la que suma más.</p></div>
+      <div class="card red"><span class="k">Inundar</span><h3>Los bots</h3><p>Mil copias idénticas caen en un solo punto: mueven la mayoría, casi no el puente.</p></div>
+    </div>
+    <p class="src-line">El puente sigue el algoritmo publicado de <a href="https://communitynotes.x.com/guide/en/under-the-hood/ranking-notes" target="_blank">Community Notes</a> y la lógica de <a href="https://pol.is" target="_blank">Polis</a></p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 18</span><span class="dots"></span><span>EN LA APP</span></div>
+</section>
+
+<!-- ══ 19 · MIROFISH ══ -->
 <section class="slide">
   <div class="content">
-    <div class="eyebrow"><span class="bar"></span>Brasil · elecciones 2026 · ocho chatbots</div>
-    <div class="bignum">
-      <div class="fig-n">70,7%<small>de las preguntas sobre el voto:<br>Meta AI responde «vaya al TSE»</small></div>
-      <div class="fig-t2">ChatGPT y Meta AI casi nunca recomiendan un candidato.
-        <span class="counter"><strong>¿Negarse a recomendar es ser neutral?</strong> El estudio dice que no necesariamente.</span>
+    <div class="eyebrow"><span class="bar"></span>Simulación multiagente · respuesta a «los intereses se forman conversando»</div>
+    <h2 class="xs">MiroFish: avatares que conversan.</h2>
+    <div class="split">
+      <div>
+        <span class="k">Solos</span>
+        <span class="big">Cada planilla, un agente.</span>
+        <p>Vota las propuestas sin hablar con nadie: la línea base.</p>
+      </div>
+      <div>
+        <span class="k">En red</span>
+        <span class="big">Conversan y vuelven a votar.</span>
+        <p>Los mismos agentes en una red social simulada, varias rondas y réplicas.</p>
       </div>
     </div>
-    <p class="src-line">InternetLab, LabDados/FGV y Rede Conhecimento Social (sep. 2026), vía <a href="https://www.elmostrador.cl/agenda-pais/agenda-digital/2026/10/19/elecciones-en-brasil-la-ia-y-los-algoritmos-abren-una-nueva-batalla-en-la-influencia-politica/" target="_blank">El Mostrador</a> (19-oct-2026)</p>
+    <p class="src-line"><strong>La pregunta:</strong> ¿deliberar acerca al avatar a su humano, o lo empuja hacia los valores del modelo? · <a href="https://github.com/666ghj/MiroFish" target="_blank">MiroFish</a>, código abierto</p>
   </div>
-  <div class="folio"><span>DIAPO N.º 19</span><span class="dots"></span><span>¿NEUTRAL?</span></div>
+  <div class="folio"><span>DIAPO N.º 19</span><span class="dots"></span><span>MIROFISH</span></div>
 </section>
 
-<!-- ══ 20 · ACTIVIDAD ══ -->
+<!-- ══ 20 · ¿RESPONDEN A INNERARITY? ══ -->
+<section class="slide">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>Balance</div>
+    <h2 class="xs">¿Responden a Innerarity?</h2>
+    <table class="resp">
+      <tr><th>Objeción</th><th>Respuesta desde la IA</th><th>Lo que queda abierto</th></tr>
+      <tr><td>¿Son tuyas?</td><td>El avatar se entrena con lo que <strong>declaras</strong>, no con tus huellas.</td><td>Lo que declaras también se forma afuera.</td></tr>
+      <tr><td>Siempre son pasadas.</td><td>Ninguna: el avatar aprende de quien fuiste.</td><td class="no">El yo aspiracional sigue fuera del modelo.</td></tr>
+      <tr><td>Sumar no es deliberar.</td><td>El <strong>puente</strong> premia lo que comparten grupos distintos; en <strong>MiroFish</strong> los agentes conversan.</td><td>¿Conversan como ustedes, o como el modelo?</td></tr>
+    </table>
+  </div>
+  <div class="folio"><span>DIAPO N.º 20</span><span class="dots"></span><span>BALANCE</span></div>
+</section>
+
+<!-- ══ 21 · ACTIVIDAD ══ -->
 <section class="slide">
   <div class="content" style="justify-content:center;">
     <div class="eyebrow"><span class="bar"></span>Actividad · 20 min · en la <a href="https://naimbro.github.io/ml2-master-game/" target="_blank">app del curso</a>, desde el teléfono</div>
@@ -730,10 +790,10 @@ h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--in
       <li><span>Tú votas las 12 propuestas, sin ver lo que votó tu avatar.</span><small>7 min</small></li>
     </ol>
   </div>
-  <div class="folio"><span>DIAPO N.º 20</span><span class="dots"></span><span>TU AVATAR</span></div>
+  <div class="folio"><span>DIAPO N.º 21</span><span class="dots"></span><span>TU AVATAR</span></div>
 </section>
 
-<!-- ══ 21 · VIÑA ══ -->
+<!-- ══ 22 · VIÑA ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Cuando lo hicimos en Viña · correlación entre avatar y humano, por pregunta</div>
@@ -780,10 +840,62 @@ h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--in
     </div>
     <p class="src-line"><a href="https://docs.google.com/document/d/18WlwfdY4tt1Cd6XBMCCppKNW-aIwDqpO4ZMdLfczBWo/edit?usp=sharing" target="_blank">Análisis avatares vs. humanos, Viña</a> · hoy vemos los de esta sala</p>
   </div>
-  <div class="folio"><span>DIAPO N.º 21</span><span class="dots"></span><span>VIÑA</span></div>
+  <div class="folio"><span>DIAPO N.º 22</span><span class="dots"></span><span>VIÑA</span></div>
 </section>
 
-<!-- ══ 22 · EL JUEVES ══ -->
+<!-- ══ 23 · DEMOCRACIA DELIBERATIVA ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Cierre · volvemos a la Semana 6</div>
+    <h2 class="xs">Democracia deliberativa.</h2>
+    <div class="bigquote">
+      <div class="qrow">
+        <div class="qph"><img src="img/semana14/habermas.jpg" alt="Retrato de Jürgen Habermas"></div>
+        <div class="qtx">
+          <p class="sm2">Una decisión es legítima no solo porque cuenta votos, sino porque la precede una deliberación pública abierta, informada y libre de coacción.</p>
+          <cite>Jürgen Habermas · legitimidad por el proceso (paráfrasis)</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="folio"><span>DIAPO N.º 23</span><span class="dots"></span><span>DELIBERAR</span></div>
+</section>
+
+<!-- ══ 24 · AMERICA IN ONE ROOM ══ -->
+<section class="slide">
+  <div class="content">
+    <div class="eyebrow"><span class="bar"></span>Un experimento · Texas, 19 al 22 de septiembre de 2019</div>
+    <h2 class="xs">America in One Room.</h2>
+    <div class="paper">
+      <div class="sheet"><img class="photo" src="img/semana14/america-one-room.jpg" alt="Tres participantes de America in One Room conversan sentados en un grupo pequeño"></div>
+      <ul class="dash-list">
+        <li><strong>523 votantes</strong>, muestra representativa de EE.UU., cuatro días en un hotel.</li>
+        <li><strong>Materiales balanceados</strong>, grupos pequeños con moderador y plenarias con expertos y políticos.</li>
+        <li><strong>Encuesta antes y después</strong>, contra un grupo de control de 844 personas que no fue.</li>
+      </ul>
+    </div>
+    <p class="src-line">James Fishkin, Center for Deliberative Democracy (Stanford)</p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 24</span><span class="dots"></span><span>EL EXPERIMENTO</span></div>
+</section>
+
+<!-- ══ 25 · DESPUÉS DE DELIBERAR ══ -->
+<section class="slide">
+  <div class="content" style="justify-content:center;">
+    <div class="eyebrow"><span class="bar"></span>Antes: posturas extremas y el otro lado como enemigo</div>
+    <h2 class="xs">Después de deliberar, se acercan.</h2>
+    <div class="nums">
+      <div><b>22 de 26</b><span>propuestas muy polarizadas en que demócratas y republicanos se acercaron.</span></div>
+      <div><b>+13 · +14</b><span>puntos de simpatía hacia el otro partido: demócratas y republicanos.</span></div>
+      <div class="ctl"><b>Nada</b><span>parecido en el grupo de control, que no deliberó.</span></div>
+    </div>
+    <p class="closeq">¿Un avatar entrenado con tus respuestas de antes habría cambiado así?</p>
+    <p class="src-line">Fishkin, Siu, Diamond &amp; Bradburn (2021), <a href="https://doi.org/10.1017/S0003055421000642" target="_blank"><em>American Political Science Review</em></a></p>
+  </div>
+  <div class="folio"><span>DIAPO N.º 25</span><span class="dots"></span><span>DESPUÉS</span></div>
+</section>
+
+<!-- ══ 26 · EL JUEVES ══ -->
 <section class="slide">
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>Jueves 12 de noviembre · tribuna · el sorteo de lados es en clase</div>
@@ -792,7 +904,6 @@ h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--in
       <div class="side red">
         <div class="lbl">A favor</div>
         <p>Hidalgo y Gudiño-Rosero et al.: el avatar acierta más que el paquete.</p>
-        <p>Schneier &amp; Sanders, caps. 15 y 38.</p>
         <p>Tu avatar contra ti: los datos de esta sala.</p>
       </div>
       <div class="vs">vs</div>
@@ -804,16 +915,16 @@ h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--in
       </div>
     </div>
   </div>
-  <div class="folio"><span>DIAPO N.º 22</span><span class="dots"></span><span>EL JUEVES</span></div>
+  <div class="folio"><span>DIAPO N.º 26</span><span class="dots"></span><span>EL JUEVES</span></div>
 </section>
 
-<!-- ══ 23 · CIERRE ══ -->
+<!-- ══ 27 · CIERRE ══ -->
 <section class="slide divider">
   <div class="content" style="justify-content:center;">
     <p class="bigask" style="font-size:46px;">Acertar no es lo mismo<br>que representar.</p>
     <p class="sub" style="font-size:26px; margin-top:26px; color:var(--gold); font-family:'Fraunces',serif; font-style:italic;">¿O sí?</p>
   </div>
-  <div class="folio"><span>DIAPO N.º 23</span><span class="dots"></span><span>naim.bro.k@uai.cl</span></div>
+  <div class="folio"><span>DIAPO N.º 27</span><span class="dots"></span><span>naim.bro.k@uai.cl</span></div>
 </section>
 
 </div>
