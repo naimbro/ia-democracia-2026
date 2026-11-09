@@ -365,6 +365,22 @@ h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--in
 .nums .ctl{border-top-color:var(--line);} .nums .ctl b{color:var(--ink-soft);}
 .closeq{margin-top:30px; font-family:'Fraunces',serif; font-size:28px; line-height:1.25; color:var(--stamp); border-left:4px solid var(--stamp); padding-left:22px;}
 .paper .sheet img.photo{background:none; filter:sepia(12%) saturate(.9);}
+/* Visuales Evans y Weyl, app y MiroFish */
+.eras .eraviz{display:block; width:100%; height:150px; margin:4px 0 18px;}
+.eras .card.green .eraviz{color:var(--forest);} .eras .card.gold .eraviz{color:var(--gold);} .eras .card.red .eraviz{color:var(--stamp);}
+.shots{display:grid; grid-template-columns:1fr 1fr; gap:26px; margin-top:20px;}
+.shots figure{margin:0;}
+.shots img{display:block; width:100%; height:auto; background:#fff; border:2px solid var(--ink);}
+.shots figcaption{font-size:17px; line-height:1.45; color:var(--ink-soft); margin-top:12px;}
+.shots figcaption b{display:block; font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:var(--ink); margin-bottom:4px;}
+.shots figcaption strong{color:var(--stamp); font-weight:600;}
+.mfviz{display:grid; grid-template-columns:1.75fr 1fr; gap:36px; align-items:center; margin-top:20px;}
+.mfviz img{display:block; width:100%; height:auto; background:#fff; border:2px solid var(--ink);}
+.mfkey{list-style:none; display:flex; flex-direction:column; gap:20px;}
+.mfkey li{display:grid; grid-template-columns:18px 1fr; gap:14px; align-items:start;}
+.mfkey i{width:16px; height:16px; border-radius:50%; margin-top:5px;}
+.mfkey span{font-size:17px; line-height:1.45; color:var(--ink-soft);}
+.mfkey b{display:block; font-family:'Fraunces',serif; font-size:22px; font-weight:600; color:var(--ink); margin-bottom:2px;}
 /* Duelo con fotos */
 .duel{flex:1; min-height:0; display:grid; grid-template-columns:1fr 120px 1fr; margin-top:20px; align-items:start;}
 .duel .fighter .ph{position:relative; height:clamp(220px,54vh,500px); overflow:hidden; border-top:5px solid var(--forest); background:#111;}
@@ -381,6 +397,9 @@ h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--in
 .duel .vsbig::before{content:""; position:absolute; top:8%; bottom:8%; left:50%; border-left:1px solid var(--line);}
 .duel .vsbig span{position:relative; width:92px; height:92px; border-radius:50%; background:var(--ink); color:var(--paper); display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-style:italic; font-weight:600; font-size:38px; box-shadow:0 0 0 6px var(--paper);}
 @media(max-width:900px){
+  .shots{grid-template-columns:1fr; gap:14px;} .shots figcaption{font-size:14px;}
+  .mfviz{grid-template-columns:1fr; gap:16px;} .mfkey{gap:10px;} .mfkey b{font-size:17px;} .mfkey span{font-size:14px;}
+  .eras .eraviz{height:64px;}
   .duel{grid-template-columns:1fr; gap:6px;} .duel .vsbig{height:auto; padding:6px 0;} .duel .vsbig::before{display:none;} .duel .vsbig span{width:56px; height:56px; font-size:24px;} .duel .fighter .ph{height:200px;} .duel .fighter .ph .who b{font-size:28px;} .duel .fighter p{font-size:16px;}
   .videostage{flex-direction:column; gap:16px;} .videostage .vbox{height:auto; width:100%;} .videostage video{width:100%;} .videostage .vside{max-width:none;}
   .paper{grid-template-columns:1fr; gap:16px;}
@@ -733,10 +752,29 @@ h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--in
     <div class="eyebrow"><span class="bar"></span>Evans &amp; Weyl (2026), <em>Science</em> · «In the image of their tools»</div>
     <h2 class="xs">Alineación inversa.</h2>
     <p class="sub">Rediseñar las instituciones, no los modelos. Las que funcionaron copiaron la arquitectura de la tecnología de su época.</p>
-    <div class="grad">
-      <div class="card green"><span class="k">Era industrial</span><h3>Jerarquía</h3><p>Contabilidad estándar y línea de montaje: la corporación por divisiones.</p></div>
-      <div class="card gold"><span class="k">Internet</span><h3>Capas</h3><p>Protocolos apilados: organismos cooperativos que fijan estándares.</p></div>
-      <div class="card red"><span class="k">Redes neuronales</span><h3>Espacio</h3><p>Ubicar por posición, no por etiqueta; ponderar por atención; acreditar por aporte marginal.</p></div>
+    <div class="grad eras">
+      <div class="card green">
+        <svg class="eraviz" viewBox="0 0 240 120" aria-hidden="true">
+          <g stroke="currentColor" stroke-width="2" fill="none"><path d="M120 22 L70 60 M120 22 L170 60 M70 60 L40 100 M70 60 L100 100 M170 60 L140 100 M170 60 L200 100"/></g>
+          <g fill="currentColor"><rect x="106" y="10" width="28" height="22"/><rect x="58" y="50" width="24" height="20"/><rect x="158" y="50" width="24" height="20"/><rect x="30" y="92" width="20" height="16"/><rect x="90" y="92" width="20" height="16"/><rect x="130" y="92" width="20" height="16"/><rect x="190" y="92" width="20" height="16"/></g>
+        </svg>
+        <span class="k">Era industrial</span><h3>Jerarquía</h3><p>Línea de montaje y contabilidad central: la corporación por divisiones, Bretton Woods.</p>
+      </div>
+      <div class="card gold">
+        <svg class="eraviz" viewBox="0 0 240 120" aria-hidden="true">
+          <g fill="currentColor"><rect x="40" y="12" width="160" height="18" opacity=".35"/><rect x="40" y="38" width="160" height="18" opacity=".55"/><rect x="40" y="64" width="160" height="18" opacity=".75"/><rect x="40" y="90" width="160" height="18"/></g>
+          <g stroke="var(--paper)" stroke-width="2"><path d="M93 12 V108 M147 12 V108"/></g>
+        </svg>
+        <span class="k">Internet</span><h3>Capas</h3><p>Protocolos apilados y organismos cooperativos que fijan estándares: IETF, ICANN.</p>
+      </div>
+      <div class="card red">
+        <svg class="eraviz" viewBox="0 0 240 120" aria-hidden="true">
+          <g stroke="currentColor" stroke-width="1.6"><path d="M120 60 L52 34" opacity=".9"/><path d="M120 60 L70 88" opacity=".5"/><path d="M120 60 L176 30" opacity=".85"/><path d="M120 60 L190 84" opacity=".35"/><path d="M120 60 L150 98" opacity=".6"/><path d="M120 60 L96 20" opacity=".25"/></g>
+          <g fill="currentColor" opacity=".45"><circle cx="40" cy="44" r="4"/><circle cx="58" cy="22" r="4"/><circle cx="34" cy="70" r="4"/><circle cx="82" cy="100" r="4"/><circle cx="60" cy="104" r="4"/><circle cx="196" cy="44" r="4"/><circle cx="206" cy="70" r="4"/><circle cx="164" cy="16" r="4"/><circle cx="178" cy="104" r="4"/><circle cx="214" cy="96" r="4"/></g>
+          <g fill="currentColor"><circle cx="52" cy="34" r="5"/><circle cx="70" cy="88" r="5"/><circle cx="176" cy="30" r="5"/><circle cx="190" cy="84" r="5"/><circle cx="150" cy="98" r="5"/><circle cx="96" cy="20" r="5"/><circle cx="120" cy="60" r="9"/></g>
+        </svg>
+        <span class="k">Redes neuronales</span><h3>Espacio</h3><p>Ubicar por posición, no por etiqueta; ponderar por atención; acreditar por aporte marginal.</p>
+      </div>
     </div>
     <p class="src-line">La fábrica electrificada rindió poco mientras conservó el diseño de la era del vapor · <a href="https://doi.org/10.1126/science.aem6470" target="_blank">Evans &amp; Weyl (2026), «In the image of their tools»</a></p>
   </div>
@@ -747,35 +785,36 @@ h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--in
 <section class="slide">
   <div class="content" style="justify-content:center;">
     <div class="eyebrow"><span class="bar"></span>Lo que verán hoy en la app · respuesta a «sumar no es deliberar»</div>
-    <h2 class="xs">El mapa, el puente y los bots.</h2>
-    <div class="grad">
-      <div class="card green"><span class="k">Posición, no etiqueta</span><h3>El mapa</h3><p>Personas y propuestas en un mismo plano, aprendido de los votos de la sala.</p></div>
-      <div class="card gold"><span class="k">Mayoría contra puente</span><h3>El puente</h3><p>Sube la propuesta que apoyan grupos que suelen discrepar, no la que suma más.</p></div>
-      <div class="card red"><span class="k">Inundar</span><h3>Los bots</h3><p>Mil copias idénticas caen en un solo punto: mueven la mayoría, casi no el puente.</p></div>
+    <h2 class="xs">El mapa delata a los bots.</h2>
+    <div class="shots">
+      <figure>
+        <img src="img/semana14/app-bots-0.png" alt="Mapa de la app: personas como puntos negros y propuestas como rombos numerados">
+        <figcaption><b>La sala</b>Cada punto es una persona; cada rombo, una propuesta. Más lleno, más puente. La mayoría elige <strong>Aborto (54%)</strong>.</figcaption>
+      </figure>
+      <figure>
+        <img src="img/semana14/app-bots-40.png" alt="El mismo mapa con 40 copias idénticas de una persona, que caen en un solo punto marcado ×40">
+        <figcaption><b>+ 40 copias de una persona</b>Caen en <strong>un solo punto</strong>. Pero la mayoría salta a <strong>Democracia directa (79%)</strong>.</figcaption>
+      </figure>
     </div>
-    <p class="src-line"><strong>«La mayoría cuenta; la atención pondera.»</strong> El puente colapsa el consenso fabricado en un solo nodo · Evans &amp; Weyl (2026) · algoritmo de <a href="https://communitynotes.x.com/guide/en/under-the-hood/ranking-notes" target="_blank">Community Notes</a> y <a href="https://pol.is" target="_blank">Polis</a></p>
+    <p class="src-line"><strong>«La mayoría cuenta; la atención pondera.»</strong> ¿Resiste el puente? Lo vemos con sus votos · Evans &amp; Weyl (2026) · puente de <a href="https://communitynotes.x.com/guide/en/under-the-hood/ranking-notes" target="_blank">Community Notes</a> y <a href="https://pol.is" target="_blank">Polis</a> · vista previa, datos sintéticos</p>
   </div>
   <div class="folio"><span>DIAPO N.º 18</span><span class="dots"></span><span>EN LA APP</span></div>
 </section>
 
 <!-- ══ 19 · MIROFISH ══ -->
 <section class="slide">
-  <div class="content">
+  <div class="content" style="justify-content:center;">
     <div class="eyebrow"><span class="bar"></span>Simulación multiagente · respuesta a «los intereses se forman conversando»</div>
     <h2 class="xs">MiroFish: avatares que conversan.</h2>
-    <div class="split">
-      <div>
-        <span class="k">Solos</span>
-        <span class="big">Cada planilla, un agente.</span>
-        <p>Vota las propuestas sin hablar con nadie: la línea base.</p>
-      </div>
-      <div>
-        <span class="k">En red</span>
-        <span class="big">Conversan y vuelven a votar.</span>
-        <p>Los mismos agentes en una red social simulada, varias rondas y réplicas.</p>
-      </div>
+    <div class="mfviz">
+      <img src="img/semana14/app-mapa-mirofish.png" alt="Mapa de la app con la sala en negro, los avatares solos en azul y los avatares en red en rojo, más juntos al centro">
+      <ul class="mfkey">
+        <li><i style="background:#1f1f1f"></i><span><b>La sala</b>Ustedes, con sus votos.</span></li>
+        <li><i style="background:#3b6ff0"></i><span><b>Avatares solos</b>Cada planilla, un agente que vota sin hablar con nadie.</span></li>
+        <li><i style="background:#c2410c"></i><span><b>Avatares en red</b>Los mismos agentes conversan en una red social simulada y vuelven a votar.</span></li>
+      </ul>
     </div>
-    <p class="src-line"><strong>La pregunta:</strong> ¿deliberar acerca al avatar a su humano, o lo empuja hacia los valores del modelo? · <a href="https://github.com/666ghj/MiroFish" target="_blank">MiroFish</a>, código abierto</p>
+    <p class="src-line"><strong>La pregunta:</strong> ¿deliberar acerca al avatar a su humano, o lo empuja hacia los valores del modelo? · <a href="https://github.com/666ghj/MiroFish" target="_blank">MiroFish</a>, código abierto · vista previa, datos sintéticos</p>
   </div>
   <div class="folio"><span>DIAPO N.º 19</span><span class="dots"></span><span>MIROFISH</span></div>
 </section>
