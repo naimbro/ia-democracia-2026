@@ -365,7 +365,23 @@ h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--in
 .nums .ctl{border-top-color:var(--line);} .nums .ctl b{color:var(--ink-soft);}
 .closeq{margin-top:30px; font-family:'Fraunces',serif; font-size:28px; line-height:1.25; color:var(--stamp); border-left:4px solid var(--stamp); padding-left:22px;}
 .paper .sheet img.photo{background:none; filter:sepia(12%) saturate(.9);}
+/* Duelo con fotos */
+.duel{flex:1; min-height:0; display:grid; grid-template-columns:1fr 120px 1fr; margin-top:20px; align-items:start;}
+.duel .fighter .ph{position:relative; height:clamp(220px,54vh,500px); overflow:hidden; border-top:5px solid var(--forest); background:#111;}
+.duel .fighter.red .ph{border-top-color:var(--stamp);}
+.duel .fighter .ph img{width:100%; height:100%; object-fit:cover; object-position:50% 18%; display:block; filter:grayscale(1) contrast(1.15) brightness(.92);}
+.duel .fighter .ph::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.78) 100%);}
+.duel .fighter .ph .who{position:absolute; left:22px; bottom:16px; z-index:1; color:#fff;}
+.duel .fighter .ph .who span{display:block; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; opacity:.85; margin-bottom:4px;}
+.duel .fighter .ph .who b{font-family:'Fraunces',serif; font-size:40px; font-weight:600; line-height:1; letter-spacing:-.01em;}
+.duel .fighter p{font-size:19px; line-height:1.42; color:var(--ink); margin-top:14px;}
+.duel .fighter p strong{color:var(--stamp); font-weight:600;}
+.duel .fighter.green p strong{color:var(--forest);}
+.duel .vsbig{height:clamp(220px,54vh,500px); display:flex; align-items:center; justify-content:center; position:relative;}
+.duel .vsbig::before{content:""; position:absolute; top:8%; bottom:8%; left:50%; border-left:1px solid var(--line);}
+.duel .vsbig span{position:relative; width:92px; height:92px; border-radius:50%; background:var(--ink); color:var(--paper); display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-style:italic; font-weight:600; font-size:38px; box-shadow:0 0 0 6px var(--paper);}
 @media(max-width:900px){
+  .duel{grid-template-columns:1fr; gap:6px;} .duel .vsbig{height:auto; padding:6px 0;} .duel .vsbig::before{display:none;} .duel .vsbig span{width:56px; height:56px; font-size:24px;} .duel .fighter .ph{height:200px;} .duel .fighter .ph .who b{font-size:28px;} .duel .fighter p{font-size:16px;}
   .videostage{flex-direction:column; gap:16px;} .videostage .vbox{height:auto; width:100%;} .videostage video{width:100%;} .videostage .vside{max-width:none;}
   .paper{grid-template-columns:1fr; gap:16px;}
   .figkey{grid-template-columns:1fr; gap:8px;}
@@ -619,15 +635,15 @@ h2.case-name .alt{display:block; font-size:24px; font-weight:500; color:var(--in
   <div class="content">
     <div class="eyebrow"><span class="bar"></span>La tensión de la semana</div>
     <h2 class="xs">¿Qué hace legítimo a un representante?</h2>
-    <div class="faceoff">
-      <div class="side red">
-        <div class="lbl">Por resultado · Hidalgo</div>
+    <div class="duel">
+      <div class="fighter red">
+        <div class="ph"><img src="img/semana14/duelo-hidalgo.jpg" alt="César Hidalgo en su charla TED"><div class="who"><span>Por resultado</span><b>Hidalgo</b></div></div>
         <p>Si el avatar acierta más que el paquete, <strong>representa mejor</strong>.</p>
         <p>El problema de la democracia es de ancho de banda.</p>
       </div>
-      <div class="vs">vs</div>
-      <div class="side green">
-        <div class="lbl">Por procedimiento · Innerarity</div>
+      <div class="vsbig"><span>vs</span></div>
+      <div class="fighter green">
+        <div class="ph"><img src="img/semana14/duelo-innerarity.jpg" alt="Daniel Innerarity en Congreso Futuro"><div class="who"><span>Por procedimiento</span><b>Innerarity</b></div></div>
         <p>Acertarle a quien fuiste <strong>no es representar</strong> a quien quieres ser.</p>
         <p>El problema de la democracia es que no sabemos lo que nos conviene.</p>
       </div>
