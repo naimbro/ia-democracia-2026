@@ -99,8 +99,13 @@ svg text:not([fill]){fill:var(--ink)}
 /* unidades (11 cuadrados) */
 .units{display:flex;gap:5px;flex-wrap:wrap;margin:4px 0 2px}
 .unit{width:26px;height:26px;border-radius:3px}
-.urow{margin:12px 0}
-.urow .t{font-size:15px;color:var(--ink-soft)}
+.urow{margin:14px 0 4px}
+.urow .t{font-size:13px;font-family:'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--stamp);margin-bottom:4px}
+.drow{display:grid;grid-template-columns:180px auto 1fr;align-items:center;gap:12px;margin:3px 0;font-size:16px}
+.dots{display:flex;gap:4px}
+.d{width:13px;height:13px;border-radius:50%;background:var(--forest);display:inline-block}
+.d.e{background:transparent;box-shadow:inset 0 0 0 1.5px var(--line)}
+.dn{font-weight:600;font-variant-numeric:tabular-nums}
 
 /* listas ranking */
 .rk{list-style:none;counter-reset:r}
@@ -189,7 +194,7 @@ footer{padding:40px 0 70px;font-size:14px;color:var(--muted)}
  <div class="grid2">
   <div class="card" style="margin:0">
    <h3>Cómo se describen</h3>
-   <p class="sub">Cada cuadrado es una persona, según lo que escribió en la planilla.</p>
+   <p class="sub">Cada punto lleno es una persona, según lo que escribió en la planilla (de 11).</p>
    <div id="units"></div>
   </div>
   <div class="card" style="margin:0">
@@ -394,13 +399,14 @@ document.getElementById('tiles').innerHTML=[[D.alumnos.length,'personas llenaron
 
 /* ---------- 2. sala ---------- */
 (function(){
-  const pl=D.plan; const rows=[
-   ['En economía', [['Centro / centroizquierda socialdemócrata',pl.economia['Centro / centroizquierda socialdemócrata'],'var(--forest)'],['Derecha / liberal de mercado',pl.economia['Derecha / liberal de mercado'],'var(--gold)']]],
-   ['En temas sociales', [['Libertario',pl.social['Libertario'],'var(--gold)'],['Progresista',pl.social['Progresista'],'var(--forest)'],['Centro / no sé',pl.social['Centro / no estoy seguro'],'#9A9A86'],['Conservador',pl.social['Conservador'],'var(--stamp)']]],
-   ['Rol del Estado', [['Equilibrado',pl.rol_estado['equilibrado'],'var(--forest)'],['Mínimo',pl.rol_estado['mínimo']||0,'var(--gold)'],['Fuerte intervención',pl.rol_estado['fuerte intervención']||0,'var(--stamp)']]],
-   ['Cambio climático', [['Emergencia global',pl.clima['es una emergencia global'],'var(--forest)'],['Tema importante',pl.clima['es un tema importante'],'#9A9A86']]],
+  // Filas de puntos con etiqueta directa: un color para todo, sin leyenda. Puntos vacíos completan las 11 personas.
+  const pl=D.plan, N=pl.n; const rows=[
+   ['En economía', [['Centro o centroizquierda',pl.economia['Centro / centroizquierda socialdemócrata']],['Derecha liberal',pl.economia['Derecha / liberal de mercado']]]],
+   ['En temas sociales', [['Libertario',pl.social['Libertario']],['Progresista',pl.social['Progresista']],['Centro / no sé',pl.social['Centro / no estoy seguro']],['Conservador',pl.social['Conservador']]]],
+   ['El Estado en la economía', [['Equilibrado',pl.rol_estado['equilibrado']],['Mínimo',pl.rol_estado['mínimo']||0],['Fuerte intervención',pl.rol_estado['fuerte intervención']||0]]],
+   ['Cambio climático', [['Emergencia global',pl.clima['es una emergencia global']],['Tema importante',pl.clima['es un tema importante']]]],
   ];
-  document.getElementById('units').innerHTML = rows.map(([t,segs])=>`<div class="urow"><div class="t">${t}</div><div class="units">${segs.map(([n,k,c])=>Array(k).fill(`<i class="unit" title="${n}" style="background:${c}"></i>`).join('')).join('')}</div><div class="legend" style="margin:4px 0 0;font-size:13.5px">${segs.filter(s=>s[1]).map(([n,k,c])=>`<span><i class="sw" style="background:${c};border-radius:2px"></i>${n} (${k})</span>`).join('')}</div></div>`).join('');
+  document.getElementById('units').innerHTML = rows.map(([t,cats])=>`<div class="urow"><div class="t">${t}</div>${cats.filter(c=>c[1]).sort((a,b)=>b[1]-a[1]).map(([n,k])=>`<div class="drow"><span class="dl">${n}</span><span class="dots">${'<i class="d"></i>'.repeat(k)}${'<i class="d e"></i>'.repeat(N-k)}</span><span class="dn">${k}</span></div>`).join('')}</div>`).join('');
   const C=[['conf_ciencia','Ciencia y tecnología'],['conf_justicia','La justicia'],['conf_congreso','El Congreso'],['conf_gobierno','El gobierno'],['conf_partidos','Los partidos']];
   const W=480,H=C.length*58+40,L=160,R=30; const s=mk('conf',W,H); const x=v=>L+(v-1)/4*(W-L-R);
   const ax=el('g',{class:'ax'},s);
