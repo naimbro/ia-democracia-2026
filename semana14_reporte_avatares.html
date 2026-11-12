@@ -14,7 +14,7 @@
   --gpt:#2a78d6; --claude:#eb6834; --gemini:#1baf7a; --human:#22281F;
   /* grupos de opinión (validados aparte; siempre con letra) */
   --gA:#6250d6; --gB:#eda100; --gC:#e34948;
-  /* MiroFish (sección 10, sin grupos en pantalla) */
+  /* MiroFish (sección 6, sin grupos en pantalla) */
   --mf:#6250d6;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -108,6 +108,12 @@ svg text:not([fill]){fill:var(--ink)}
 .dn{font-weight:600;font-variant-numeric:tabular-nums}
 
 /* listas ranking */
+.mapa-leyenda{list-style:none;columns:2;column-gap:32px;margin-top:12px;font-size:15px}
+.mapa-leyenda li{display:flex;gap:10px;align-items:baseline;padding:3px 0;break-inside:avoid}
+.mapa-leyenda .num{display:inline-grid;place-items:center;width:22px;height:22px;background:var(--gold);color:#fff;font-weight:700;font-size:12px;transform:rotate(45deg);flex:none}
+.mapa-leyenda .num span{transform:rotate(-45deg)}
+.mapa-leyenda .pct{margin-left:auto;color:var(--muted);font-variant-numeric:tabular-nums}
+@media (max-width:860px){.mapa-leyenda{columns:1}}
 .rk{list-style:none;counter-reset:r}
 .rk li{counter-increment:r;padding:7px 0;border-bottom:1px dashed var(--line);font-size:17px;display:flex;gap:10px;align-items:baseline}
 .rk li::before{content:counter(r);font-family:'Fraunces',serif;font-weight:600;color:var(--gold);min-width:20px}
@@ -160,15 +166,11 @@ footer{padding:40px 0 70px;font-size:14px;color:var(--muted)}
 <nav class="toc"><div class="wrap">
  <a href="#como"><span class="n">1</span>Cómo lo hicimos</a>
  <a href="#sala"><span class="n">2</span>La sala</a>
- <a href="#achunto"><span class="n">3</span>¿Te achuntó?</a>
- <a href="#errores"><span class="n">4</span>Dónde fallan</a>
- <a href="#aplanan"><span class="n">5</span>Aplanan</a>
- <a href="#antes"><span class="n">6</span>Ejercicios anteriores</a>
- <a href="#mapa"><span class="n">7</span>El mapa</a>
- <a href="#puente"><span class="n">8</span>Mayoría vs. puente</a>
- <a href="#bots"><span class="n">9</span>Bots</a>
- <a href="#delib"><span class="n">10</span>Deliberación</a>
- <a href="#discusion"><span class="n">11</span>Para discutir</a>
+ <a href="#aplanan"><span class="n">3</span>Aplanan</a>
+ <a href="#antes"><span class="n">4</span>Ejercicios anteriores</a>
+ <a href="#mapa"><span class="n">5</span>El mapa</a>
+ <a href="#delib"><span class="n">6</span>Deliberación</a>
+ <a href="#discusion"><span class="n">7</span>Para discutir</a>
 </div></nav>
 
 <main class="wrap">
@@ -181,10 +183,10 @@ footer{padding:40px 0 70px;font-size:14px;color:var(--muted)}
   <div class="step"><div class="k">PASO 1</div><h4>La planilla</h4><p>Edad, estudios, ideología económica y social, tres prioridades, confianza en instituciones. Nada de nombres.</p></div>
   <div class="step"><div class="k">PASO 2</div><h4>Un gemelo por persona</h4><p>Una IA de punta leyó cada planilla y se puso en sus zapatos.</p></div>
   <div class="step"><div class="k">PASO 3</div><h4>Todos votan</h4><p>Ustedes y sus avatares votaron 12 propuestas, de 1 (totalmente en desacuerdo) a 5 (totalmente de acuerdo).</p></div>
-  <div class="step"><div class="k">PASO 4</div><h4>Comparar y mapear</h4><p>¿Coincide el avatar con su persona? Luego ubicamos a todos en un mapa y buscamos propuestas puente.</p></div>
-  <div class="step"><div class="k">PASO 5</div><h4>Deliberar (MiroFish)</h4><p>Los avatares conversan en un Twitter y un Reddit simulados y vuelven a votar. Ver sección 10.</p></div>
+  <div class="step"><div class="k">PASO 4</div><h4>Comparar y mapear</h4><p>¿Coincide el avatar con su persona? Luego ubicamos personas y propuestas en un mismo mapa.</p></div>
+  <div class="step"><div class="k">PASO 5</div><h4>Deliberar (MiroFish)</h4><p>Los avatares conversan en un Twitter y un Reddit simulados y vuelven a votar. Ver sección 6.</p></div>
  </div>
- <p class="note">Las 12 propuestas son las mismas de los ejercicios de 2025 en Viña y Santiago, lo que permite comparar (sección 6). Se considera que alguien <b>aprueba</b> una propuesta si vota 4 o 5.</p>
+ <p class="note">Las 12 propuestas son las mismas de los ejercicios de 2025 en Viña y Santiago, lo que permite comparar (sección 4). Se considera que alguien <b>aprueba</b> una propuesta si vota 4 o 5.</p>
 </section>
 
 <section class="sec" id="sala">
@@ -205,37 +207,11 @@ footer{padding:40px 0 70px;font-size:14px;color:var(--muted)}
  </div>
 </section>
 
-<section class="sec" id="achunto">
- <div class="eyebrow"><span class="bar"></span>Avatar contra persona</div>
- <h2><span class="n">3</span>¿Te achuntó tu avatar?</h2>
- <div class="big-quote" id="q-achunto"></div>
- <p class="kicker" id="k-achunto"></p>
- <div class="card">
-  <h3>Error de cada avatar, persona por persona</h3>
-  <p class="sub">Distancia entre tu voto y el de tu avatar, en puntos de la escala 1–5, promediada sobre las 12 propuestas. <b>Más a la izquierda = mejor.</b> El anillo negro es el punto de comparación más flojo posible: adivinar tu voto con el <b>promedio de tus compañeros</b> (sin leer tu planilla).</p>
-  <div class="legend" id="leg-alumnos"></div>
-  <div id="ch-alumnos"></div>
- </div>
- <div class="callout" id="co-curso"></div>
-</section>
 
-<section class="sec" id="errores">
- <div class="eyebrow"><span class="bar"></span>Los sesgos</div>
- <h2><span class="n">4</span>¿En qué se equivocan?</h2>
- <div class="big-quote" id="q-rep"></div>
- <p class="kicker">En la tribuna de hoy discutimos que <em>«un avatar entrenado con mis respuestas me representa mejor que mi diputado»</em>. Los avatares ya tienen opinión sobre eso: los imaginaron a ustedes más dispuestos a ser representados por un avatar.</p>
- <div class="card">
-  <h3>¿Qué porcentaje aprueba cada propuesta?</h3>
-  <p class="sub">La barra negra son ustedes. El punto azul es lo que sus avatares creyeron que ustedes votarían. Ordenado de mayor a menor desacierto.</p>
-  <div class="legend" id="leg-dumb"></div>
-  <div id="ch-dumb"></div>
- </div>
- <p id="p-sesgos"></p>
-</section>
 
 <section class="sec" id="aplanan">
  <div class="eyebrow"><span class="bar"></span>Homogeneización</div>
- <h2><span class="n">5</span>Los avatares aplanan la sala</h2>
+ <h2><span class="n">3</span>Los avatares aplanan la sala</h2>
  <p class="kicker" id="k-aplanan"></p>
  <div class="card">
   <h3>¿Cómo se repartieron los votos?</h3>
@@ -252,7 +228,7 @@ footer{padding:40px 0 70px;font-size:14px;color:var(--muted)}
 
 <section class="sec" id="antes">
  <div class="eyebrow"><span class="bar"></span>Comparación</div>
- <h2><span class="n">6</span>¿Mejoran los avatares? Ejercicios anteriores</h2>
+ <h2><span class="n">4</span>¿Mejoran los avatares? Ejercicios anteriores</h2>
  <p class="kicker">Hicimos este experimento tres veces antes con otros cursos. La medida común es la <b>correlación por propuesta</b>: ¿pone el avatar más arriba a quienes más apoyan la propuesta?</p>
  <div class="grid2">
   <div>
@@ -267,80 +243,33 @@ footer{padding:40px 0 70px;font-size:14px;color:var(--muted)}
   <p class="sub">Viña y Santiago 2025 (MGT300) usaron la misma planilla y las <b>mismas 12 propuestas</b>. El MEPP de junio usó otras preguntas, sobre IA.</p>
   <div id="ch-prev"></div>
  </div>
- <div class="card">
-  <h3>Las mismas 12 propuestas, tres cursos</h3>
-  <p class="sub">Correlación persona–avatar en cada propuesta. A la derecha del 0 el avatar acierta el orden; a la izquierda lo invierte.</p>
-  <div class="legend" id="leg-items"></div>
-  <div id="ch-items"></div>
- </div>
  <div class="callout" id="co-antes"></div>
 </section>
 
 <section class="sec" id="mapa">
  <div class="eyebrow"><span class="bar"></span>El espacio latente · Evans y Weyl</div>
- <h2><span class="n">7</span>El mapa: dónde está cada uno</h2>
- <p class="kicker">James Evans propone no contar votos sino mirar la <b>forma</b> de las opiniones: resumir las 12 respuestas de cada persona en dos coordenadas. Quienes votan parecido quedan cerca. Es la misma idea que usa Polis en Taiwán.</p>
+ <h2><span class="n">5</span>El mapa: personas y propuestas</h2>
+ <p class="kicker">James Evans propone no contar votos sino mirar la <b>forma</b> de las opiniones: ubicar a las personas y a las propuestas en un mismo espacio, a partir de cómo votaron. Quienes votan parecido quedan cerca, y cada propuesta apunta hacia quienes la apoyan. Es la misma idea que usa Polis en Taiwán.</p>
  <div class="card">
-  <h3>Mapa de la sala: personas y sus avatares</h3>
-  <p class="sub">Cada número negro es una persona; el punto azul es su avatar y la línea los une. Una línea larga = el avatar se fue lejos.</p>
+  <h3>Mapa de la sala: personas y propuestas</h3>
+  <p class="sub">Cada círculo negro es una persona; cada rombo dorado, una propuesta. <b>Quien está hacia donde apunta un rombo (mirado desde el centro) tiende a apoyar esa propuesta más que el resto</b>; quien está en el lado opuesto, menos.</p>
   <div id="ch-mapa"></div>
+  <ol class="mapa-leyenda" id="ley-mapa"></ol>
  </div>
  <p id="p-mapa"></p>
 </section>
 
-<section class="sec" id="puente">
- <div class="eyebrow"><span class="bar"></span>Buscando consensos</div>
- <h2><span class="n">8</span>Mayoría contra puente</h2>
- <p class="kicker">La regla de mayoría gana con el grupo más grande. Una regla <b>puente</b> premia lo que convence a <b>todos</b> los grupos del mapa, incluso a los chicos. Polis y las Notas de la Comunidad de X funcionan así.</p>
- <div class="card">
-  <h3>¿Qué aprueba cada grupo del mapa?</h3>
-  <p class="sub">El mapa encontró tres grupos de opinión. Cada letra muestra qué porcentaje de ese grupo aprueba la propuesta; la rayita negra es la sala completa (la mayoría). <b>Un puente es una fila donde las tres letras quedan a la derecha.</b></p>
-  <div class="legend" id="leg-grupos"></div>
-  <div id="ch-grupos"></div>
- </div>
- <div class="card">
-  <h3>Mismo voto, tres maneras de contar</h3>
-  <p class="sub">La posición de cada propuesta según la regla. Las líneas muestran quién sube y quién baja al pasar de la mayoría al puente. Pasa el mouse para ver los números.</p>
-  <div id="ch-slope"></div>
- </div>
- <div class="callout" id="co-puente"></div>
- <div class="card">
-  <h3>¿Y si votara el parlamento de avatares?</h3>
-  <p class="sub">Lo que la mayoría de cada cámara pone en los tres primeros lugares.</p>
-  <div id="camaras" class="grid2" style="gap:18px"></div>
- </div>
-</section>
-
-<section class="sec" id="bots">
- <div class="eyebrow"><span class="bar"></span>Vulnerabilidad</div>
- <h2><span class="n">9</span>¿Y si alguien mete bots?</h2>
- <p class="kicker">Un avatar se copia gratis. Tomamos a la persona más extrema del mapa y le agregamos copias idénticas que votan igual que ella. ¿Cuántas copias hacen falta para cambiar lo que decide la sala?</p>
- <div class="card">
-  <h3>Mueve el control</h3>
-  <input type="range" id="sl-bots" min="0" max="4" step="1" value="0" aria-label="Número de copias">
-  <div id="bots-people" style="margin:14px 0 6px"></div>
-  <div class="grid2" style="grid-template-columns:1fr 1fr;margin-top:10px">
-   <div><h3 style="font-size:20px">Gana por mayoría</h3><ol class="rk" id="bots-may"></ol></div>
-   <div><h3 style="font-size:20px">Gana como puente (Polis)</h3><ol class="rk" id="bots-pol"></ol></div>
-  </div>
-  <p class="note" id="bots-note"></p>
- </div>
-</section>
-
 <section class="sec" id="delib">
  <div class="eyebrow"><span class="bar"></span>MiroFish</div>
- <h2><span class="n">10</span>La deliberación simulada</h2>
+ <h2><span class="n">6</span>La deliberación simulada</h2>
  <div id="delib-body"></div>
 </section>
 
 <section class="sec" id="discusion">
  <div class="eyebrow"><span class="bar"></span>Hacia la tribuna</div>
- <h2><span class="n">11</span>Para discutir</h2>
- <div class="q">Los avatares erraron por un punto, en promedio, y casi no superaron a «adivinar con el promedio de los compañeros». ¿Qué margen de error aceptarían antes de dejar que un avatar vote por ustedes?</div>
- <div class="q">Los avatares los imaginaron más tecnófilos y más abiertos a ser representados por avatares de lo que ustedes son. ¿De quién es ese sesgo: del modelo, de la planilla o de nosotros?</div>
- <div class="q">La regla puente subió «la ciencia mejora la democracia» y bajó aborto y matrimonio igualitario. ¿Es eso un consenso o una forma elegante de sacar de la mesa los temas que nos dividen?</div>
+ <h2><span class="n">7</span>Para discutir</h2>
+ <div class="q">El mapa muestra qué propuestas nos dividen y cuáles no siguen esas líneas. ¿Debería una regla democrática premiar lo que no nos separa, o eso es una forma elegante de sacar de la mesa los temas difíciles?</div>
  <div class="q">Después de conversar entre ellos, los avatares se juntaron, pero se alejaron de ustedes. ¿Una deliberación entre gemelos digitales produce consenso o solo produce un consenso de máquinas?</div>
- <div class="q">Cinco copias de una persona bastan para cambiar la propuesta ganadora. ¿Quién debería certificar que detrás de cada avatar hay un humano, y uno solo?</div>
 </section>
 
 <section class="sec" id="metodo" style="border-bottom:0">
@@ -348,9 +277,9 @@ footer{padding:40px 0 70px;font-size:14px;color:var(--muted)}
  <h2 style="font-size:30px">Cómo se calculó</h2>
  <details open>
   <summary>Definiciones</summary>
-  <p class="note"><b>Error:</b> diferencia absoluta entre el voto de la persona y el de su avatar (escala 1–5), promediada en las 12 propuestas. <b>Exacto:</b> votaron el mismo número. <b>Cerca:</b> a un punto o menos. <b>Promedio de los compañeros:</b> para cada persona, el promedio de las otras 10, sin ella. <b>Correlación por propuesta:</b> correlación de Pearson entre los votos de las personas y los de sus avatares en cada propuesta, promediada en las 12 (igual que en los análisis de 2025). <b>Mapa:</b> análisis de componentes principales ajustado con los votos de las personas; los avatares se proyectan en ese mismo plano. <b>Grupos:</b> k-medias con el número de grupos que mejor separa (silueta). <b>Puente Polis:</b> la aprobación más baja entre los grupos, suavizada como (aprueban+1)/(n+2). <b>Puente Notas de la Comunidad:</b> factorización de matrices con un factor; el intercepto de la propuesta es el apoyo que no explica el bando. Son los mismos cálculos que mostró la app en clase.</p>
+  <p class="note"><b>Error:</b> diferencia absoluta entre el voto de la persona y el de su avatar (escala 1–5), promediada en las 12 propuestas. <b>Correlación por propuesta:</b> correlación de Pearson entre los votos de las personas y los de sus avatares en cada propuesta, promediada en las 12 (igual que en los análisis de 2025). <b>Mapa:</b> análisis de componentes principales de la matriz de votos de las 11 personas (12 propuestas); cada persona es un punto y cada propuesta se ubica según su peso en los dos ejes (no es un embedding de un modelo de lenguaje: nada lee el texto de las propuestas). En la sección de deliberación, los avatares se proyectan en ese mismo plano.</p>
   <p class="note"><b>MiroFish:</b> 11 avatares con el perfil seudonimizado de cada planilla (sin sus votos), en un Twitter y un Reddit simulados durante 12 rondas, 3 repeticiones independientes. Cada propuesta se preguntó como elección entre la propuesta (A = 5), su posición contraria (B = 1) o ninguna/no sabe (= 3); por eso la variedad de opiniones de MiroFish no se compara con la de la app, solo antes contra después. «Antes» = cada avatar respondió solo, en los dos órdenes de opciones. La corrida del lunes se interrumpió; esta se volvió a correr el 12 de noviembre con las mismas planillas congeladas (818 llamadas, sin errores).</p>
-  <p class="note"><b>Cautela:</b> con 11 personas los porcentajes saltan de a 9 puntos y un grupo del mapa tiene una sola persona; los resultados ilustran el mecanismo, no son una estimación. Los ejercicios anteriores usaron otras salas y (en MEPP) otras preguntas.</p>
+  <p class="note"><b>Cautela:</b> con 11 personas los porcentajes saltan de a 9 puntos; los resultados ilustran el mecanismo, no son una estimación. Los ejercicios anteriores usaron otras salas y (en MEPP) otras preguntas.</p>
   <p class="note"><b>Modelo:</b> en clase probamos tres IA (GPT-6 Astra, Claude Opus 5.5 y Gemini 3.1 Pro); este reporte usa GPT-6 Astra, la que mejor ordenó a la sala. La deliberación de MiroFish corre con un modelo más liviano.</p>
  </details>
  <details>
@@ -421,59 +350,6 @@ document.getElementById('tiles').innerHTML=[[D.alumnos.length,'personas llenaron
   });
 })();
 
-/* ---------- 3. ¿te achuntó? ---------- */
-(function(){
-  const A=D.alumnos, M=D.mods;
-  const all = M.flatMap(m=>A.map(a=>a[m]));
-  const cerca = mean(all.map(a=>a.cerca/12)), exact=mean(all.map(a=>a.exactos/12)), err=mean(all.map(a=>a.error));
-  const errC = mean(A.map(a=>a.curso.error));
-  const rAv = mean(all.filter(a=>a.r!==null).map(a=>a.r)), rC=mean(A.filter(a=>a.curso.r!==null).map(a=>a.curso.r));
-  document.getElementById('q-achunto').innerHTML = `<span class="hl">${Math.round(cerca*10)} de cada 10</span> votos del avatar quedaron a un punto o menos del tuyo. Pero solo <span class="hl">${Math.round(exact*3)===1?'1 de cada 3':pct(exact)}</span> fue exacto.`;
-  document.getElementById('k-achunto').innerHTML = `En promedio, el avatar se equivocó por <b>${f1(err)} puntos</b> en la escala de 1 a 5. Le achuntó más a unas personas que a otras: el gráfico muestra a cada una.`;
-  document.getElementById('co-curso').innerHTML = `<b>El dato incómodo:</b> si en vez de leer tu planilla hubiéramos adivinado tu voto con el promedio de tus compañeros, el error habría sido <b>${f1(errC)}</b>, casi lo mismo que el de los avatares (${f1(err)}). Y ese promedio sigue mejor la <em>forma</em> de tus respuestas (correlación ${f1(rC)} contra ${f1(rAv)} de los avatares). Con esta planilla, tu avatar sabe de ti más o menos lo que sabe el curso.`;
-  legend('leg-alumnos', [...M.map(m=>[MOD[m].c,MOD[m].n]),['var(--ink)','Promedio de los compañeros',true]]);
-  const W=1000,rowH=34,T=30,H=T+A.length*rowH+56,L=120,R=40,xmax=2.25; const s=mk('ch-alumnos',W,H); const x=v=>L+v/xmax*(W-L-R);
-  const ax=el('g',{class:'ax'},s);
-  for(let v=0;v<=xmax+1e-9;v+=0.25){ el('line',{x1:x(v),x2:x(v),y1:T-10,y2:H-50},ax); if(Math.abs(v*2-Math.round(v*2))<1e-9) txt(ax,x(v),H-30,tk(v),{'text-anchor':'middle'}); }
-  txt(ax,x(0),H-8,'0 = idéntico a ti · cada punto = un escalón de la escala 1–5 →',{'text-anchor':'start'});
-  A.forEach((a,i)=>{ const y=T+i*rowH+rowH/2;
-    txt(s,0,y+5,'Persona '+a.n,{class:'lab-m',fill:'var(--ink-soft)'});
-    const vals=[...M.map(m=>a[m].error),a.curso.error]; el('line',{x1:x(Math.min(...vals)),x2:x(Math.max(...vals)),y1:y,y2:y,stroke:'var(--line)','stroke-width':2},s);
-    const c=el('circle',{cx:x(a.curso.error),cy:y,r:8,fill:'none',stroke:'var(--ink)','stroke-width':2.5},s);
-    M.forEach(m=>{ el('circle',{cx:x(a[m].error),cy:y,r:7,fill:MOD[m].c,stroke:'var(--card)','stroke-width':2},s); });
-    const hit=el('rect',{x:0,y:y-rowH/2,width:W,height:rowH,class:'hit'},s);
-    tip(hit,`<b>Persona ${a.n}</b><br>${M.map(m=>`${MOD[m].n}: error ${f1(a[m].error)} · ${a[m].exactos}/12 exactos`).join('<br>')}<br>Promedio de compañeros: error ${f1(a.curso.error)}`);
-  });
-})();
-
-/* ---------- 4. dumbbell ---------- */
-(function(){
-  const ap=D.aprob, M=D.mods;
-  const gap = p => Math.abs(ap.humano[p]-mean(M.map(m=>ap[m][p])));
-  const order=[...P].sort((a,b)=>gap(b)-gap(a));
-  const r=order[0];
-  document.getElementById('q-rep').innerHTML = `<span class="hl">${pct(ap.humano.representantes_humanos)}</span> de ustedes cree que la democracia funciona mejor con representantes humanos que con avatares. Sus avatares creyeron que solo lo pensaría el <span class="hl">${pct(ap['gpt-6-astra'].representantes_humanos)}</span>.`;
-  document.getElementById('leg-dumb').innerHTML=`<span><i style="display:inline-block;width:6px;height:18px;border-radius:2px;background:var(--human)"></i>Ustedes</span>`+D.mods.map(m=>`<span><i class="sw" style="background:${MOD[m].c}"></i>${MOD[m].n}</span>`).join('');
-  const W=1000,rowH=50,T=50,H=T+order.length*rowH+20,L=330,R=80; const s=mk('ch-dumb',W,H); const x=v=>L+v*(W-L-R);
-  const ax=el('g',{class:'ax'},s);
-  for(let v=0;v<=1.0001;v+=0.25){ el('line',{x1:x(v),x2:x(v),y1:T-14,y2:H-30},ax); txt(ax,x(v),T-20,pct(v),{'text-anchor':'middle'}); }
-  el('line',{x1:x(.5),x2:x(.5),y1:T-14,y2:H-30,stroke:'var(--line)','stroke-dasharray':'3 4'},s);
-  order.forEach((p,i)=>{ const y=T+i*rowH+rowH/2; const h=ap.humano[p]; const vals=[h,...M.map(m=>ap[m][p])];
-    txt(s,L-16,y+5,LBL[p],{class:'lab-m','text-anchor':'end'});
-    el('line',{x1:x(Math.min(...vals)),x2:x(Math.max(...vals)),y1:y,y2:y,stroke:'var(--line)','stroke-width':3,'stroke-linecap':'round'},s);
-    el('rect',{x:x(h)-3.5,y:y-17,width:7,height:34,rx:2,fill:'var(--human)'},s);
-    M.forEach((m,j)=>el('circle',{cx:x(ap[m][p]),cy:y,r:7,fill:MOD[m].c,stroke:'var(--card)','stroke-width':1.5},s));
-    const d=Math.round((mean(M.map(m=>ap[m][p]))-h)*100);
-    txt(s,W,y+5,(d>0?'+':d<0?'−':'')+Math.abs(d),{class:'lab-s','text-anchor':'end',fill:Math.abs(d)>=20?'var(--stamp)':'var(--muted)','font-weight':Math.abs(d)>=20?600:400});
-    const hit=el('rect',{x:0,y:y-rowH/2,width:W,height:rowH,class:'hit'},s);
-    const pr=D.props.find(q=>q.id===p);
-    tip(hit,`<b>${pr.texto}</b><br>Ustedes: ${pct(h)} aprueba<br>${M.map(m=>`${MOD[m].n}: ${pct(ap[m][p])}`).join('<br>')}`);
-  });
-  txt(s,W,T-38,'avatares − ustedes',{class:'ax','text-anchor':'end','font-size':12,fill:'var(--muted)'});txt(s,W,T-24,'(puntos %)',{class:'ax','text-anchor':'end','font-size':12,fill:'var(--muted)'});
-  const up=P.filter(p=>mean(M.map(m=>ap[m][p]))-ap.humano[p]>=0.2), dn=P.filter(p=>mean(M.map(m=>ap[m][p]))-ap.humano[p]<=-0.2);
-  document.getElementById('p-sesgos').innerHTML = `El patrón es claro: los avatares los imaginaron <b>más entusiastas</b> con ${up.map(p=>'«'+LBL[p].toLowerCase()+'»').join(', ')}, y <b>menos</b> partidarios de ${dn.map(p=>'«'+LBL[p].toLowerCase()+'»').join(' y ')}. Nadie en la sala aprobó subir mucho el salario mínimo, pero casi la mitad de los avatares sí. Es el retrato de un joven estudiante «de manual»: progresista, ecologista, tecnooptimista. Ustedes son más escépticos que eso.`;
-})();
-
 /* ---------- 5. histograma + dispersión ---------- */
 (function(){
   const M=D.mods; let cur='representantes_humanos';
@@ -540,142 +416,63 @@ document.getElementById('tiles').innerHTML=[[D.alumnos.length,'personas llenaron
     el('path',{d:`M${L},${y+8} H${x(v)-4} q4,0 4,4 v14 q0,4 -4,4 H${L} Z`,fill:c},s);
     txt(s,x(v)+10,y+26,f1(v),{class:'lab-m','font-weight':600});
   });
-  // por propuesta
-  const sh={vina2025:['Viña 2025','var(--gold)','diamond'],stgo2025:['Santiago 2025','var(--forest)','square'],ayd:['IA y Democracia 2026 (este curso)','var(--stamp)','circle']};
-  legend('leg-items',Object.values(sh).map(([n,c])=>[c,n]));
-  const ayP={}; P.forEach(p=>{const v=M.map(m=>D.corr[m].por[p]).filter(x=>x!==null); ayP[p]=v.length?mean(v):null;});
-  const order=[...P].sort((a,b)=>(ayP[b]??-9)-(ayP[a]??-9));
-  const W2=1000,rH=40,T=30,H2=T+order.length*rH+30,L2=330,R2=40; const s2=mk('ch-items',W2,H2); const x2=v=>L2+(v+1)/2*(W2-L2-R2);
-  const ax2=el('g',{class:'ax'},s2);
-  for(let v=-1;v<=1.0001;v+=0.5){ el('line',{x1:x2(v),x2:x2(v),y1:T-12,y2:H2-26},ax2); txt(ax2,x2(v),T-18,tk(v),{'text-anchor':'middle'}); }
-  el('line',{x1:x2(0),x2:x2(0),y1:T-12,y2:H2-26,stroke:'var(--ink-soft)','stroke-width':1.2},s2);
-  const shape=(g,kind,cx,cy,c)=>{ if(kind==='circle') return el('circle',{cx,cy,r:8,fill:c,stroke:'var(--card)','stroke-width':2},g);
-    if(kind==='square') return el('rect',{x:cx-6.5,y:cy-6.5,width:13,height:13,fill:c,stroke:'var(--card)','stroke-width':2},g);
-    return el('path',{d:`M${cx},${cy-8.5} L${cx+8.5},${cy} L${cx},${cy+8.5} L${cx-8.5},${cy} Z`,fill:c,stroke:'var(--card)','stroke-width':2},g); };
-  order.forEach((p,i)=>{ const y=T+i*rH+rH/2; const vs=[D.prev.vina2025[p],D.prev.stgo2025[p],ayP[p]].filter(v=>v!==null);
-    txt(s2,L2-14,y+5,LBL[p],{class:'lab-m','text-anchor':'end'});
-    el('line',{x1:x2(Math.min(...vs)),x2:x2(Math.max(...vs)),y1:y,y2:y,stroke:'var(--line)','stroke-width':2},s2);
-    shape(s2,'diamond',x2(D.prev.vina2025[p]),y,sh.vina2025[1]); shape(s2,'square',x2(D.prev.stgo2025[p]),y,sh.stgo2025[1]);
-    if(ayP[p]!==null) shape(s2,'circle',x2(ayP[p]),y,sh.ayd[1]);
-    const hit=el('rect',{x:0,y:y-rH/2,width:W2,height:rH,class:'hit'},s2);
-    tip(hit,`<b>${LBL[p]}</b><br>Viña 2025: ${f2(D.prev.vina2025[p])}<br>Santiago 2025: ${f2(D.prev.stgo2025[p])}<br>${M.map(m=>`${MOD[m].n}: ${D.corr[m].por[p]===null?'—':f2(D.corr[m].por[p])}`).join('<br>')}`);
-  });
   const best=Math.max(...ayd);
-  document.getElementById('co-antes').innerHTML = `<b>Lectura:</b> con la misma planilla, los avatares de este curso (${f1(best)}) quedaron al nivel de Santiago 2025 (${f1(0.435)}) y lejos de Viña 2025 (${f1(0.675)}): una IA más nueva no garantiza un mejor gemelo. El error típico, en cambio, es sorprendentemente estable: alrededor de <b>un punto</b> de la escala tanto en el MEPP (${f1(D.mepp.mae)}) como aquí. Los temas morales (aborto, matrimonio igualitario) son los que más cambian de un curso a otro.`;
+  document.getElementById('co-antes').innerHTML = `<b>Lectura:</b> con la misma planilla, los avatares de este curso (${f1(best)}) quedaron al nivel de Santiago 2025 (${f1(0.435)}) y lejos de Viña 2025 (${f1(0.675)}): una IA más nueva no garantiza un mejor gemelo. El error típico, en cambio, es sorprendentemente estable: alrededor de <b>un punto</b> de la escala tanto en el MEPP (${f1(D.mepp.mae)}) como en este curso (${f1(mean(D.alumnos.map(s=>s[D.mods[0]].error)))}).`;
 })();
 
 /* ---------- 7. mapa ---------- */
 (function(){
-  const M=D.mods, mp=D.mapa; let on=new Set(D.mods);
-  const gIdx=[0,1,2].sort((a,b)=>D.gsize[b]-D.gsize[a]); const gL={}; gIdx.forEach((g,i)=>gL[g]='ABC'[i]);
-  const pts=mp.pts; const xs=pts.map(p=>p.x), ys=pts.map(p=>p.y);
+  const mp=D.mapa;
+  // Propuestas: numeradas por aprobación en la sala (1 = la más aprobada).
+  const apH=D.aprob.humano; const ordP=[...P].sort((a,b)=>apH[b]-apH[a]); const numP=Object.fromEntries(ordP.map((p,i)=>[p,i+1]));
+  document.getElementById('ley-mapa').innerHTML=ordP.map(p=>`<li><span class="num"><span>${numP[p]}</span></span>${LBL[p]}<span class="pct">${pct(apH[p])} aprueba</span></li>`).join('');
+  const pts=mp.pts.filter(p=>p.s==='humano'); const xs=pts.map(p=>p.x), ys=pts.map(p=>p.y);
   const pad=0.8, x0=Math.min(...xs)-pad, x1=Math.max(...xs)+pad, y0=Math.min(...ys)-pad, y1=Math.max(...ys)+pad;
   function draw(){
     const W=1000,H=640,L=40,R=40,T=40,B=70; const s=mk('ch-mapa',W,H);
     const X=v=>L+(v-x0)/(x1-x0)*(W-L-R), Y=v=>T+(1-(v-y0)/(y1-y0))*(H-T-B);
     el('rect',{x:L,y:T,width:W-L-R,height:H-T-B,fill:'var(--paper)',stroke:'var(--line)'},s);
     el('line',{x1:X(0),x2:X(0),y1:T,y2:H-B,stroke:'var(--grid)'},s); el('line',{x1:L,x2:W-R,y1:Y(0),y2:Y(0),stroke:'var(--grid)'},s);
-    txt(s,W-R,H-B+24,'más a favor de matrimonio igualitario, áreas protegidas, regular la IA y aborto →',{'text-anchor':'end','font-size':13.5,fill:'var(--ink-soft)'});
-    txt(s,L,H-B+24,'← menos a favor',{'font-size':13.5,fill:'var(--ink-soft)'});
-    txt(s,L,H-B+46,'Eje vertical: ↑ más pro migración y clima · ↓ más pro referendos y aborto',{'font-size':13.5,fill:'var(--ink-soft)'});
-    // grupos (solo personas)
-    const H_=pts.filter(p=>p.s==='humano');
-    [0,1,2].forEach(g=>{ const mem=H_.filter(p=>p.g===g); if(!mem.length) return; const cx=mean(mem.map(p=>X(p.x))), cy=mean(mem.map(p=>Y(p.y)));
-      const r=Math.max(...mem.map(p=>Math.hypot(X(p.x)-cx,Y(p.y)-cy)))+30;
-      el('circle',{cx,cy,r,fill:'rgba(34,40,31,.035)',stroke:'var(--ink-soft)','stroke-dasharray':'4 5','stroke-width':1.2},s);
-      txt(s,cx,cy-r-8,`Grupo ${gL[g]} (${mem.length})`,{'text-anchor':'middle',class:'lab-s','font-weight':600,fill:'var(--ink-soft)'});
-    });
-    // avatares
-    M.filter(m=>on.has(m)).forEach(m=>{ pts.filter(p=>p.s===m).forEach(p=>{ const h=H_.find(q=>q.n===p.n);
-      el('line',{x1:X(h.x),y1:Y(h.y),x2:X(p.x),y2:Y(p.y),stroke:MOD[m].c,'stroke-width':1.5,opacity:.55},s);
-      const c=el('circle',{cx:X(p.x),cy:Y(p.y),r:7,fill:MOD[m].c,stroke:'var(--paper)','stroke-width':2},s);
-      tip(c,`<b>Avatar de la persona ${p.n}</b><br>${MOD[m].n}<br>Distancia a su persona: ${f1(Math.hypot(p.x-h.x,p.y-h.y))}`);
-    });});
+    txt(s,W-R,H-B+24,'de acuerdo con más propuestas →',{'text-anchor':'end','font-size':13.5,fill:'var(--ink-soft)'});
+    txt(s,L,H-B+24,'← de acuerdo con menos propuestas',{'font-size':13.5,fill:'var(--ink-soft)'});
+    txt(s,L,H-B+46,'Eje vertical: diferencias más finas, sin una lectura clara con solo 11 personas',{'font-size':13.5,fill:'var(--ink-soft)'});
+    // posiciones en pantalla; dos personas casi idénticas se separan apenas lo justo para leer ambos números
+    const H_=pts.map(p=>({...p,sx:X(p.x),sy:Y(p.y)}));
+    for(let it=0;it<40;it++) for(let i=0;i<H_.length;i++) for(let j=i+1;j<H_.length;j++){ const a=H_[i],b=H_[j],dx=b.sx-a.sx,dy=b.sy-a.sy,d=Math.hypot(dx,dy)||0.01;
+      if(d<28){ const m=(28-d)/2; a.sx-=dx/d*m; a.sy-=dy/d*m; b.sx+=dx/d*m; b.sy+=dy/d*m; } }
+    // propuestas: rombos en la dirección de sus cargas (mismo plano que las personas, como en la app)
+    const k=0.85*Math.max(...H_.map(p=>Math.max(Math.abs(p.x),Math.abs(p.y))));
+    const rom=mp.cargas.map(c=>({id:c.id,x:X(c.x*k),y:Y(c.y*k)}));
+    for(let it=0;it<80;it++) for(let i=0;i<rom.length;i++) for(let j=i+1;j<rom.length;j++){
+      const a=rom[i],b=rom[j],dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||0.01;
+      if(d<30){ const m=(30-d)/2, ux=dx/d, uy=dy/d; a.x-=ux*m; a.y-=uy*m; b.x+=ux*m; b.y+=uy*m; } }
+    // y que ningún rombo quede bajo una persona (las personas no se mueven)
+    for(let it=0;it<60;it++) rom.forEach(r=>H_.forEach(p=>{ const dx=r.x-p.sx, dy=r.y-p.sy, d=Math.hypot(dx,dy)||0.01;
+      if(d<30){ r.x+=dx/d*(30-d); r.y+=dy/d*(30-d); } }));
+    rom.forEach(r=>el('line',{x1:X(0),y1:Y(0),x2:r.x,y2:r.y,stroke:'var(--gold)','stroke-width':1.2,'stroke-dasharray':'2 4',opacity:.8},s));
+    rom.forEach(r=>{ const g=el('g',{},s);
+      el('rect',{x:r.x-11,y:r.y-11,width:22,height:22,transform:`rotate(45 ${r.x} ${r.y})`,fill:'var(--gold)',stroke:'var(--paper)','stroke-width':1.5},g);
+      txt(g,r.x,r.y+4.5,numP[r.id],{'text-anchor':'middle','font-size':12,'font-weight':700,fill:'#fff'});
+      tip(g,`<b>${numP[r.id]}. ${LBL[r.id]}</b><br>${pct(apH[r.id])} de la sala la aprueba`); });
     // personas
-    H_.forEach(p=>{ const g=el('g',{},s); el('circle',{cx:X(p.x),cy:Y(p.y),r:13,fill:'var(--human)',stroke:'var(--paper)','stroke-width':2.5},g);
-      txt(g,X(p.x),Y(p.y)+5,p.n,{'text-anchor':'middle','font-size':13,'font-weight':600,fill:'var(--paper)'});
-      tip(g,`<b>Persona ${p.n}</b><br>Grupo ${gL[p.g]}`); });
+    H_.forEach(p=>{ const g=el('g',{},s); el('circle',{cx:p.sx,cy:p.sy,r:13,fill:'var(--human)',stroke:'var(--paper)','stroke-width':2.5},g);
+      txt(g,p.sx,p.sy+5,p.n,{'text-anchor':'middle','font-size':13,'font-weight':600,fill:'var(--paper)'});
+      tip(g,`<b>Persona ${p.n}</b>`); });
   }
   draw();
-  const dist=mp.dist;
-  const avgLen=m=>{ const H_=pts.filter(p=>p.s==='humano'); return mean(pts.filter(p=>p.s===m).map(p=>{const h=H_.find(q=>q.n===p.n);return Math.hypot(p.x-h.x,p.y-h.y);})); };
-  document.getElementById('p-mapa').innerHTML = `El primer eje explica el ${pct(mp.var[0])} de las diferencias entre ustedes y separa a quienes apoyan la agenda de derechos y regulación de quienes no. El mapa encuentra <b>tres grupos</b>: un bloque grande de ${D.gsize[gIdx[0]]} personas y dos minorías de ${D.gsize[gIdx[1]]} y ${D.gsize[gIdx[2]]}. Los avatares quedan, en promedio, <b>más cerca del centro</b> que ustedes (distancia al centro: ustedes ${f1(dist.humano)}, avatares ${f1(dist[M[0]])}): moderan a las personas. Y cada avatar cae, en promedio, a ${f1(avgLen(M[0]))} de su persona, más lejos de lo que una persona típica está del centro de la sala (${f1(dist.humano)}): el gemelo se parece a <em>alguien</em> de la sala, pero no necesariamente a ti.`;
-  window.__gL=gL; window.__gIdx=gIdx;
-})();
-
-/* ---------- 8. puente ---------- */
-(function(){
-  const gL=window.__gL, gIdx=window.__gIdx; const gc=['var(--gA)','var(--gB)','var(--gC)'];
-  legend('leg-grupos',[...gIdx.map((g,i)=>[gc[i],`Grupo ${'ABC'[i]} (${D.gsize[g]} ${D.gsize[g]===1?'persona':'personas'})`]),['var(--ink)','Sala completa']]);
-  const ap=D.aprob.humano; const order=[...P].sort((a,b)=>ap[b]-ap[a]);
-  const W=1000,rowH=44,T=34,H=T+order.length*rowH+30,L=330,R=150; const s=mk('ch-grupos',W,H); const x=v=>L+v*(W-L-R);
-  const ax=el('g',{class:'ax'},s);
-  for(let v=0;v<=1.0001;v+=0.25){ el('line',{x1:x(v),x2:x(v),y1:T-14,y2:H-24},ax); txt(ax,x(v),T-20,pct(v),{'text-anchor':'middle'}); }
-  txt(s,W-R+20,T-34,'lugar como puente',{class:'ax','font-size':12,fill:'var(--muted)'});
-  const pol=D.rank.humano.puentePolis;
-  order.forEach((p,i)=>{ const y=T+i*rowH+rowH/2; const gr=D.apg[p]; const vals=gr.map(([a,n])=>a/n);
-    txt(s,L-14,y+5,LBL[p],{class:'lab-m','text-anchor':'end'});
-    el('line',{x1:x(Math.min(...vals)),x2:x(Math.max(...vals)),y1:y,y2:y,stroke:'var(--line)','stroke-width':3},s);
-    el('line',{x1:x(ap[p]),x2:x(ap[p]),y1:y-14,y2:y+14,stroke:'var(--ink)','stroke-width':2.5},s);
-    gIdx.forEach((g,k)=>{ const [a,n]=gr[g]; const cx=x(a/n)+(k-1)*0; const cy=y+(k-1)*0;
-      const c=el('g',{},s); const oy=(k-1)*7; el('circle',{cx:x(a/n),cy:y+oy,r:11,fill:gc[k],stroke:'var(--card)','stroke-width':2},c);
-      txt(c,x(a/n),y+oy+4.5,'ABC'[k],{'text-anchor':'middle','font-size':12,'font-weight':700,fill:k===1?'var(--ink)':'#fff'});
-    });
-    const rk=pol.indexOf(p)+1;
-    txt(s,W-R+20,y+5,'#'+rk,{class:'lab-m','font-weight':rk<=3?700:400,fill:rk<=3?'var(--stamp)':'var(--muted)'});
-    const hit=el('rect',{x:0,y:y-rowH/2,width:W,height:rowH,class:'hit'},s);
-    tip(hit,`<b>${LBL[p]}</b><br>Sala: ${pct(ap[p])} aprueba (mayoría #${D.rank.humano.mayoria.indexOf(p)+1})<br>${gIdx.map((g,k)=>`Grupo ${'ABC'[k]}: ${gr[g][0]} de ${gr[g][1]}`).join('<br>')}<br>Puente Polis: #${rk}`);
-  });
-  // slope
-  const cols=[['Mayoría',D.rank.humano.mayoria],['Puente · Polis',D.rank.humano.puentePolis],['Puente · Notas de la Comunidad',D.rank.humano.puenteCN]];
-  const hl={aborto:'var(--stamp)',matrimonio_igualitario:'var(--stamp)',ciencia_democracia:'var(--forest)',estado_servicios:'var(--gold)'};
-  const W2=1000,rH=30,T2=40,H2=T2+12*rH+10; const s2=mk('ch-slope',W2,H2); const cx=[250,560,870];
-  cols.forEach(([n],j)=>txt(s2,cx[j],18,n,{'text-anchor':j===0?'end':j===2?'start':'middle',class:'lab-m','font-weight':600}));
-  const Y=(r)=>T2+r*rH+rH/2;
-  P.forEach(p=>{ const rs=cols.map(c=>c[1].indexOf(p)); const c=hl[p]||'var(--line)'; const w=hl[p]?3:1.5;
-    for(let j=0;j<2;j++) el('line',{x1:cx[j]+(j===0?8:8),y1:Y(rs[j]),x2:cx[j+1]-8,y2:Y(rs[j+1]),stroke:c,'stroke-width':w,opacity:hl[p]?1:.8},s2);
-    rs.forEach((r,j)=>el('circle',{cx:cx[j],cy:Y(r),r:hl[p]?6:4,fill:hl[p]||'#9A9A86'},s2));
-  });
-  cols[0][1].forEach((p,r)=>txt(s2,cx[0]-14,Y(r)+5,`${r+1}. ${LBL[p]}`,{'text-anchor':'end',class:'lab-s','font-weight':hl[p]?600:400,fill:hl[p]?'var(--ink)':'var(--ink-soft)'}));
-  cols[2][1].forEach((p,r)=>txt(s2,cx[2]+14,Y(r)+5,`${r+1}. ${LBL[p]}`,{class:'lab-s','font-weight':hl[p]?600:400,fill:hl[p]?'var(--ink)':'var(--ink-soft)'}));
-  cols[1][1].forEach((p,r)=>{ if(hl[p]) txt(s2,cx[1],Y(r)-9,'',{}); });
-  P.forEach(p=>{ const rs=cols.map(c=>c[1].indexOf(p)); const hit=el('rect',{x:cx[0]-250,y:Y(rs[0])-rH/2,width:250,height:rH,class:'hit'},s2);
-    tip(hit,`<b>${LBL[p]}</b><br>Mayoría: #${rs[0]+1} (${pct(ap[p])})<br>Puente Polis: #${rs[1]+1}<br>Puente Notas de la Comunidad: #${rs[2]+1}`); });
-  const RH=D.rank.humano, rk=(arr,p)=>arr.indexOf(p)+1;
-  const big=gIdx[0]; const minor=gIdx.slice(1); const mi=p=>minor.map(g=>D.apg[p][g][0]).reduce((a,b)=>a+b,0), mn=minor.map(g=>D.gsize[g]).reduce((a,b)=>a+b,0);
-  document.getElementById('co-puente').innerHTML = `<b>Matrimonio igualitario</b> lo aprueba el ${pct(ap.matrimonio_igualitario)} de la sala, pero ${mi('matrimonio_igualitario')} de las ${mn} personas de las minorías: con la regla puente cae del lugar ${rk(RH.mayoria,'matrimonio_igualitario')} al ${rk(RH.puentePolis,'matrimonio_igualitario')}. <b>«La ciencia mejora la democracia»</b> apenas llega al ${pct(ap.ciencia_democracia)}, pero convence al menos a la mitad de cada grupo: sube del lugar ${rk(RH.mayoria,'ciencia_democracia')} al ${rk(RH.puentePolis,'ciencia_democracia')}. <b>El Estado en salud y educación</b> es el único que gana con cualquier regla: es el consenso real de esta sala.`;
-  // cámaras
-  const cams=[['humano','Ustedes','var(--human)'],...D.mods.map(m=>[m,'Sus avatares',MOD[m].c])];
-  document.getElementById('camaras').innerHTML=cams.map(([k,n,c])=>`<div><div style="display:flex;align-items:center;gap:8px;font-weight:600;font-size:16px;margin-bottom:6px"><i class="sw" style="background:${c}"></i>${n}</div><ol class="rk">${D.rank[k].mayoria.slice(0,3).map(p=>`<li style="font-size:15px">${LBL[p]}<span class="pct">${pct(D.aprob[k][p])}</span></li>`).join('')}</ol><div class="note" style="margin-top:6px">«Representantes humanos»: lugar #${D.rank[k].mayoria.indexOf('representantes_humanos')+1}</div></div>`).join('');
-})();
-
-/* ---------- 9. bots ---------- */
-(function(){
-  const steps=[0,5,10,20,40]; const sl=document.getElementById('sl-bots');
-  const base=D.bots['0'];
-  function draw(){ const n=steps[+sl.value]; const b=D.bots[String(n)];
-    const hum=Array(D.alumnos.length).fill('<i class="unit" style="background:var(--human);width:18px;height:18px;border-radius:50%"></i>').join('');
-    const bots=Array(n).fill('<i class="unit" style="background:var(--stamp);width:18px;height:18px;border-radius:50%;opacity:.75"></i>').join('');
-    document.getElementById('bots-people').innerHTML=`<div style="font-size:15px;color:var(--ink-soft);margin-bottom:6px"><b style="color:var(--ink)">${D.alumnos.length} personas</b> + <b style="color:var(--stamp)">${n} copias</b> de una sola</div><div class="units" style="gap:4px">${hum}${bots}</div>`;
-    const li=(arr,ref)=>arr.slice(0,3).map((p,i)=>`<li class="${ref.slice(0,3).includes(p)?'':'new'}">${LBL[p]}<span class="pct">${pct(b.aprob[p])}</span></li>`).join('');
-    document.getElementById('bots-may').innerHTML=li(b.mayoria,base.mayoria);
-    document.getElementById('bots-pol').innerHTML=li(b.puentePolis,base.puentePolis);
-    document.getElementById('bots-note').innerHTML = n===0 ? 'Sin copias: así votó la sala. En rojo aparecerá lo que entra al podio por culpa de las copias.' :
-      `Con ${n} copias el mapa ya no ve ${base.k} grupos sino <b>${b.k}</b>: las copias forman su propio bloque y la «minoría» desaparece. En rojo, lo que entró al podio gracias a ellas. La regla puente tampoco resiste: si las copias cuentan como un grupo, el puente las tiene que convencer a ellas también.`;
-  }
-  sl.oninput=draw; draw();
+  const norma=c=>Math.hypot(c.x,c.y); const cs=[...mp.cargas].sort((a,b)=>norma(b)-norma(a));
+  document.getElementById('p-mapa').innerHTML = `Los ejes no tienen nombre de antemano: salen de los votos. El horizontal resume el ${pct(mp.var[0])} de las diferencias y es, casi exactamente, <b>cuántas propuestas apoya cada persona</b>: a la derecha, quienes apoyan casi todo; a la izquierda, quienes rechazan casi todo. Como casi todas las propuestas están redactadas en dirección progresista, ese eje también separa, a grandes rasgos, izquierda de derecha, pero no del todo. El vertical (${pct(mp.var[1])}) recoge diferencias más finas que con 11 personas no conviene bautizar. Los rombos más alejados del centro son las propuestas que más los dividen (${cs.slice(0,2).map(c=>'«'+LBL[c.id]+'»').join(' y ')}); el que queda pegado al centro, ${'«'+LBL[cs[cs.length-1].id]+'»'}, no sigue esas líneas de división. Esa es la apuesta de Evans y Weyl: ubicar por posición y no por etiqueta, y buscar acuerdos en lo que no nos separa.`;
 })();
 
 /* ---------- 10. deliberación (MiroFish) ---------- */
 function renderMF(F, box){
   const sube=(a,b)=>b>a;
-  const dS=F.side.red[0]-F.side.base[0];
   box.innerHTML=`
   <p class="kicker">Pusimos a los ${F.nAg} avatares a conversar en un Twitter y un Reddit simulados durante 12 rondas, con las 12 propuestas y sus posiciones contrarias como tema. Lo repetimos ${F.reps} veces por separado. Luego les volvimos a preguntar. <b>Antes</b> = cada avatar respondió solo; <b>después</b> = respondió tras conversar con los demás.</p>
   <div class="tiles" style="grid-template-columns:repeat(4,1fr);margin-top:0">
    <div class="tile"><div class="num">${pct(F.cambio)}</div><div class="lab">de los votos de los avatares cambió después de conversar</div></div>
    <div class="tile"><div class="num">${f1(F.disp.base).replace(/0$/,'')} → ${f1(F.disp.red).replace(/0$/,'')}</div><div class="lab">variedad de opiniones entre los avatares (antes → después de conversar)</div></div>
-   <div class="tile"><div class="num">${pct(F.side.base[0])} → ${pct(F.side.red[0])}</div><div class="lab">de los votos quedaron del mismo lado que su persona (a favor, neutral o en contra)</div></div>
+   <div class="tile"><div class="num">${f1(F.corr.base)} → ${f1(F.corr.red)}</div><div class="lab">correlación entre ustedes y sus avatares (antes → después de conversar)</div></div>
    <div class="tile"><div class="num">${F.grupos.base} → ${F.grupos.red}</div><div class="lab">grupos de opinión que encuentra el mapa entre los avatares</div></div>
   </div>
   <div class="callout" id="co-mf"></div>
@@ -684,14 +481,14 @@ function renderMF(F, box){
    <div class="legend"><span><i style="display:inline-block;width:6px;height:18px;border-radius:2px;background:var(--human)"></i>Ustedes</span><span><i class="sw ring" style="border-color:var(--mf)"></i>Avatar MiroFish, solo</span><span><i class="sw" style="background:var(--mf)"></i>Después de deliberar</span></div>
    <div id="ch-mf-arrows"></div></div>
   <div class="card"><h3>El mapa, antes y después de conversar</h3>
-   <p class="sub">Mismo mapa de la sección 7. Cada flecha une al avatar de una persona antes de conversar (vacío) con su posición después (lleno). Si deliberar produce consenso, las flechas deberían converger.</p>
+   <p class="sub">Mismo mapa de la sección 5. Cada flecha une al avatar de una persona antes de conversar (vacío) con su posición después (lleno). Si deliberar produce consenso, las flechas deberían converger.</p>
    <div id="ch-mf-mapa"></div><p class="note" id="mf-mapa-note"></p></div>
-  <div class="card"><h3>¿Quién queda más del lado de su persona?</h3>
-   <p class="sub">Porcentaje de las 12 propuestas en que el avatar quedó del mismo lado que su persona: a favor (4–5), neutral (3) o en contra (1–2).</p>
+  <div class="card"><h3>¿Qué tan bien ordenan a la sala?</h3>
+   <p class="sub">Correlación entre sus votos y los de sus avatares, la misma medida de la sección 4 (1 = ordena a la sala igual que ella misma; 0 = al azar). La comparación limpia es MiroFish antes contra después: mismo modelo y misma pregunta; solo cambia la conversación.</p>
    <div id="ch-mf-side"></div></div>
-  <div class="card"><h3>Lo que aprobaría la cámara de avatares que deliberó</h3><div id="mf-rk" class="grid2" style="grid-template-columns:repeat(3,1fr);gap:18px"></div></div>`;
+  <div class="card"><h3>Lo que aprobaría la cámara de avatares que deliberó</h3><div id="mf-rk" class="grid2" style="gap:18px"></div></div>`;
   const big=[...P].map(p=>[p,F.apr[p]-F.apb[p]]).sort((a,b)=>Math.abs(b[1])-Math.abs(a[1])).slice(0,2);
-  document.getElementById('co-mf').innerHTML = `<b>Lectura:</b> conversar ${sube(F.disp.base,F.disp.red)?'<b>separó</b>':'<b>juntó</b>'} a los avatares: la variedad de opiniones pasó de ${f1(F.disp.base)} a ${f1(F.disp.red)}, el mapa pasó de ${F.grupos.base} a ${F.grupos.red} grupos y los neutrales bajaron de ${pct(F.neutral.base)} a ${pct(F.neutral.red)}: tomaron partido. Pero no se juntaron <em>hacia ustedes</em>: de los votos que cambiaron, solo ${pct(F.haciaH)} se acercó a lo que votó su persona, ${pct(F.haciaSala)} al promedio de la sala y ${pct(F.haciaAv)} a lo que los avatares pensaban al comienzo. Se movieron en bloque hacia posiciones nuevas (${big.map(([p,d])=>`«${LBL[p]}» ${d>0?'+':'−'}${Math.abs(Math.round(d*100))} puntos`).join('; ')}). Resultado: después de deliberar se parecen <b>menos</b> a ustedes (del mismo lado: ${pct(F.side.base[0])} → ${pct(F.side.red[0])}). Es la «ley de polarización de grupo» de Sunstein, en versión sintética.`;
+  document.getElementById('co-mf').innerHTML = `<b>Lectura:</b> conversar ${sube(F.disp.base,F.disp.red)?'<b>separó</b>':'<b>juntó</b>'} a los avatares: la variedad de opiniones pasó de ${f1(F.disp.base)} a ${f1(F.disp.red)}, el mapa pasó de ${F.grupos.base} a ${F.grupos.red} grupos y los neutrales bajaron de ${pct(F.neutral.base)} a ${pct(F.neutral.red)}: tomaron partido. Pero no se juntaron <em>hacia ustedes</em>: de los votos que cambiaron, solo ${pct(F.haciaH)} se acercó a lo que votó su persona, ${pct(F.haciaSala)} al promedio de la sala y ${pct(F.haciaAv)} a lo que los avatares pensaban al comienzo. Se movieron en bloque hacia posiciones nuevas (${big.map(([p,d])=>`«${LBL[p]}» ${d>0?'+':'−'}${Math.abs(Math.round(d*100))} puntos`).join('; ')}). Resultado: después de deliberar se parecen <b>menos</b> a ustedes (correlación con ustedes: ${f1(F.corr.base)} → ${f1(F.corr.red)}). Es la «ley de polarización de grupo» de Sunstein, en versión sintética.`;
   // flechas
   const ap=D.aprob.humano; const order=[...P].sort((a,b)=>Math.abs(F.apr[b]-F.apb[b])-Math.abs(F.apr[a]-F.apb[a]));
   { const W=1000,rowH=44,T=34,H=T+order.length*rowH+16,L=330,R=40; const s=mk('ch-mf-arrows',W,H); const x=v=>L+v*(W-L-R);
@@ -724,15 +521,15 @@ function renderMF(F, box){
       txt(g,X(p.h[0]),Y(p.h[1])+4.5,p.n,{'text-anchor':'middle','font-size':12,'font-weight':600,fill:'var(--paper)'}); tip(g,`<b>Persona ${p.n}</b>`); });
     document.getElementById('mf-mapa-note').innerHTML=`Distancia promedio entre dos puntos cualesquiera (cuánto se separan): ustedes ${f1(F.spread.humano)} · avatares solos ${f1(F.spread.base)} · avatares tras conversar ${f1(F.spread.red)}. ${F.spread.red<F.spread.base?'Conversar los <b>juntó</b>.':'Conversar <b>no</b> los juntó.'}`;
   }
-  // mismo lado
-  { const rows=[...D.mods.map(m=>['Avatar, en la app',F.side[m][0],MOD[m].c]),['MiroFish, solo',F.side.base[0],'#B5ACE6'],['MiroFish, tras deliberar',F.side.red[0],'var(--mf)']];
+  // correlación con la sala
+  { const rows=[...D.mods.map(m=>['Gemelo en la app',D.corr[m].prom,MOD[m].c]),['MiroFish, antes de conversar',F.corr.base,'#B5ACE6'],['MiroFish, después de deliberar',F.corr.red,'var(--mf)']];
     const W=1000,rowH=44,H=rows.length*rowH+30,L=260,R=80; const s=mk('ch-mf-side',W,H); const x=v=>L+v*(W-L-R);
-    const ax=el('g',{class:'ax'},s); for(let v=0;v<=1.0001;v+=0.25){ el('line',{x1:x(v),x2:x(v),y1:0,y2:H-24},ax); txt(ax,x(v),H-6,pct(v),{'text-anchor':'middle'}); }
+    const ax=el('g',{class:'ax'},s); for(let v=0;v<=1.0001;v+=0.2){ el('line',{x1:x(v),x2:x(v),y1:0,y2:H-24},ax); txt(ax,x(v),H-6,tk(v),{'text-anchor':'middle'}); }
     rows.forEach(([n,v,c],i)=>{ const y=i*rowH+6; txt(s,L-14,y+21,n,{class:'lab-m','text-anchor':'end'});
-      el('path',{d:`M${L},${y+6} H${x(v)-4} q4,0 4,4 v14 q0,4 -4,4 H${L} Z`,fill:c},s); txt(s,x(v)+10,y+22,pct(v),{class:'lab-m','font-weight':600}); });
+      el('path',{d:`M${L},${y+6} H${x(v)-4} q4,0 4,4 v14 q0,4 -4,4 H${L} Z`,fill:c},s); txt(s,x(v)+10,y+22,f1(v),{class:'lab-m','font-weight':600}); });
   }
   // rankings
-  const cols=[['Ustedes · mayoría',D.rank.humano.mayoria,D.aprob.humano],['Avatares tras deliberar · mayoría',F.rk.mayoria,F.apr],['Avatares tras deliberar · puente (Polis)',F.rk.puentePolis,null]];
+  const cols=[['Ustedes · mayoría',D.rank.humano.mayoria,D.aprob.humano],['Avatares tras deliberar · mayoría',F.rk.mayoria,F.apr]];
   document.getElementById('mf-rk').innerHTML=cols.map(([n,arr,apx])=>`<div><div style="font-weight:600;font-size:16px;margin-bottom:6px">${n}</div><ol class="rk">${arr.slice(0,3).map(p=>`<li style="font-size:15px">${LBL[p]}${apx?`<span class="pct">${pct(apx[p])}</span>`:''}</li>`).join('')}</ol></div>`).join('');
 }
 
