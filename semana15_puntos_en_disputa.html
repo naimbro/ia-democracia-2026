@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Cuatro puntos en disputa — IA y Democracia 2026 · Semana 15</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+/* Misma paleta que el deck de la Semana 14; los colores de bancada son los del compás. */
+:root{
+  --paper:#EBE6D8; --ink:#22281F; --ink-soft:#4A5142; --stamp:#9C2B2F;
+  --line:#C7BEA3; --card:#F4F0E4;
+  --hab:#e0a43a; --gar:#3fb6a8; --seg:#6f9bf2; --sob:#b990f0;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html,body{height:100%; background:var(--ink); overflow:hidden;}
+.slide{
+  position:relative; width:100vw; height:100vh;
+  background:var(--paper);
+  background-image:repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(34,40,31,.038) 28px);
+  color:var(--ink); font-family:'IBM Plex Sans',sans-serif;
+  padding:4.2vh 4.5vw 4vh; display:flex; flex-direction:column; gap:2.2vh;
+}
+.slide::before{content:""; position:absolute; inset:22px; border:1px solid var(--line); pointer-events:none;}
+header{display:flex; justify-content:space-between; align-items:flex-end; gap:2vw;}
+.eyebrow{font-family:'IBM Plex Mono',monospace; font-size:clamp(11px,1.15vw,16px); letter-spacing:.14em; text-transform:uppercase; color:var(--stamp); font-weight:600; margin-bottom:.6vh;}
+h1{font-family:'Fraunces',serif; font-weight:700; font-size:clamp(28px,3.9vw,58px); line-height:1.02;}
+.boletin{font-family:'IBM Plex Mono',monospace; font-size:clamp(11px,1.1vw,15px); color:var(--ink-soft); text-align:right; white-space:nowrap;}
+.grid{flex:1; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:1.8vh 1.8vw; min-height:0;}
+.punto{background:var(--card); border:1px solid var(--line); padding:2.2vh 1.6vw; display:grid; grid-template-columns:auto 1fr; column-gap:1.3vw; align-content:center; min-height:0;}
+.num{font-family:'Fraunces',serif; font-weight:700; font-size:clamp(40px,5.6vw,84px); line-height:.85; color:var(--stamp); grid-row:span 4;}
+h2{font-family:'Fraunces',serif; font-weight:700; font-size:clamp(20px,2.6vw,40px); line-height:1.1;}
+.art{font-family:'IBM Plex Mono',monospace; font-size:clamp(10px,.95vw,14px); color:var(--ink-soft); margin-top:.4vh;}
+.pregunta{font-size:clamp(15px,1.8vw,28px); line-height:1.3; margin-top:1.1vh;}
+.duelo{display:flex; flex-wrap:wrap; gap:.6vw; align-items:center; margin-top:1.8vh; font-size:clamp(13px,1.4vw,21px); font-weight:500;}
+.chip{display:inline-flex; align-items:center; gap:.4em; padding:.18em .6em; border-radius:3px; font-weight:600; color:#1c1512;}
+.chip small{font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:.72em; letter-spacing:.08em; text-transform:uppercase; opacity:.75;}
+.vs{color:var(--ink-soft); font-family:'IBM Plex Mono',monospace; font-size:.85em;}
+.hab{background:var(--hab);} .gar{background:var(--gar);} .seg{background:var(--seg);} .sob{background:var(--sob);}
+footer{display:flex; flex-wrap:wrap; gap:.5vh 2.4vw; font-size:clamp(12px,1.25vw,18px); border-top:1px solid var(--line); padding-top:1.4vh;}
+footer b{font-family:'IBM Plex Mono',monospace; color:var(--stamp); font-weight:600;}
+</style>
+</head>
+<body>
+<section class="slide">
+  <header>
+    <div>
+      <p class="eyebrow">Taller integrador · Semana 15</p>
+      <h1>Cuatro puntos en disputa</h1>
+    </div>
+    <p class="boletin">Proyecto de ley de IA<br>Boletín 16821-19 · Senado</p>
+  </header>
+
+  <div class="grid">
+    <article class="punto">
+      <span class="num">1</span>
+      <h2>¿Riesgos o habilitación?</h2>
+      <p class="art">Arts. 6 a 12</p>
+      <p class="pregunta">¿Se reemplaza la clasificación por riesgo por principios, certificación voluntaria y <i>sandboxes</i>?</p>
+      <p class="duelo"><span class="chip hab"><small>Propone</small> Habilitantes</span><span class="vs">vs</span><span class="chip gar"><small>Rebate</small> Garantistas</span></p>
+    </article>
+    <article class="punto">
+      <span class="num">2</span>
+      <h2>La excepción de seguridad</h2>
+      <p class="art">Arts. 7 n° 5, 2 a) y 15</p>
+      <p class="pregunta">¿El reconocimiento facial en tiempo real para las policías pasa de prohibido a alto riesgo?</p>
+      <p class="duelo"><span class="chip seg"><small>Propone</small> Orden y seguridad</span><span class="vs">vs</span><span class="chip sob"><small>Rebate</small> Soberanistas</span></p>
+    </article>
+    <article class="punto">
+      <span class="num">3</span>
+      <h2>¿Quién fiscaliza?</h2>
+      <p class="art">Arts. 8, 9, 16 y 18</p>
+      <p class="pregunta">¿Se crea un fiscalizador propio de IA, en vez de encargárselo a la Agencia de Datos?</p>
+      <p class="duelo"><span class="chip gar"><small>Propone</small> Garantistas</span><span class="vs">vs</span><span class="chip seg"><small>Rebate</small> Orden y seguridad</span></p>
+    </article>
+    <article class="punto">
+      <span class="num">4</span>
+      <h2>Soberanía y plata</h2>
+      <p class="art">Arts. 2 n° 3, 13 y 17</p>
+      <p class="pregunta">¿El incentivo tributario se condiciona a cómputo y datos en Chile, con multas según las ventas?</p>
+      <p class="duelo"><span class="chip sob"><small>Propone</small> Soberanistas</span><span class="vs">vs</span><span class="chip hab"><small>Rebate</small> Habilitantes</span></p>
+    </article>
+  </div>
+
+  <footer>
+    <span><b>2'</b> propone</span>
+    <span><b>2'</b> rebate</span>
+    <span><b>1' + 1'</b> réplicas</span>
+    <span><b>2'</b> preguntas de la sala</span>
+    <span><b>votación</b> a mano alzada</span>
+    <span>Un concepto de Democracia y uno de IA</span>
+  </footer>
+</section>
+</body>
+</html>
